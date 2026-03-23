@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_DNB3",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 123,
+      "model_name": "DNB3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_CWFOFR",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 196,
+      "model_name": "CWFOFR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

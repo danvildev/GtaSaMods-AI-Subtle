@@ -1,0 +1,6 @@
+Ped: DWMOLC1
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_DWMOLC1
+Voice 2: VOICE_GEN_DWMOLC1
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

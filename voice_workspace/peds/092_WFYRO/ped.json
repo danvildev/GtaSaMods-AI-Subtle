@@ -1,0 +1,21 @@
+{
+  "model_id": 92,
+  "model_name": "WFYRO",
+  "txd_name": "WFYRO",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_SKATER",
+  "anim_group": "skate",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "skate",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WFYRO",
+  "voice2": "VOICE_GEN_WFYRO",
+  "voices": [
+    "VOICE_GEN_WFYRO"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 129
+}

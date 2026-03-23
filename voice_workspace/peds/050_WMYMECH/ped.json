@@ -1,0 +1,21 @@
+{
+  "model_id": 50,
+  "model_name": "WMYMECH",
+  "txd_name": "WMYMECH",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1433",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "6",
+  "radio2": "6",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYMECH",
+  "voice2": "VOICE_GEN_WMYMECH",
+  "voices": [
+    "VOICE_GEN_WMYMECH"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 87
+}

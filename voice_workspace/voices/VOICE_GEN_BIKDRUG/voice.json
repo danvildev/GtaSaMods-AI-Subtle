@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_BIKDRUG",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 254,
+      "model_name": "BIKDRUG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

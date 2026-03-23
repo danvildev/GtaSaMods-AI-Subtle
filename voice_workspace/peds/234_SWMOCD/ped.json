@@ -1,0 +1,21 @@
+{
+  "model_id": 234,
+  "model_name": "SWMOCD",
+  "txd_name": "SWMOCD",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TAXIDRIVER",
+  "anim_group": "man",
+  "cars_can_drive_mask": "0040",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "2",
+  "radio2": "9",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SWMOCD",
+  "voice2": "VOICE_GEN_SWMOCD",
+  "voices": [
+    "VOICE_GEN_SWMOCD"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 271
+}

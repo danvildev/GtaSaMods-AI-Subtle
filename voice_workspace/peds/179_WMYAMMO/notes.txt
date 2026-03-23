@@ -1,0 +1,6 @@
+Ped: WMYAMMO
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_WMYAMMO
+Voice 2: VOICE_GFD_WMYAMMO
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

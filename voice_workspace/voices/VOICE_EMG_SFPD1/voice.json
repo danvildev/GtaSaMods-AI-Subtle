@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_EMG_SFPD1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 281,
+      "model_name": "sfpd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

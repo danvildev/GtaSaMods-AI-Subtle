@@ -1,0 +1,21 @@
+{
+  "model_id": 111,
+  "model_name": "MAFFA",
+  "txd_name": "MAFFA",
+  "default_ped_type": "CRIMINAL",
+  "stat_type": "STAT_CRIMINAL",
+  "anim_group": "man",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "2",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_MAFFA",
+  "voice2": "VOICE_GEN_MAFFA",
+  "voices": [
+    "VOICE_GEN_MAFFA"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 149
+}

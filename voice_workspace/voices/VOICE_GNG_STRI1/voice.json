@@ -1,0 +1,21 @@
+{
+  "voice": "VOICE_GNG_STRI1",
+  "ped_count": 3,
+  "peds": [
+    {
+      "model_id": 117,
+      "model_name": "TRIADA",
+      "ped_audio_type": "PED_TYPE_GANG"
+    },
+    {
+      "model_id": 118,
+      "model_name": "TRIADB",
+      "ped_audio_type": "PED_TYPE_GANG"
+    },
+    {
+      "model_id": 120,
+      "model_name": "TRIBOSS",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

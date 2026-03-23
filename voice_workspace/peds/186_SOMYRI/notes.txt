@@ -1,0 +1,6 @@
+Ped: SOMYRI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_SOMYRI
+Voice 2: VOICE_GEN_SOMYRI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

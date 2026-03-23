@@ -1,0 +1,6 @@
+Ped: LSV1
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_LSV1
+Voice 2: VOICE_GNG_LSV2
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

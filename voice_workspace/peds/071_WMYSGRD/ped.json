@@ -1,0 +1,21 @@
+{
+  "model_id": 71,
+  "model_name": "WMYSGRD",
+  "txd_name": "WMYSGRD",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "170F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "2",
+  "radio2": "6",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYSGRAD",
+  "voice2": "VOICE_GEN_WMYSGRAD",
+  "voices": [
+    "VOICE_GEN_WMYSGRAD"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 108
+}

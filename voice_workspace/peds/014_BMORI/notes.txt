@@ -1,0 +1,6 @@
+Ped: BMORI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BMORI
+Voice 2: VOICE_GEN_BMORI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

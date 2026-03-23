@@ -1,0 +1,6 @@
+Ped: GANGRL3
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_DENISE
+Voice 2: VOICE_GFD_DENISE
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

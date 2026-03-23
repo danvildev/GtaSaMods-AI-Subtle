@@ -1,0 +1,6 @@
+Ped: WMYBAR
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_WMYBARB
+Voice 2: VOICE_GFD_WMYBARB
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

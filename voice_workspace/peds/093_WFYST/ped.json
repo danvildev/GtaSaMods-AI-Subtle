@@ -1,0 +1,21 @@
+{
+  "model_id": 93,
+  "model_name": "WFYST",
+  "txd_name": "WFYST",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_STREET_GIRL",
+  "anim_group": "sexywoman",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "4",
+  "radio2": "6",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WFYST",
+  "voice2": "VOICE_GEN_WFYST",
+  "voices": [
+    "VOICE_GEN_WFYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 130
+}

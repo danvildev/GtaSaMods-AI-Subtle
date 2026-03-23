@@ -1,0 +1,6 @@
+Ped: GUNGRL3
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_HELENA
+Voice 2: VOICE_GFD_HELENA
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

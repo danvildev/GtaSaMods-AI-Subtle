@@ -1,0 +1,21 @@
+{
+  "model_id": 215,
+  "model_name": "SBFORI",
+  "txd_name": "SBFORI",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_COWARD",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "9",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SBFORI",
+  "voice2": "VOICE_GEN_SBFORI",
+  "voices": [
+    "VOICE_GEN_SBFORI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 252
+}

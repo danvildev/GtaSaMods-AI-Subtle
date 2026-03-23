@@ -1,0 +1,21 @@
+{
+  "model_id": 159,
+  "model_name": "CWMOHB1",
+  "txd_name": "cwmohb1",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_OLD_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "0",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "1",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_CWMOHB1",
+  "voice2": "VOICE_GEN_CWMOHB1",
+  "voices": [
+    "VOICE_GEN_CWMOHB1"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 196
+}

@@ -1,0 +1,14 @@
+# Banco inicial Policia
+# Esto es una primera pasada estilistica para prueba en juego.
+# La traduccion exacta se refinara con los phraseId del log.
+
+alto, policia!
+quieto ahi!
+no te muevas!
+sal del vehiculo!
+manos arriba!
+estas arrestado!
+necesito refuerzos!
+tirate al suelo!
+retirate ahora!
+a un lado, ya!

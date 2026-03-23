@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_BMYDRUG",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 28,
+      "model_name": "BMYDRUG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

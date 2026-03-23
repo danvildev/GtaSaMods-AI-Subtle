@@ -1,0 +1,21 @@
+{
+  "model_id": 70,
+  "model_name": "WMOSCI",
+  "txd_name": "WMOsci",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_OLD_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "10",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMOSCI",
+  "voice2": "VOICE_GEN_WMOSCI",
+  "voices": [
+    "VOICE_GEN_WMOSCI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 107
+}

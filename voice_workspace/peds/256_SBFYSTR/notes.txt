@@ -1,0 +1,6 @@
+Ped: SBFYSTR
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_SBFYST
+Voice 2: VOICE_GEN_SBFYST
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

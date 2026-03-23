@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = dsher
+# voices = VOICE_EMG_RCOP1, VOICE_EMG_RCOP4

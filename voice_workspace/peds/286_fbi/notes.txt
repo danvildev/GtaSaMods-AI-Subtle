@@ -1,0 +1,6 @@
+Ped: fbi
+Ped audio type: PED_TYPE_EMG
+Voice 1: VOICE_EMG_FBI2
+Voice 2: VOICE_EMG_FBI6
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

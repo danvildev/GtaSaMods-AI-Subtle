@@ -1,0 +1,16 @@
+{
+  "voice": "VOICE_EMG_RCOP4",
+  "ped_count": 2,
+  "peds": [
+    {
+      "model_id": 283,
+      "model_name": "csher",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 288,
+      "model_name": "dsher",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

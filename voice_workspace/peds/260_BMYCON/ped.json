@@ -1,0 +1,21 @@
+{
+  "model_id": 260,
+  "model_name": "BMYCON",
+  "txd_name": "BMYCON",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "0",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "7",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BMYCON",
+  "voice2": "VOICE_GEN_BMYCON",
+  "voices": [
+    "VOICE_GEN_BMYCON"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 297
+}

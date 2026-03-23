@@ -1,0 +1,6 @@
+Ped: WMYMOUN
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_WMYMOUN
+Voice 2: VOICE_GEN_WMYMOUN
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

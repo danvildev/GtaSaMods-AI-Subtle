@@ -1,0 +1,14 @@
+# Banco inicial Ballas
+# Esto es una primera pasada estilistica para prueba en juego.
+# La traduccion exacta se refinara con los phraseId del log.
+
+que miras, tonto?
+fuera de nuestro barrio.
+te voy a reventar.
+ballas manda aqui.
+muevete.
+no eres bienvenido aqui.
+sigue caminando.
+te crees muy duro?
+largate antes de que te rompa.
+ahi va ese payaso.

@@ -1,0 +1,6 @@
+Ped: WFYRO
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_WFYRO
+Voice 2: VOICE_GEN_WFYRO
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,6 @@
+Ped: WFYBURG
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_WFYBURG
+Voice 2: VOICE_GFD_WFYBURG
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

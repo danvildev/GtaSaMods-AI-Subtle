@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_WMYCON",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 27,
+      "model_name": "WMYCON",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

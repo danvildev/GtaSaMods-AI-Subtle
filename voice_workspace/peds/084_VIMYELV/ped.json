@@ -1,0 +1,21 @@
+{
+  "model_id": 84,
+  "model_name": "VIMYELV",
+  "txd_name": "VIMYELV",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_COWARD",
+  "anim_group": "man",
+  "cars_can_drive_mask": "170F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "1",
+  "radio2": "1",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_VIMYELV",
+  "voice2": "VOICE_GEN_VIMYELV",
+  "voices": [
+    "VOICE_GEN_VIMYELV"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 121
+}

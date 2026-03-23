@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_WFYBU",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 150,
+      "model_name": "WFYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "model_id": 250,
+  "model_name": "SWMYCR",
+  "txd_name": "SWMYCR",
+  "default_ped_type": "CRIMINAL",
+  "stat_type": "STAT_CRIMINAL",
+  "anim_group": "man",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "6",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SWMYCR",
+  "voice2": "VOICE_GEN_SWMYCR",
+  "voices": [
+    "VOICE_GEN_SWMYCR"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 287
+}

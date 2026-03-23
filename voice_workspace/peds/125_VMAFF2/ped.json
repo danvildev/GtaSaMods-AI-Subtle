@@ -1,0 +1,21 @@
+{
+  "model_id": 125,
+  "model_name": "VMAFF2",
+  "txd_name": "VMAFF2",
+  "default_ped_type": "GANG6",
+  "stat_type": "STAT_GANG6",
+  "anim_group": "man",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "2",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_VMAFF3",
+  "voice2": "VOICE_GNG_VMAFF3",
+  "voices": [
+    "VOICE_GNG_VMAFF3"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 162
+}

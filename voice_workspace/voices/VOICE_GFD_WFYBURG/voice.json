@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_WFYBURG",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 205,
+      "model_name": "WFYBURG",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

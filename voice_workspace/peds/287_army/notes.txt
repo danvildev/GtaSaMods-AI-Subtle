@@ -1,0 +1,6 @@
+Ped: army
+Ped audio type: PED_TYPE_EMG
+Voice 1: VOICE_EMG_ARMY1
+Voice 2: VOICE_EMG_ARMY3
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

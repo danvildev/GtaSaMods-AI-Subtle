@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = DWFYLC2
+# voices = VOICE_GEN_DWFYLC2

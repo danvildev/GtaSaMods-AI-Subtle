@@ -1,0 +1,21 @@
+{
+  "model_id": 147,
+  "model_name": "WMYBU",
+  "txd_name": "wmybu",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_COWARD",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "6",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYBU",
+  "voice2": "VOICE_GEN_WMYBU",
+  "voices": [
+    "VOICE_GEN_WMYBU"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 185
+}

@@ -1,0 +1,6 @@
+Ped: VMAFF2
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_VMAFF3
+Voice 2: VOICE_GNG_VMAFF3
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

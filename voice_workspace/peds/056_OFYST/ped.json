@@ -1,0 +1,21 @@
+{
+  "model_id": 56,
+  "model_name": "OFYST",
+  "txd_name": "OFYST",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_TOURIST",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1003",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "6",
+  "radio2": "6",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_OFYST",
+  "voice2": "VOICE_GEN_OFYST",
+  "voices": [
+    "VOICE_GEN_OFYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 93
+}

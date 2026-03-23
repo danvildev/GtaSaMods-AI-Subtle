@@ -1,0 +1,6 @@
+Ped: WMYPIZZ
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_WMYPIZZ
+Voice 2: VOICE_GFD_WMYPIZZ
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

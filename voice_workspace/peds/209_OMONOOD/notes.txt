@@ -1,0 +1,6 @@
+Ped: OMONOOD
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_OMOST
+Voice 2: VOICE_GEN_OMOST
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,2 @@
+Voice token: VOICE_GNG_LSV2
+Pon aqui notas globales de la voz, slang, tono y equivalencias.

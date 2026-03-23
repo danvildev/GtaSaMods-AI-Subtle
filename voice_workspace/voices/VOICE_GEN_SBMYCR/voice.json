@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SBMYCR",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 143,
+      "model_name": "SBMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

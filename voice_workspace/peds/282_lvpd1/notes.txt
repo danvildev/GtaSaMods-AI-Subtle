@@ -1,0 +1,6 @@
+Ped: lvpd1
+Ped audio type: PED_TYPE_EMG
+Voice 1: VOICE_EMG_LVPD1
+Voice 2: VOICE_EMG_LVPD5
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

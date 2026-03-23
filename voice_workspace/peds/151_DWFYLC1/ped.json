@@ -1,0 +1,22 @@
+{
+  "model_id": 151,
+  "model_name": "DWFYLC1",
+  "txd_name": "Dwfylc1",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_TOUGH_GIRL",
+  "anim_group": "sexywoman",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "1",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_DWFYLC1",
+  "voice2": "VOICE_GEN_DWFYLC2",
+  "voices": [
+    "VOICE_GEN_DWFYLC1",
+    "VOICE_GEN_DWFYLC2"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 188
+}

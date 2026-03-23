@@ -1,0 +1,6 @@
+Ped: HMYBE
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_HMYBE
+Voice 2: VOICE_GEN_HMYBE
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,21 @@
+{
+  "model_id": 27,
+  "model_name": "WMYCON",
+  "txd_name": "WMYCON",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SUIT_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "130C",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYCON",
+  "voice2": "VOICE_GEN_WMYCON",
+  "voices": [
+    "VOICE_GEN_WMYCON"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 64
+}

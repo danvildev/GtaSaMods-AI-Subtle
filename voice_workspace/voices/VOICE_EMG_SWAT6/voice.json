@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_EMG_SWAT6",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 285,
+      "model_name": "swat",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

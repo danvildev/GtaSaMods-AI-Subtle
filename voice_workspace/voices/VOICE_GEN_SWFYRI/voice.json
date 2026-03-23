@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SWFYRI",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 216,
+      "model_name": "SWFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

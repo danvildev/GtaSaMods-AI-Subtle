@@ -1,0 +1,21 @@
+{
+  "model_id": 256,
+  "model_name": "SBFYSTR",
+  "txd_name": "SBFYSTR",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_STREET_GIRL",
+  "anim_group": "sexywoman",
+  "cars_can_drive_mask": "130C",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "3",
+  "radio2": "7",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SBFYST",
+  "voice2": "VOICE_GEN_SBFYST",
+  "voices": [
+    "VOICE_GEN_SBFYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 293
+}

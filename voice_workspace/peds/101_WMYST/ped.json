@@ -1,0 +1,21 @@
+{
+  "model_id": 101,
+  "model_name": "WMYST",
+  "txd_name": "WMYST",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_STREET_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "4",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYST",
+  "voice2": "VOICE_GEN_WMYST",
+  "voices": [
+    "VOICE_GEN_WMYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 138
+}

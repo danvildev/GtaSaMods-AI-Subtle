@@ -1,0 +1,21 @@
+{
+  "model_id": 238,
+  "model_name": "SBFYPRO",
+  "txd_name": "SBFYPRO",
+  "default_ped_type": "PROSTITUTE",
+  "stat_type": "STAT_PROSTITUTE",
+  "anim_group": "pro",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SBFYPRO",
+  "voice2": "VOICE_GEN_SBFYPRO",
+  "voices": [
+    "VOICE_GEN_SBFYPRO"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 275
+}

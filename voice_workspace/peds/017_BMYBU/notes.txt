@@ -1,0 +1,6 @@
+Ped: BMYBU
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BMYBU
+Voice 2: VOICE_GEN_BMYBU
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

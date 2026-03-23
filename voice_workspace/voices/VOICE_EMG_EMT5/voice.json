@@ -1,0 +1,21 @@
+{
+  "voice": "VOICE_EMG_EMT5",
+  "ped_count": 3,
+  "peds": [
+    {
+      "model_id": 274,
+      "model_name": "laemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 275,
+      "model_name": "lvemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 276,
+      "model_name": "sfemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

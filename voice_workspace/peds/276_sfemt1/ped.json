@@ -1,0 +1,22 @@
+{
+  "model_id": 276,
+  "model_name": "sfemt1",
+  "txd_name": "sfemt1",
+  "default_ped_type": "MEDIC",
+  "stat_type": "STAT_MEDIC",
+  "anim_group": "swat",
+  "cars_can_drive_mask": "1FFF",
+  "ped_flags": "0",
+  "anim_file": "medic",
+  "radio1": "9",
+  "radio2": "9",
+  "ped_audio_type": "PED_TYPE_EMG",
+  "voice1": "VOICE_EMG_EMT1",
+  "voice2": "VOICE_EMG_EMT5",
+  "voices": [
+    "VOICE_EMG_EMT1",
+    "VOICE_EMG_EMT5"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 313
+}

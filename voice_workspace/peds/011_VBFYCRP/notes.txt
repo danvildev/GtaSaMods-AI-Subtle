@@ -1,0 +1,6 @@
+Ped: VBFYCRP
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BFYCRP
+Voice 2: VOICE_GEN_BFYCRP
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

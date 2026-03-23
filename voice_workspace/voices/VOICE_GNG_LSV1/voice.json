@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_LSV1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 108,
+      "model_name": "LSV1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

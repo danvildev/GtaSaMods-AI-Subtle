@@ -1,0 +1,20 @@
+{
+  "group": "ballas",
+  "model_id": 104,
+  "model_name": "BALLAS3",
+  "voice_label": "VOICE_GNG_BALLAS5",
+  "phrase_id": 86,
+  "bank_id": 642,
+  "bank_slot_id": 20,
+  "sound_id": 171,
+  "package_name": "SPC_NA",
+  "package_index": 7,
+  "bank_header_offset": 43122178,
+  "bank_size": 11086074,
+  "sample_rate": 12000,
+  "loop_offset": -1,
+  "headroom": -158,
+  "pcm_offset": 48772600,
+  "pcm_length": 42294,
+  "wav_path": "voice_workspace\\extracted\\ballas\\BALLAS3__phrase_86__bankid_642__sfx_171__SPC_NA.wav"
+}

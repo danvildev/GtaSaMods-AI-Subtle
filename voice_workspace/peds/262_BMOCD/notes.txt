@@ -1,0 +1,6 @@
+Ped: BMOCD
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BMOCD
+Voice 2: VOICE_GEN_BMOCD
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

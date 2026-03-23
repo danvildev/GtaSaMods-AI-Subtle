@@ -1,0 +1,6 @@
+Ped: null
+Ped audio type: PED_TYPE_PLAYER
+Voice 1: VOICE_PLY_CR
+Voice 2: VOICE_PLY_CR
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,6 @@
+Ped: sfpd1
+Ped audio type: PED_TYPE_EMG
+Voice 1: VOICE_EMG_SFPD1
+Voice 2: VOICE_EMG_SFPD5
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

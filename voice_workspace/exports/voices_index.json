@@ -1,0 +1,2012 @@
+{
+  "VOICE_EMG_ARMY1": [
+    {
+      "model_id": 287,
+      "model_name": "army",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_ARMY3": [
+    {
+      "model_id": 287,
+      "model_name": "army",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_EMT1": [
+    {
+      "model_id": 274,
+      "model_name": "laemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 275,
+      "model_name": "lvemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 276,
+      "model_name": "sfemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_EMT5": [
+    {
+      "model_id": 274,
+      "model_name": "laemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 275,
+      "model_name": "lvemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 276,
+      "model_name": "sfemt1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_FBI2": [
+    {
+      "model_id": 286,
+      "model_name": "fbi",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_FBI6": [
+    {
+      "model_id": 286,
+      "model_name": "fbi",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_LAPD1": [
+    {
+      "model_id": 280,
+      "model_name": "lapd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_LAPD8": [
+    {
+      "model_id": 280,
+      "model_name": "lapd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_LVPD1": [
+    {
+      "model_id": 282,
+      "model_name": "lvpd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_LVPD5": [
+    {
+      "model_id": 282,
+      "model_name": "lvpd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_MCOP1": [
+    {
+      "model_id": 284,
+      "model_name": "lapdm1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_MCOP6": [
+    {
+      "model_id": 284,
+      "model_name": "lapdm1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_RCOP1": [
+    {
+      "model_id": 283,
+      "model_name": "csher",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 288,
+      "model_name": "dsher",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_RCOP4": [
+    {
+      "model_id": 283,
+      "model_name": "csher",
+      "ped_audio_type": "PED_TYPE_EMG"
+    },
+    {
+      "model_id": 288,
+      "model_name": "dsher",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_SFPD1": [
+    {
+      "model_id": 281,
+      "model_name": "sfpd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_SFPD5": [
+    {
+      "model_id": 281,
+      "model_name": "sfpd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_SWAT1": [
+    {
+      "model_id": 285,
+      "model_name": "swat",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_EMG_SWAT6": [
+    {
+      "model_id": 285,
+      "model_name": "swat",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ],
+  "VOICE_GEN_BBDYG1": [
+    {
+      "model_id": 24,
+      "model_name": "WBDYG1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BBDYG2": [
+    {
+      "model_id": 25,
+      "model_name": "WBDYG2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFORI": [
+    {
+      "model_id": 9,
+      "model_name": "BFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFOST": [
+    {
+      "model_id": 10,
+      "model_name": "BFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFYBE": [
+    {
+      "model_id": 139,
+      "model_name": "BFYBE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFYBU": [
+    {
+      "model_id": 148,
+      "model_name": "BFYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFYCRP": [
+    {
+      "model_id": 11,
+      "model_name": "VBFYCRP",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFYPRO": [
+    {
+      "model_id": 63,
+      "model_name": "BFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFYRI": [
+    {
+      "model_id": 12,
+      "model_name": "BFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BFYST": [
+    {
+      "model_id": 13,
+      "model_name": "BFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BIKDRUG": [
+    {
+      "model_id": 254,
+      "model_name": "BIKDRUG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BIKERA": [
+    {
+      "model_id": 247,
+      "model_name": "BIKERA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BIKERB": [
+    {
+      "model_id": 248,
+      "model_name": "BIKERB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMOCD": [
+    {
+      "model_id": 262,
+      "model_name": "BMOCD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMORI": [
+    {
+      "model_id": 14,
+      "model_name": "BMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMOSEC": [
+    {
+      "model_id": 253,
+      "model_name": "BMOSEC",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMOST": [
+    {
+      "model_id": 15,
+      "model_name": "BMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 168,
+      "model_name": "BMOCHIL",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMOTR1": [
+    {
+      "model_id": 79,
+      "model_name": "BMOTR1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYAP": [
+    {
+      "model_id": 16,
+      "model_name": "BMYAP",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYBE": [
+    {
+      "model_id": 18,
+      "model_name": "BMYBE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYBOUN": [
+    {
+      "model_id": 163,
+      "model_name": "BMYBOUN",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYBOX": [
+    {
+      "model_id": 80,
+      "model_name": "VBMYBOX",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYBU": [
+    {
+      "model_id": 17,
+      "model_name": "BMYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYCG": [
+    {
+      "model_id": 144,
+      "model_name": "BMYCG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYCON": [
+    {
+      "model_id": 260,
+      "model_name": "BMYCON",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYCR": [
+    {
+      "model_id": 21,
+      "model_name": "BMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYDJ": [
+    {
+      "model_id": 19,
+      "model_name": "BMYDJ",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYDRUG": [
+    {
+      "model_id": 28,
+      "model_name": "BMYDRUG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYMIB": [
+    {
+      "model_id": 166,
+      "model_name": "BMYMIB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYMOUN": [
+    {
+      "model_id": 51,
+      "model_name": "BMYMOUN",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYPI": [
+    {
+      "model_id": 249,
+      "model_name": "BMYPIMP",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYPOL1": [
+    {
+      "model_id": 66,
+      "model_name": "BMYPOL1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYPOL2": [
+    {
+      "model_id": 67,
+      "model_name": "BMYPOL2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYRI": [
+    {
+      "model_id": 20,
+      "model_name": "BMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_BMYST": [
+    {
+      "model_id": 22,
+      "model_name": "BMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWFOFR": [
+    {
+      "model_id": 196,
+      "model_name": "CWFOFR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWFOHB": [
+    {
+      "model_id": 197,
+      "model_name": "CWFOHB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWFYFR1": [
+    {
+      "model_id": 198,
+      "model_name": "CWFYFR1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWFYFR2": [
+    {
+      "model_id": 199,
+      "model_name": "CWFYFR2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWFYHB1": [
+    {
+      "model_id": 157,
+      "model_name": "CWFYHB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWMOFR1": [
+    {
+      "model_id": 158,
+      "model_name": "CWMOFR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWMOHB1": [
+    {
+      "model_id": 159,
+      "model_name": "CWMOHB1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWMOHB2": [
+    {
+      "model_id": 160,
+      "model_name": "CWMOHB2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWMYFR": [
+    {
+      "model_id": 161,
+      "model_name": "CWMYFR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWMYHB1": [
+    {
+      "model_id": 162,
+      "model_name": "CWMYHB1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_CWMYHB2": [
+    {
+      "model_id": 200,
+      "model_name": "CWMYHB2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DNFOLC1": [
+    {
+      "model_id": 129,
+      "model_name": "DNFOLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DNFOLC2": [
+    {
+      "model_id": 130,
+      "model_name": "DNFOLC2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DNFYLC": [
+    {
+      "model_id": 131,
+      "model_name": "DNFYLC",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DNMOLC1": [
+    {
+      "model_id": 132,
+      "model_name": "DNMOLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DNMOLC2": [
+    {
+      "model_id": 133,
+      "model_name": "DNMOLC2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DNMYLC": [
+    {
+      "model_id": 128,
+      "model_name": "DNMYLC",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWFOLC": [
+    {
+      "model_id": 31,
+      "model_name": "DWFOLC",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWFYLC1": [
+    {
+      "model_id": 151,
+      "model_name": "DWFYLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWFYLC2": [
+    {
+      "model_id": 151,
+      "model_name": "DWFYLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 201,
+      "model_name": "DWFYLC2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWMOLC1": [
+    {
+      "model_id": 32,
+      "model_name": "DWMOLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWMOLC2": [
+    {
+      "model_id": 33,
+      "model_name": "DWMOLC2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWMYLC1": [
+    {
+      "model_id": 34,
+      "model_name": "DWMYLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_DWMYLC2": [
+    {
+      "model_id": 34,
+      "model_name": "DWMYLC1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 202,
+      "model_name": "DWMYLC2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HFORI": [
+    {
+      "model_id": 38,
+      "model_name": "HFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HFOST": [
+    {
+      "model_id": 39,
+      "model_name": "HFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HFYBE": [
+    {
+      "model_id": 140,
+      "model_name": "HFYBE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HFYPRO": [
+    {
+      "model_id": 64,
+      "model_name": "HFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HFYRI": [
+    {
+      "model_id": 40,
+      "model_name": "HFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HFYST": [
+    {
+      "model_id": 41,
+      "model_name": "HFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMORI": [
+    {
+      "model_id": 43,
+      "model_name": "HMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMOST": [
+    {
+      "model_id": 44,
+      "model_name": "HMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMYBE": [
+    {
+      "model_id": 45,
+      "model_name": "HMYBE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMYCM": [
+    {
+      "model_id": 146,
+      "model_name": "HMYCM",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMYCR": [
+    {
+      "model_id": 47,
+      "model_name": "HMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMYDRUG": [
+    {
+      "model_id": 30,
+      "model_name": "HMYDRUG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMYRI": [
+    {
+      "model_id": 46,
+      "model_name": "HMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_HMYST": [
+    {
+      "model_id": 48,
+      "model_name": "HMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_MAFFA": [
+    {
+      "model_id": 111,
+      "model_name": "MAFFA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_MAFFB": [
+    {
+      "model_id": 112,
+      "model_name": "MAFFB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_MALE01": [
+    {
+      "model_id": 7,
+      "model_name": "male01",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_NOVOICE": [
+    {
+      "model_id": 178,
+      "model_name": "WFYSEX",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 203,
+      "model_name": "OMYKARA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 204,
+      "model_name": "WMYKARA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 258,
+      "model_name": "HECK1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 259,
+      "model_name": "HECK2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 264,
+      "model_name": "WMOICE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 277,
+      "model_name": "lafd1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 278,
+      "model_name": "lvfd1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 279,
+      "model_name": "sffd1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OFORI": [
+    {
+      "model_id": 53,
+      "model_name": "OFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OFOST": [
+    {
+      "model_id": 54,
+      "model_name": "OFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OFYRI": [
+    {
+      "model_id": 55,
+      "model_name": "OFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OFYST": [
+    {
+      "model_id": 56,
+      "model_name": "OFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OMOBOAT": [
+    {
+      "model_id": 210,
+      "model_name": "OMOBOAT",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OMOKUNG": [
+    {
+      "model_id": 49,
+      "model_name": "OMOKUNG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OMORI": [
+    {
+      "model_id": 57,
+      "model_name": "OMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OMOST": [
+    {
+      "model_id": 58,
+      "model_name": "OMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 209,
+      "model_name": "OMONOOD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OMYRI": [
+    {
+      "model_id": 59,
+      "model_name": "OMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_OMYST": [
+    {
+      "model_id": 60,
+      "model_name": "OMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBFORI": [
+    {
+      "model_id": 215,
+      "model_name": "SBFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBFOST": [
+    {
+      "model_id": 218,
+      "model_name": "SBFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBFYPRO": [
+    {
+      "model_id": 238,
+      "model_name": "SBFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBFYRI": [
+    {
+      "model_id": 219,
+      "model_name": "SBFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBFYST": [
+    {
+      "model_id": 69,
+      "model_name": "SBFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 256,
+      "model_name": "SBFYSTR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMOCD": [
+    {
+      "model_id": 220,
+      "model_name": "SBMOCD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMORI": [
+    {
+      "model_id": 221,
+      "model_name": "SBMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMOST": [
+    {
+      "model_id": 222,
+      "model_name": "SBMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMOTR1": [
+    {
+      "model_id": 134,
+      "model_name": "SBMOTR2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMOTR2": [
+    {
+      "model_id": 134,
+      "model_name": "SBMOTR2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMYCR": [
+    {
+      "model_id": 143,
+      "model_name": "SBMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMYRI": [
+    {
+      "model_id": 185,
+      "model_name": "SBMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMYST": [
+    {
+      "model_id": 142,
+      "model_name": "SBMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SBMYTR3": [
+    {
+      "model_id": 136,
+      "model_name": "SBMYTR3",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SFYPRO": [
+    {
+      "model_id": 243,
+      "model_name": "SFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SHFYPRO": [
+    {
+      "model_id": 237,
+      "model_name": "SHFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SHMYCR": [
+    {
+      "model_id": 223,
+      "model_name": "SHMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SMYST": [
+    {
+      "model_id": 241,
+      "model_name": "SMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SMYST2": [
+    {
+      "model_id": 242,
+      "model_name": "SMYST2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOFORI": [
+    {
+      "model_id": 224,
+      "model_name": "SOFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOFOST": [
+    {
+      "model_id": 225,
+      "model_name": "SOFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOFYBU": [
+    {
+      "model_id": 141,
+      "model_name": "SOFYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOFYRI": [
+    {
+      "model_id": 169,
+      "model_name": "SOFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOFYST": [
+    {
+      "model_id": 226,
+      "model_name": "SOFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOMOBU": [
+    {
+      "model_id": 227,
+      "model_name": "SOMOBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOMORI": [
+    {
+      "model_id": 228,
+      "model_name": "SOMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOMOST": [
+    {
+      "model_id": 229,
+      "model_name": "SOMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOMYBU": [
+    {
+      "model_id": 187,
+      "model_name": "SOMYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOMYRI": [
+    {
+      "model_id": 186,
+      "model_name": "SOMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SOMYST": [
+    {
+      "model_id": 170,
+      "model_name": "SOMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWFOPRO": [
+    {
+      "model_id": 75,
+      "model_name": "SWFOPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWFORI": [
+    {
+      "model_id": 231,
+      "model_name": "SWFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWFOST": [
+    {
+      "model_id": 232,
+      "model_name": "SWFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWFYRI": [
+    {
+      "model_id": 216,
+      "model_name": "SWFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWFYST": [
+    {
+      "model_id": 233,
+      "model_name": "SWFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 257,
+      "model_name": "SWFYSTR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOCD": [
+    {
+      "model_id": 234,
+      "model_name": "SWMOCD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMORI": [
+    {
+      "model_id": 235,
+      "model_name": "SWMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOST": [
+    {
+      "model_id": 236,
+      "model_name": "SWMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOTR1": [
+    {
+      "model_id": 77,
+      "model_name": "SWMOTR1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOTR2": [
+    {
+      "model_id": 135,
+      "model_name": "SWMOTR2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOTR3": [
+    {
+      "model_id": 137,
+      "model_name": "SWMOTR3",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOTR4": [
+    {
+      "model_id": 239,
+      "model_name": "SWMOTR4",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMOTR5": [
+    {
+      "model_id": 230,
+      "model_name": "SWMOTR5",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMYCR": [
+    {
+      "model_id": 250,
+      "model_name": "SWMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMYHP1": [
+    {
+      "model_id": 72,
+      "model_name": "SWMYHP1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMYHP2": [
+    {
+      "model_id": 73,
+      "model_name": "SWMYHP2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMYRI": [
+    {
+      "model_id": 240,
+      "model_name": "SWMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_SWMYST": [
+    {
+      "model_id": 188,
+      "model_name": "SWMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VBFYPRO": [
+    {
+      "model_id": 245,
+      "model_name": "VBFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VBFYST2": [
+    {
+      "model_id": 244,
+      "model_name": "VBFYST2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VBMOCD": [
+    {
+      "model_id": 182,
+      "model_name": "VBMOCD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VBMYCR": [
+    {
+      "model_id": 183,
+      "model_name": "VBMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VBMYELV": [
+    {
+      "model_id": 83,
+      "model_name": "VBMYELV",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VHFYPRO": [
+    {
+      "model_id": 207,
+      "model_name": "VHFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VHFYST3": [
+    {
+      "model_id": 246,
+      "model_name": "VHFYST3",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VHMYCR": [
+    {
+      "model_id": 184,
+      "model_name": "VHMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VHMYELV": [
+    {
+      "model_id": 82,
+      "model_name": "VHMYELV",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VIMYELV": [
+    {
+      "model_id": 84,
+      "model_name": "VIMYELV",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWFYPRO": [
+    {
+      "model_id": 85,
+      "model_name": "VWFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWFYST1": [
+    {
+      "model_id": 87,
+      "model_name": "VWFYST1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWFYWAI": [
+    {
+      "model_id": 214,
+      "model_name": "VWFYWAI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 263,
+      "model_name": "VWFYWA2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWMOTR1": [
+    {
+      "model_id": 212,
+      "model_name": "VWMOTR1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWMOTR2": [
+    {
+      "model_id": 213,
+      "model_name": "VWMOTR2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWMYBJD": [
+    {
+      "model_id": 171,
+      "model_name": "VWMYBJD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWMYCD": [
+    {
+      "model_id": 206,
+      "model_name": "VWMYCD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_VWMYCR": [
+    {
+      "model_id": 181,
+      "model_name": "VWMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFORI": [
+    {
+      "model_id": 88,
+      "model_name": "WFORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFOST": [
+    {
+      "model_id": 89,
+      "model_name": "WFOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYBE": [
+    {
+      "model_id": 138,
+      "model_name": "WFYBE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYBU": [
+    {
+      "model_id": 150,
+      "model_name": "WFYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYCRK": [
+    {
+      "model_id": 145,
+      "model_name": "WFYCRK",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYCRP": [
+    {
+      "model_id": 172,
+      "model_name": "VWFYCRP",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYJG": [
+    {
+      "model_id": 90,
+      "model_name": "WFYJG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYLG": [
+    {
+      "model_id": 251,
+      "model_name": "WFYLG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYPRO": [
+    {
+      "model_id": 152,
+      "model_name": "WFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYRI": [
+    {
+      "model_id": 91,
+      "model_name": "WFYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYRO": [
+    {
+      "model_id": 92,
+      "model_name": "WFYRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYST": [
+    {
+      "model_id": 93,
+      "model_name": "WFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WFYSTEW": [
+    {
+      "model_id": 76,
+      "model_name": "WFYSTEW",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMOMIB": [
+    {
+      "model_id": 165,
+      "model_name": "WMOMIB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMOPJ": [
+    {
+      "model_id": 62,
+      "model_name": "WMOPJ",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMOPREA": [
+    {
+      "model_id": 68,
+      "model_name": "WMOPREA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMORI": [
+    {
+      "model_id": 94,
+      "model_name": "WMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMOSCI": [
+    {
+      "model_id": 70,
+      "model_name": "WMOSCI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMOST": [
+    {
+      "model_id": 95,
+      "model_name": "WMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMOTR1": [
+    {
+      "model_id": 78,
+      "model_name": "WMOTR1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYBE": [
+    {
+      "model_id": 154,
+      "model_name": "WMYBE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYBMX": [
+    {
+      "model_id": 23,
+      "model_name": "WMYBMX",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYBOUN": [
+    {
+      "model_id": 164,
+      "model_name": "WMYBOUN",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYBOX": [
+    {
+      "model_id": 81,
+      "model_name": "VWMYBOX",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYBP": [
+    {
+      "model_id": 26,
+      "model_name": "WMYBP",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYBU": [
+    {
+      "model_id": 147,
+      "model_name": "WMYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYCD1": [
+    {
+      "model_id": 261,
+      "model_name": "WMYCD1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYCH": [
+    {
+      "model_id": 255,
+      "model_name": "WMYCH",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYCON": [
+    {
+      "model_id": 27,
+      "model_name": "WMYCON",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYCONB": [
+    {
+      "model_id": 153,
+      "model_name": "WMYCONB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYCR": [
+    {
+      "model_id": 100,
+      "model_name": "WMYCR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYDRUG": [
+    {
+      "model_id": 29,
+      "model_name": "WMYDRUG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYGAR": [
+    {
+      "model_id": 35,
+      "model_name": "HMOGAR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYGOL1": [
+    {
+      "model_id": 36,
+      "model_name": "WMYGOL1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYGOL2": [
+    {
+      "model_id": 37,
+      "model_name": "WMYGOL2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYJG": [
+    {
+      "model_id": 96,
+      "model_name": "WMYJG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYLG": [
+    {
+      "model_id": 97,
+      "model_name": "WMYLG",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYMECH": [
+    {
+      "model_id": 50,
+      "model_name": "WMYMECH",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYMOUN": [
+    {
+      "model_id": 52,
+      "model_name": "WMYMOUN",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYPLT": [
+    {
+      "model_id": 61,
+      "model_name": "WMYPLT",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYRI": [
+    {
+      "model_id": 98,
+      "model_name": "WMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYRO": [
+    {
+      "model_id": 99,
+      "model_name": "WMYRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYSGRAD": [
+    {
+      "model_id": 71,
+      "model_name": "WMYSGRD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYST": [
+    {
+      "model_id": 101,
+      "model_name": "WMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GEN_WMYVA": [
+    {
+      "model_id": 189,
+      "model_name": "WMYVA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 252,
+      "model_name": "WMYVA2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ],
+  "VOICE_GFD_BARBARA": [
+    {
+      "model_id": 190,
+      "model_name": "COPGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_BMOBAR": [
+    {
+      "model_id": 156,
+      "model_name": "BMOBAR",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_BMYBARB": [
+    {
+      "model_id": 176,
+      "model_name": "BMYBAR",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_BMYTATT": [
+    {
+      "model_id": 180,
+      "model_name": "BMYTATT",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_DENISE": [
+    {
+      "model_id": 195,
+      "model_name": "GANGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_HELENA": [
+    {
+      "model_id": 191,
+      "model_name": "GUNGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_KATIE": [
+    {
+      "model_id": 193,
+      "model_name": "NURGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_MICHELLE": [
+    {
+      "model_id": 192,
+      "model_name": "MECGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_MILLIE": [
+    {
+      "model_id": 194,
+      "model_name": "CROGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WFYBURG": [
+    {
+      "model_id": 205,
+      "model_name": "WFYBURG",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WFYCLOT": [
+    {
+      "model_id": 211,
+      "model_name": "WFYCLOT",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WMYAMMO": [
+    {
+      "model_id": 179,
+      "model_name": "WMYAMMO",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WMYBARB": [
+    {
+      "model_id": 177,
+      "model_name": "WMYBAR",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WMYBELL": [
+    {
+      "model_id": 167,
+      "model_name": "WMYBELL",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WMYCLOT": [
+    {
+      "model_id": 217,
+      "model_name": "WMYCLOT",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GFD_WMYPIZZ": [
+    {
+      "model_id": 155,
+      "model_name": "WMYPIZZ",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ],
+  "VOICE_GNG_BALLAS1": [
+    {
+      "model_id": 102,
+      "model_name": "BALLAS1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_BALLAS2": [
+    {
+      "model_id": 102,
+      "model_name": "BALLAS1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_BALLAS3": [
+    {
+      "model_id": 103,
+      "model_name": "BALLAS2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_BALLAS4": [
+    {
+      "model_id": 103,
+      "model_name": "BALLAS2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_BALLAS5": [
+    {
+      "model_id": 104,
+      "model_name": "BALLAS3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_DNB1": [
+    {
+      "model_id": 121,
+      "model_name": "DNB1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_DNB2": [
+    {
+      "model_id": 122,
+      "model_name": "DNB2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_DNB3": [
+    {
+      "model_id": 123,
+      "model_name": "DNB3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_DNB5": [
+    {
+      "model_id": 123,
+      "model_name": "DNB3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_FAM1": [
+    {
+      "model_id": 105,
+      "model_name": "FAM1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_FAM2": [
+    {
+      "model_id": 105,
+      "model_name": "FAM1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_FAM3": [
+    {
+      "model_id": 106,
+      "model_name": "FAM2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_FAM4": [
+    {
+      "model_id": 106,
+      "model_name": "FAM2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_FAM5": [
+    {
+      "model_id": 107,
+      "model_name": "FAM3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_LSV1": [
+    {
+      "model_id": 108,
+      "model_name": "LSV1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_LSV2": [
+    {
+      "model_id": 108,
+      "model_name": "LSV1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_LSV3": [
+    {
+      "model_id": 109,
+      "model_name": "LSV2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_LSV4": [
+    {
+      "model_id": 109,
+      "model_name": "LSV2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_LSV5": [
+    {
+      "model_id": 110,
+      "model_name": "LSV3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_MAFBOSS": [
+    {
+      "model_id": 113,
+      "model_name": "MAFBOSS",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_SFR1": [
+    {
+      "model_id": 173,
+      "model_name": "SFR1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_SFR2": [
+    {
+      "model_id": 173,
+      "model_name": "SFR1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_SFR3": [
+    {
+      "model_id": 174,
+      "model_name": "SFR2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_SFR4": [
+    {
+      "model_id": 174,
+      "model_name": "SFR2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_SFR5": [
+    {
+      "model_id": 175,
+      "model_name": "SFR3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_STRI1": [
+    {
+      "model_id": 117,
+      "model_name": "TRIADA",
+      "ped_audio_type": "PED_TYPE_GANG"
+    },
+    {
+      "model_id": 118,
+      "model_name": "TRIADB",
+      "ped_audio_type": "PED_TYPE_GANG"
+    },
+    {
+      "model_id": 120,
+      "model_name": "TRIBOSS",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_STRI5": [
+    {
+      "model_id": 117,
+      "model_name": "TRIADA",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VLA1": [
+    {
+      "model_id": 114,
+      "model_name": "VLA1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VLA2": [
+    {
+      "model_id": 114,
+      "model_name": "VLA1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VLA3": [
+    {
+      "model_id": 115,
+      "model_name": "VLA2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VLA4": [
+    {
+      "model_id": 115,
+      "model_name": "VLA2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VLA5": [
+    {
+      "model_id": 116,
+      "model_name": "VLA3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VMAFF1": [
+    {
+      "model_id": 124,
+      "model_name": "VMAFF1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VMAFF2": [
+    {
+      "model_id": 124,
+      "model_name": "VMAFF1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VMAFF3": [
+    {
+      "model_id": 125,
+      "model_name": "VMAFF2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VMAFF4": [
+    {
+      "model_id": 126,
+      "model_name": "VMAFF3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_GNG_VMAFF5": [
+    {
+      "model_id": 127,
+      "model_name": "VMAFF4",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ],
+  "VOICE_PLY_CR": [
+    {
+      "model_id": 0,
+      "model_name": "null",
+      "ped_audio_type": "PED_TYPE_PLAYER"
+    }
+  ]
+}

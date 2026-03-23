@@ -1,0 +1,16 @@
+{
+  "voice": "VOICE_GEN_BMOST",
+  "ped_count": 2,
+  "peds": [
+    {
+      "model_id": 15,
+      "model_name": "BMOST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 168,
+      "model_name": "BMOCHIL",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "model_id": 11,
+  "model_name": "VBFYCRP",
+  "txd_name": "VBFYCRP",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_SUIT_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "130C",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "3",
+  "radio2": "7",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BFYCRP",
+  "voice2": "VOICE_GEN_BFYCRP",
+  "voices": [
+    "VOICE_GEN_BFYCRP"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 48
+}

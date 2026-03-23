@@ -1,0 +1,6 @@
+Ped: HMOST
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_HMOST
+Voice 2: VOICE_GEN_HMOST
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

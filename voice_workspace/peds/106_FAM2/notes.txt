@@ -1,0 +1,6 @@
+Ped: FAM2
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_FAM3
+Voice 2: VOICE_GNG_FAM4
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = BMYAP
+# voices = VOICE_GEN_BMYAP

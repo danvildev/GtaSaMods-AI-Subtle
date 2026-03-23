@@ -1,0 +1,6 @@
+Ped: male01
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_MALE01
+Voice 2: VOICE_GEN_MALE01
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

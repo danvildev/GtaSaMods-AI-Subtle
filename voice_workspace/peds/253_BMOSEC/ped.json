@@ -1,0 +1,21 @@
+{
+  "model_id": 253,
+  "model_name": "BMOSEC",
+  "txd_name": "BMOSEC",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_OLD_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1003",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "8",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BMOSEC",
+  "voice2": "VOICE_GEN_BMOSEC",
+  "voices": [
+    "VOICE_GEN_BMOSEC"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 290
+}

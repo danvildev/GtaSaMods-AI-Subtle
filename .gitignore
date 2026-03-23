@@ -1,0 +1,46 @@
+# GTA installation and third-party game assets
+/advanced_plugin_management_example/
+/anim/
+/audio/
+/cleo/
+/cleo_readme/
+/cleo_sdk/
+/data/
+/models/
+/modloader/
+/movies/
+/ReadMe/
+/text/
+/modding_sdk/README-ES.md
+
+# Game binaries and local loaders
+/*.asi
+/*.dll
+/*.exe
+/*.log
+/*.vdf
+/*.ini
+
+# Build outputs
+/modding_sdk/plugin-sdk/output/
+/modding_sdk/projects/FenixImpossibleMod/bin/
+/modding_sdk/projects/FenixImpossibleMod/obj/
+/scripts/
+
+# Local editor / DB temp files
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.tmp
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Voice workspace transient outputs
+/voice_workspace/logs/archive/

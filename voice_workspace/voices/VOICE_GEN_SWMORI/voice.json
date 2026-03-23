@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SWMORI",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 235,
+      "model_name": "SWMORI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

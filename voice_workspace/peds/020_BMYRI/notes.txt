@@ -1,0 +1,6 @@
+Ped: BMYRI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BMYRI
+Voice 2: VOICE_GEN_BMYRI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

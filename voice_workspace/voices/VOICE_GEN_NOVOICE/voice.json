@@ -1,0 +1,51 @@
+{
+  "voice": "VOICE_GEN_NOVOICE",
+  "ped_count": 9,
+  "peds": [
+    {
+      "model_id": 178,
+      "model_name": "WFYSEX",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 203,
+      "model_name": "OMYKARA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 204,
+      "model_name": "WMYKARA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 258,
+      "model_name": "HECK1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 259,
+      "model_name": "HECK2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 264,
+      "model_name": "WMOICE",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 277,
+      "model_name": "lafd1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 278,
+      "model_name": "lvfd1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 279,
+      "model_name": "sffd1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

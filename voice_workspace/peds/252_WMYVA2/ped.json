@@ -1,0 +1,21 @@
+{
+  "model_id": 252,
+  "model_name": "WMYVA2",
+  "txd_name": "WMYVA2",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_STREET_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "9",
+  "radio2": "7",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYVA",
+  "voice2": "VOICE_GEN_WMYVA",
+  "voices": [
+    "VOICE_GEN_WMYVA"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 289
+}

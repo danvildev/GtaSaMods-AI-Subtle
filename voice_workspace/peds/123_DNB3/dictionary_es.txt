@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = DNB3
+# voices = VOICE_GNG_DNB3, VOICE_GNG_DNB5

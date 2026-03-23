@@ -1,0 +1,21 @@
+{
+  "model_id": 228,
+  "model_name": "SOMORI",
+  "txd_name": "SOMORI",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_COWARD",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "9",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SOMORI",
+  "voice2": "VOICE_GEN_SOMORI",
+  "voices": [
+    "VOICE_GEN_SOMORI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 265
+}

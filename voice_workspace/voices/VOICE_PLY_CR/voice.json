@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_PLY_CR",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 0,
+      "model_name": "null",
+      "ped_audio_type": "PED_TYPE_PLAYER"
+    }
+  ]
+}

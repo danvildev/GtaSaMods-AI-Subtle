@@ -1,0 +1,22 @@
+{
+  "model_id": 105,
+  "model_name": "FAM1",
+  "txd_name": "FAM1",
+  "default_ped_type": "GANG2",
+  "stat_type": "STAT_GANG2",
+  "anim_group": "gang2",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "5",
+  "radio2": "5",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_FAM1",
+  "voice2": "VOICE_GNG_FAM2",
+  "voices": [
+    "VOICE_GNG_FAM1",
+    "VOICE_GNG_FAM2"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 143
+}

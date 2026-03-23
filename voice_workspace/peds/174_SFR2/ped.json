@@ -1,0 +1,22 @@
+{
+  "model_id": 174,
+  "model_name": "SFR2",
+  "txd_name": "SFR2",
+  "default_ped_type": "GANG4",
+  "stat_type": "STAT_GANG4",
+  "anim_group": "gang2",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "8",
+  "radio2": "8",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_SFR3",
+  "voice2": "VOICE_GNG_SFR4",
+  "voices": [
+    "VOICE_GNG_SFR3",
+    "VOICE_GNG_SFR4"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 211
+}

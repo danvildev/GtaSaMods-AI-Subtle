@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_EMG_FBI6",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 286,
+      "model_name": "fbi",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

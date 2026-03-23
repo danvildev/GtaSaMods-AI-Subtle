@@ -1,0 +1,21 @@
+{
+  "model_id": 133,
+  "model_name": "DNMOLC2",
+  "txd_name": "DNMOLC2",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_OLD_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1003",
+  "ped_flags": "0",
+  "anim_file": "man",
+  "radio1": "10",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_DNMOLC2",
+  "voice2": "VOICE_GEN_DNMOLC2",
+  "voices": [
+    "VOICE_GEN_DNMOLC2"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 171
+}

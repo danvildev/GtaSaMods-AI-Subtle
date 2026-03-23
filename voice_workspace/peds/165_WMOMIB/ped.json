@@ -1,0 +1,21 @@
+{
+  "model_id": 165,
+  "model_name": "WMOMIB",
+  "txd_name": "wmomib",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SUIT_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "0",
+  "anim_file": "man",
+  "radio1": "10",
+  "radio2": "11",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMOMIB",
+  "voice2": "VOICE_GEN_WMOMIB",
+  "voices": [
+    "VOICE_GEN_WMOMIB"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 202
+}

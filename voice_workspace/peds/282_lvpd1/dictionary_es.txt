@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = lvpd1
+# voices = VOICE_EMG_LVPD1, VOICE_EMG_LVPD5

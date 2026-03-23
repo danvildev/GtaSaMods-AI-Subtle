@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SOFYBU",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 141,
+      "model_name": "SOFYBU",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

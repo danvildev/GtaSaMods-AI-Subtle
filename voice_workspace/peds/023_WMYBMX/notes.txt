@@ -1,0 +1,6 @@
+Ped: WMYBMX
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_WMYBMX
+Voice 2: VOICE_GEN_WMYBMX
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

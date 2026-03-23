@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_WMYRI",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 98,
+      "model_name": "WMYRI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

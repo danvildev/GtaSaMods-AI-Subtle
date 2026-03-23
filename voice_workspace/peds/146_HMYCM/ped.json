@@ -1,0 +1,21 @@
+{
+  "model_id": 146,
+  "model_name": "HMYCM",
+  "txd_name": "hmycm",
+  "default_ped_type": "CRIMINAL",
+  "stat_type": "STAT_CRIMINAL",
+  "anim_group": "man",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "8",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_HMYCM",
+  "voice2": "VOICE_GEN_HMYCM",
+  "voices": [
+    "VOICE_GEN_HMYCM"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 184
+}

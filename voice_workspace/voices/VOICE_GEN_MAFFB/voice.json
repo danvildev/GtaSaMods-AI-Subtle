@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_MAFFB",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 112,
+      "model_name": "MAFFB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

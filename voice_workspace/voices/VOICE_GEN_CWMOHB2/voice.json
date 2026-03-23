@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_CWMOHB2",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 160,
+      "model_name": "CWMOHB2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

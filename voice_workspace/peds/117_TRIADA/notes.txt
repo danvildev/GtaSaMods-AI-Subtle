@@ -1,0 +1,6 @@
+Ped: TRIADA
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_STRI1
+Voice 2: VOICE_GNG_STRI5
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

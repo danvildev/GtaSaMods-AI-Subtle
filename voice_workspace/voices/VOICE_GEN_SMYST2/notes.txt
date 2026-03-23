@@ -1,0 +1,2 @@
+Voice token: VOICE_GEN_SMYST2
+Pon aqui notas globales de la voz, slang, tono y equivalencias.

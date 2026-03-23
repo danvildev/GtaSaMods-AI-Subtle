@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_BMOBAR",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 156,
+      "model_name": "BMOBAR",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

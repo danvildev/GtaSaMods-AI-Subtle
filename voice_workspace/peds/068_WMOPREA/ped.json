@@ -1,0 +1,21 @@
+{
+  "model_id": 68,
+  "model_name": "WMOPREA",
+  "txd_name": "WMOprea",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SUIT_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "170F",
+  "ped_flags": "0",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMOPREA",
+  "voice2": "VOICE_GEN_WMOPREA",
+  "voices": [
+    "VOICE_GEN_WMOPREA"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 105
+}

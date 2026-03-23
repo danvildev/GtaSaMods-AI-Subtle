@@ -1,0 +1,21 @@
+{
+  "model_id": 51,
+  "model_name": "BMYMOUN",
+  "txd_name": "BMYMOUN",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SENSIBLE_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "0800",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "2",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BMYMOUN",
+  "voice2": "VOICE_GEN_BMYMOUN",
+  "voices": [
+    "VOICE_GEN_BMYMOUN"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 88
+}

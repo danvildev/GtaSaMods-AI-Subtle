@@ -1,0 +1,21 @@
+{
+  "model_id": 157,
+  "model_name": "CWFYHB",
+  "txd_name": "cwfyhb",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_TOUGH_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_CWFYHB1",
+  "voice2": "VOICE_GEN_CWFYHB1",
+  "voices": [
+    "VOICE_GEN_CWFYHB1"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 194
+}

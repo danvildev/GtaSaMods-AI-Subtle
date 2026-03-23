@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = army
+# voices = VOICE_EMG_ARMY1, VOICE_EMG_ARMY3

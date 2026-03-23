@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_BMYDJ",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 19,
+      "model_name": "BMYDJ",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

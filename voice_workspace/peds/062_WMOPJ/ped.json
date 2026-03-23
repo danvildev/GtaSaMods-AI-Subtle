@@ -1,0 +1,21 @@
+{
+  "model_id": 62,
+  "model_name": "WMOPJ",
+  "txd_name": "WMOpj",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_OLD_GUY",
+  "anim_group": "oldman",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "1",
+  "radio2": "1",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMOPJ",
+  "voice2": "VOICE_GEN_WMOPJ",
+  "voices": [
+    "VOICE_GEN_WMOPJ"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 99
+}

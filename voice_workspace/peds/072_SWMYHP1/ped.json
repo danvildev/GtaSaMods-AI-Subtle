@@ -1,0 +1,21 @@
+{
+  "model_id": 72,
+  "model_name": "SWMYHP1",
+  "txd_name": "SWMYhp1",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "8",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SWMYHP1",
+  "voice2": "VOICE_GEN_SWMYHP1",
+  "voices": [
+    "VOICE_GEN_SWMYHP1"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 109
+}

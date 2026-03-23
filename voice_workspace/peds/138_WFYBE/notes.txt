@@ -1,0 +1,6 @@
+Ped: WFYBE
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_WFYBE
+Voice 2: VOICE_GEN_WFYBE
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

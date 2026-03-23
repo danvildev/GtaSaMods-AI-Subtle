@@ -1,0 +1,22 @@
+{
+  "model_id": 134,
+  "model_name": "SBMOTR2",
+  "txd_name": "SBMOTR2",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TRAMP_MALE",
+  "anim_group": "oldman",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "0",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SBMOTR1",
+  "voice2": "VOICE_GEN_SBMOTR2",
+  "voices": [
+    "VOICE_GEN_SBMOTR1",
+    "VOICE_GEN_SBMOTR2"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 172
+}

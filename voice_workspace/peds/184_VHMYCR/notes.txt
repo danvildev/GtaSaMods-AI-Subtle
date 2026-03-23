@@ -1,0 +1,6 @@
+Ped: VHMYCR
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_VHMYCR
+Voice 2: VOICE_GEN_VHMYCR
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

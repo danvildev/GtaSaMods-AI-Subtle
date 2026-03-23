@@ -1,0 +1,21 @@
+{
+  "model_id": 91,
+  "model_name": "WFYRI",
+  "txd_name": "WFYRI",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_COWARD",
+  "anim_group": "sexywoman",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "4",
+  "radio2": "6",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WFYRI",
+  "voice2": "VOICE_GEN_WFYRI",
+  "voices": [
+    "VOICE_GEN_WFYRI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 128
+}

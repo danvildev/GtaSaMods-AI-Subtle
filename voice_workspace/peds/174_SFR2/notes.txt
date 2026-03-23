@@ -1,0 +1,6 @@
+Ped: SFR2
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_SFR3
+Voice 2: VOICE_GNG_SFR4
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,16 @@
+{
+  "voice": "VOICE_GEN_SBFYST",
+  "ped_count": 2,
+  "peds": [
+    {
+      "model_id": 69,
+      "model_name": "SBFYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 256,
+      "model_name": "SBFYSTR",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SHFYPRO",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 237,
+      "model_name": "SHFYPRO",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

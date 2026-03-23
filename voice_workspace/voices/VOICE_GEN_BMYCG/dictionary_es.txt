@@ -1,0 +1,3 @@
+# Traduccion manual por voice set.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# voice = VOICE_GEN_BMYCG

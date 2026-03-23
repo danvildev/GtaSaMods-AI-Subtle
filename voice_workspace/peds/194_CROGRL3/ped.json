@@ -1,0 +1,21 @@
+{
+  "model_id": 194,
+  "model_name": "CROGRL3",
+  "txd_name": "CROGRL3",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_SUIT_GIRL",
+  "anim_group": "sexywoman",
+  "cars_can_drive_mask": "1FFF",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "0",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GFD",
+  "voice1": "VOICE_GFD_MILLIE",
+  "voice2": "VOICE_GFD_MILLIE",
+  "voices": [
+    "VOICE_GFD_MILLIE"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 231
+}

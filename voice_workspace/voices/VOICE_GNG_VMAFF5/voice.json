@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_VMAFF5",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 127,
+      "model_name": "VMAFF4",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

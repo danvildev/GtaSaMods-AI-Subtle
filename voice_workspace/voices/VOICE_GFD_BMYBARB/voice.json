@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_BMYBARB",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 176,
+      "model_name": "BMYBAR",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

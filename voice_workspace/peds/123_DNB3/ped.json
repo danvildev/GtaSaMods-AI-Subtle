@@ -1,0 +1,22 @@
+{
+  "model_id": 123,
+  "model_name": "DNB3",
+  "txd_name": "DNB3",
+  "default_ped_type": "GANG5",
+  "stat_type": "STAT_GANG5",
+  "anim_group": "gang1",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "3",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_DNB3",
+  "voice2": "VOICE_GNG_DNB5",
+  "voices": [
+    "VOICE_GNG_DNB3",
+    "VOICE_GNG_DNB5"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 160
+}

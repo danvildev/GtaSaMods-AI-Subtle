@@ -1,0 +1,6 @@
+Ped: WFYLG
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_WFYLG
+Voice 2: VOICE_GEN_WFYLG
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

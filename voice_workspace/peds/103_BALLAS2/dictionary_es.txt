@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = BALLAS2
+# voices = VOICE_GNG_BALLAS3, VOICE_GNG_BALLAS4

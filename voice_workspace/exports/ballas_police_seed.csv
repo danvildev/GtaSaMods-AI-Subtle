@@ -1,0 +1,24 @@
+group,kind,model_id,model_name,voice_label,package,bank_id,sound_id,speech_id,meaning_en,confidence,notes
+ballas,model,102,BALLAS1,VOICE_GNG_BALLAS1|VOICE_GNG_BALLAS2,,,,,,high,local peds.ide
+ballas,model,103,BALLAS2,VOICE_GNG_BALLAS3|VOICE_GNG_BALLAS4,,,,,,high,local peds.ide
+ballas,model,104,BALLAS3,VOICE_GNG_BALLAS5,,,,,,high,local peds.ide
+ballas,candidate_bank,,,,"SPC_NA",11,,,medium,forum list says Ballas taunts from Cleaning the Hood; mission-specific candidate
+ballas,speech_semantic,,,,,,,16,Reaction when hit by player,medium,forum speech ids
+ballas,speech_semantic,,,,,,,22,Ask to move out from the road,medium,forum speech ids
+ballas,speech_semantic,,,,,,,28,Reaction - was pushed,medium,forum speech ids
+ballas,speech_semantic,,,,,,,38,Warning about coming police,medium,forum speech ids
+ballas,speech_semantic,,,,,,,65,Ask to cover,medium,forum speech ids
+ballas,speech_semantic,,,,,,,66,Watch out plus insulting,medium,forum speech ids
+ballas,speech_semantic,,,,,,,68,You tripping,medium,forum speech ids
+police,model,280,lapd1,VOICE_EMG_LAPD1|VOICE_EMG_LAPD8,,,,,,high,local peds.ide
+police,model,281,sfpd1,VOICE_EMG_SFPD1|VOICE_EMG_SFPD5,,,,,,high,local peds.ide
+police,model,282,lvpd1,VOICE_EMG_LVPD1|VOICE_EMG_LVPD5,,,,,,high,local peds.ide
+police,model,283,csher,VOICE_EMG_RCOP1|VOICE_EMG_RCOP4,,,,,,high,local peds.ide
+police,model,284,lapdm1,VOICE_EMG_MCOP1|VOICE_EMG_MCOP6,,,,,,high,local peds.ide
+police,model,288,dsher,VOICE_EMG_RCOP1|VOICE_EMG_RCOP4,,,,,,high,local peds.ide
+police,candidate_sound,,,,GENRL,53,25,,,high,police dispatch over; likely dispatcher/radio not ped speech
+police,candidate_sound,,,,GENRL,137,11,,,high,police dispatch; likely dispatcher/radio not ped speech
+police,candidate_bank,,,,,171,,,,medium,Officer in need of backup
+police,candidate_range,,,,,,094-121,,medium,shouting at cops during police chase
+police,speech_semantic,,,,,,,15,When arrested,medium,forum speech ids
+police,speech_semantic,,,,,,,69,When arrested rough,medium,forum speech ids

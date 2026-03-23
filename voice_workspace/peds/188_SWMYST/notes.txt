@@ -1,0 +1,6 @@
+Ped: SWMYST
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_SWMYST
+Voice 2: VOICE_GEN_SWMYST
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

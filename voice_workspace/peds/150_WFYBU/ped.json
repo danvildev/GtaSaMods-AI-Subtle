@@ -1,0 +1,21 @@
+{
+  "model_id": 150,
+  "model_name": "WFYBU",
+  "txd_name": "wfybu",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_SUIT_GIRL",
+  "anim_group": "busywoman",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "9",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WFYBU",
+  "voice2": "VOICE_GEN_WFYBU",
+  "voices": [
+    "VOICE_GEN_WFYBU"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 187
+}

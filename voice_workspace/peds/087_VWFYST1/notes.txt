@@ -1,0 +1,6 @@
+Ped: VWFYST1
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_VWFYST1
+Voice 2: VOICE_GEN_VWFYST1
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

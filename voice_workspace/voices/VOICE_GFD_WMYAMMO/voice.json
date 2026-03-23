@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_WMYAMMO",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 179,
+      "model_name": "WMYAMMO",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

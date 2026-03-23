@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_WMYCLOT",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 217,
+      "model_name": "WMYCLOT",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

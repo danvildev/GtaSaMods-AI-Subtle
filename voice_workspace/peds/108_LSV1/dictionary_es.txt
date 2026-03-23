@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = LSV1
+# voices = VOICE_GNG_LSV1, VOICE_GNG_LSV2

@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_WMYPIZZ",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 155,
+      "model_name": "WMYPIZZ",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

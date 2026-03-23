@@ -1,0 +1,260 @@
+{
+  "generated_on": "2026-03-23",
+  "scope": "Ballas y policia",
+  "notes": [
+    "Esta semilla mezcla datos locales de peds.ide con clasificacion comunitaria parcial.",
+    "Los campos marcados como inference son inferencias razonables y no deben tratarse como verdad definitiva sin escuchar el audio.",
+    "Los banks de police dispatch y radio policial no siempre corresponden a ped speech diegetico del policia que tienes delante; algunos son radio/dispatcher."
+  ],
+  "sources": [
+    {
+      "id": "local_peds_ide",
+      "title": "peds.ide local",
+      "url": "d:/OldPCGames/Gta San Andreas - TheFenix010/data/peds.ide",
+      "kind": "local"
+    },
+    {
+      "id": "local_sdk_pedmodelinfo",
+      "title": "plugin-sdk CPedModelInfo",
+      "url": "d:/OldPCGames/Gta San Andreas - TheFenix010/modding_sdk/plugin-sdk/Plugin_SA/game_sa/CPedModelInfo.h",
+      "kind": "local"
+    },
+    {
+      "id": "gtamods_sfx_sa",
+      "title": "SFX (SA) - GTAMods Wiki",
+      "url": "https://gtamods.com/wiki/SFX_(SA)",
+      "kind": "web"
+    },
+    {
+      "id": "gtaforums_sounds_list",
+      "title": "GTA: San Andreas - Sounds List",
+      "url": "https://gtaforums.com/topic/923407-gta-san-andreas-sounds-list/",
+      "kind": "web"
+    },
+    {
+      "id": "gtaforums_speech_ids",
+      "title": "GTA San Andreas Speech ID List",
+      "url": "https://gtaforums.com/topic/505421-gta-san-andreas-speech-id-list/",
+      "kind": "web"
+    },
+    {
+      "id": "pdescobar_sfx_directory",
+      "title": "GTA:SA SFX Directory by pdescobar",
+      "url": "https://www.zazmahall.de/ZAZGTASANATORIUM/GTASA_SFX_Directory.htm",
+      "kind": "web"
+    }
+  ],
+  "groups": {
+    "ballas": {
+      "models": [
+        {
+          "model_id": 102,
+          "model_name": "BALLAS1",
+          "voice_labels": [
+            "VOICE_GNG_BALLAS1",
+            "VOICE_GNG_BALLAS2"
+          ]
+        },
+        {
+          "model_id": 103,
+          "model_name": "BALLAS2",
+          "voice_labels": [
+            "VOICE_GNG_BALLAS3",
+            "VOICE_GNG_BALLAS4"
+          ]
+        },
+        {
+          "model_id": 104,
+          "model_name": "BALLAS3",
+          "voice_labels": [
+            "VOICE_GNG_BALLAS5"
+          ]
+        }
+      ],
+      "candidate_audio_sets": [
+        {
+          "type": "package",
+          "package": "SPC_NA",
+          "confidence": "medium",
+          "inference": true,
+          "reason": "El hilo de Sounds List indica que SPC_NA contiene gang voice lines and story peds."
+        },
+        {
+          "type": "bank",
+          "package": "SPC_NA",
+          "bank_id": 11,
+          "confidence": "low",
+          "inference": true,
+          "reason": "El hilo de Sounds List menciona Bank_011 como Ballas taunts from Cleaning the Hood; probablemente contiene frases de Ballas, pero no necesariamente el set ambient completo."
+        }
+      ],
+      "speech_id_hypotheses": [
+        {
+          "speech_id": 16,
+          "meaning_en": "Reaction when hit by player",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 22,
+          "meaning_en": "Ask to move out from the road",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 28,
+          "meaning_en": "Reaction - was pushed",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 33,
+          "meaning_en": "Reaction - car on fire",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 38,
+          "meaning_en": "Warning about coming police",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 65,
+          "meaning_en": "Ask to cover",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 66,
+          "meaning_en": "Watch out plus insulting",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 67,
+          "meaning_en": "Vehicle damage reaction",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 68,
+          "meaning_en": "You tripping",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 74,
+          "meaning_en": "Reaction - someone damaged his car",
+          "confidence": "medium"
+        }
+      ]
+    },
+    "police": {
+      "models": [
+        {
+          "model_id": 280,
+          "model_name": "lapd1",
+          "voice_labels": [
+            "VOICE_EMG_LAPD1",
+            "VOICE_EMG_LAPD8"
+          ]
+        },
+        {
+          "model_id": 281,
+          "model_name": "sfpd1",
+          "voice_labels": [
+            "VOICE_EMG_SFPD1",
+            "VOICE_EMG_SFPD5"
+          ]
+        },
+        {
+          "model_id": 282,
+          "model_name": "lvpd1",
+          "voice_labels": [
+            "VOICE_EMG_LVPD1",
+            "VOICE_EMG_LVPD5"
+          ]
+        },
+        {
+          "model_id": 283,
+          "model_name": "csher",
+          "voice_labels": [
+            "VOICE_EMG_RCOP1",
+            "VOICE_EMG_RCOP4"
+          ]
+        },
+        {
+          "model_id": 284,
+          "model_name": "lapdm1",
+          "voice_labels": [
+            "VOICE_EMG_MCOP1",
+            "VOICE_EMG_MCOP6"
+          ]
+        },
+        {
+          "model_id": 288,
+          "model_name": "dsher",
+          "voice_labels": [
+            "VOICE_EMG_RCOP1",
+            "VOICE_EMG_RCOP4"
+          ]
+        }
+      ],
+      "candidate_audio_sets": [
+        {
+          "type": "bank_sound",
+          "package": "GENRL",
+          "bank_id": 53,
+          "sound_id": 25,
+          "confidence": "high",
+          "inference": true,
+          "reason": "El hilo de Sounds List clasifica ese sonido como Police dispatch over. Esto parece radio/dispatcher, no ped speech directo."
+        },
+        {
+          "type": "bank_sound",
+          "package": "GENRL",
+          "bank_id": 137,
+          "sound_id": 11,
+          "confidence": "high",
+          "inference": true,
+          "reason": "El hilo de Sounds List clasifica ese sonido como police dispatch. Tambien parece radio/dispatcher."
+        },
+        {
+          "type": "bank",
+          "package": "unknown",
+          "bank_id": 171,
+          "confidence": "medium",
+          "inference": false,
+          "reason": "El hilo de Sounds List menciona Bank_171 como Officer in need of backup."
+        },
+        {
+          "type": "range",
+          "package": "unknown",
+          "sound_range": "094-121",
+          "confidence": "medium",
+          "inference": false,
+          "reason": "La pagina 5 del hilo de Sounds List menciona Sound_094-121 como shouting at cops during police chase."
+        }
+      ],
+      "speech_id_hypotheses": [
+        {
+          "speech_id": 15,
+          "meaning_en": "When arrested",
+          "confidence": "medium"
+        },
+        {
+          "speech_id": 38,
+          "meaning_en": "Warning about coming police",
+          "confidence": "low"
+        },
+        {
+          "speech_id": 65,
+          "meaning_en": "Ask to cover",
+          "confidence": "low"
+        },
+        {
+          "speech_id": 66,
+          "meaning_en": "Watch out plus insulting",
+          "confidence": "low"
+        },
+        {
+          "speech_id": 69,
+          "meaning_en": "When arrested (rough)",
+          "confidence": "medium"
+        }
+      ]
+    }
+  }
+}

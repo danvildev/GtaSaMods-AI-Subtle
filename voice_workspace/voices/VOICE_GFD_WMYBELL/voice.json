@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_WMYBELL",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 167,
+      "model_name": "WMYBELL",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

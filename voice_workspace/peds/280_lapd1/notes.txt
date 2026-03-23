@@ -1,0 +1,6 @@
+Ped: lapd1
+Ped audio type: PED_TYPE_EMG
+Voice 1: VOICE_EMG_LAPD1
+Voice 2: VOICE_EMG_LAPD8
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,6 @@
+Ped: BFORI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BFORI
+Voice 2: VOICE_GEN_BFORI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

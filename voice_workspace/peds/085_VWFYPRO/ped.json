@@ -1,0 +1,21 @@
+{
+  "model_id": 85,
+  "model_name": "VWFYPRO",
+  "txd_name": "VWFYPRO",
+  "default_ped_type": "PROSTITUTE",
+  "stat_type": "STAT_PROSTITUTE",
+  "anim_group": "pro",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_VWFYPRO",
+  "voice2": "VOICE_GEN_VWFYPRO",
+  "voices": [
+    "VOICE_GEN_VWFYPRO"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 122
+}

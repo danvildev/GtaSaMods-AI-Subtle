@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = VBMOCD
+# voices = VOICE_GEN_VBMOCD

@@ -1,0 +1,6 @@
+Ped: DNB2
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_DNB2
+Voice 2: VOICE_GNG_DNB2
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

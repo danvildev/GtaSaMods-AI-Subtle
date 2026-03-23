@@ -1,0 +1,6 @@
+Ped: VWMYBJD
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_VWMYBJD
+Voice 2: VOICE_GEN_VWMYBJD
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

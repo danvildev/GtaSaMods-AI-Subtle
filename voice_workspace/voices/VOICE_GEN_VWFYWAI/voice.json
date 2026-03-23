@@ -1,0 +1,16 @@
+{
+  "voice": "VOICE_GEN_VWFYWAI",
+  "ped_count": 2,
+  "peds": [
+    {
+      "model_id": 214,
+      "model_name": "VWFYWAI",
+      "ped_audio_type": "PED_TYPE_GEN"
+    },
+    {
+      "model_id": 263,
+      "model_name": "VWFYWA2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

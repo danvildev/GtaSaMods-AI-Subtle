@@ -1,0 +1,6 @@
+Ped: NURGRL3
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_KATIE
+Voice 2: VOICE_GFD_KATIE
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

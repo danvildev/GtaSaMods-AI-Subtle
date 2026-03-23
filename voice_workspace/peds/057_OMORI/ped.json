@@ -1,0 +1,21 @@
+{
+  "model_id": 57,
+  "model_name": "OMORI",
+  "txd_name": "OMORI",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_COWARD",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "0",
+  "anim_file": "man",
+  "radio1": "10",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_OMORI",
+  "voice2": "VOICE_GEN_OMORI",
+  "voices": [
+    "VOICE_GEN_OMORI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 94
+}

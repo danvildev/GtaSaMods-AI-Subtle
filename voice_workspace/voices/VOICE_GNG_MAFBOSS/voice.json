@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_MAFBOSS",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 113,
+      "model_name": "MAFBOSS",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

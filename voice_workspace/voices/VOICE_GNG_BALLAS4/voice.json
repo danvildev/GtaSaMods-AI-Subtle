@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_BALLAS4",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 103,
+      "model_name": "BALLAS2",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

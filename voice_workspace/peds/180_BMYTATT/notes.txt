@@ -1,0 +1,6 @@
+Ped: BMYTATT
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_BMYTATT
+Voice 2: VOICE_GFD_BMYTATT
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

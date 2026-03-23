@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_MAFFA",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 111,
+      "model_name": "MAFFA",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

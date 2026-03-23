@@ -1,0 +1,6 @@
+Ped: CWMYHB2
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_CWMYHB2
+Voice 2: VOICE_GEN_CWMYHB2
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

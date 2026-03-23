@@ -1,0 +1,3 @@
+[submodule "modding_sdk/plugin-sdk"]
+	path = modding_sdk/plugin-sdk
+	url = https://github.com/DK22Pac/plugin-sdk

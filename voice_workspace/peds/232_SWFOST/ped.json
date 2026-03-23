@@ -1,0 +1,21 @@
+{
+  "model_id": 232,
+  "model_name": "SWFOST",
+  "txd_name": "SWFOST",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_STREET_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1003",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "7",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SWFOST",
+  "voice2": "VOICE_GEN_SWFOST",
+  "voices": [
+    "VOICE_GEN_SWFOST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 269
+}

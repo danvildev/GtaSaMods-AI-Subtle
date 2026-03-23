@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_BMOTR1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 79,
+      "model_name": "BMOTR1",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

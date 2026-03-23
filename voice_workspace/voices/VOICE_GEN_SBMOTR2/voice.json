@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SBMOTR2",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 134,
+      "model_name": "SBMOTR2",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

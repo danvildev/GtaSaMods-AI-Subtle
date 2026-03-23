@@ -1,0 +1,6 @@
+Ped: SOFORI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_SOFORI
+Voice 2: VOICE_GEN_SOFORI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

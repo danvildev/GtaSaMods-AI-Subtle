@@ -1,0 +1,22 @@
+{
+  "model_id": 102,
+  "model_name": "BALLAS1",
+  "txd_name": "BALLAS1",
+  "default_ped_type": "GANG1",
+  "stat_type": "STAT_GANG1",
+  "anim_group": "gang1",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "3",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_BALLAS1",
+  "voice2": "VOICE_GNG_BALLAS2",
+  "voices": [
+    "VOICE_GNG_BALLAS1",
+    "VOICE_GNG_BALLAS2"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 140
+}

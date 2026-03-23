@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_DENISE",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 195,
+      "model_name": "GANGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

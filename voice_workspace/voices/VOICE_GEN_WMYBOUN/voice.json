@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_WMYBOUN",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 164,
+      "model_name": "WMYBOUN",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

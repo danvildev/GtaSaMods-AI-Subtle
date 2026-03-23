@@ -1,0 +1,6 @@
+Ped: CWFOFR
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_CWFOFR
+Voice 2: VOICE_GEN_CWFOFR
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

@@ -1,0 +1,21 @@
+{
+  "model_id": 226,
+  "model_name": "SOFYST",
+  "txd_name": "SOFYST",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_STREET_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1003",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "4",
+  "radio2": "7",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SOFYST",
+  "voice2": "VOICE_GEN_SOFYST",
+  "voices": [
+    "VOICE_GEN_SOFYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 263
+}

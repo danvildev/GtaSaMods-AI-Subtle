@@ -1,0 +1,21 @@
+{
+  "model_id": 221,
+  "model_name": "SBMORI",
+  "txd_name": "SBMORI",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SUIT_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "8",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SBMORI",
+  "voice2": "VOICE_GEN_SBMORI",
+  "voices": [
+    "VOICE_GEN_SBMORI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 258
+}

@@ -1,0 +1,6 @@
+Ped: OMORI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_OMORI
+Voice 2: VOICE_GEN_OMORI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

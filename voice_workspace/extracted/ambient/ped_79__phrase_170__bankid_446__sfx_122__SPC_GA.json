@@ -1,0 +1,20 @@
+{
+  "group": "ambient",
+  "model_id": 79,
+  "model_name": "ped_79",
+  "voice_label": "voice_type_0|voice_id_17|gender_0",
+  "phrase_id": 170,
+  "bank_id": 446,
+  "bank_slot_id": 20,
+  "sound_id": 122,
+  "package_name": "SPC_GA",
+  "package_index": 6,
+  "bank_header_offset": 98330026,
+  "bank_size": 5126374,
+  "sample_rate": 12000,
+  "loop_offset": -1,
+  "headroom": -6,
+  "pcm_offset": 102551560,
+  "pcm_length": 32900,
+  "wav_path": "voice_workspace\\extracted\\ambient\\ped_79__phrase_170__bankid_446__sfx_122__SPC_GA.wav"
+}

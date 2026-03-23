@@ -1,0 +1,21 @@
+{
+  "model_id": 110,
+  "model_name": "LSV3",
+  "txd_name": "LSV3",
+  "default_ped_type": "GANG3",
+  "stat_type": "STAT_GANG3",
+  "anim_group": "gang1",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "9",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_LSV5",
+  "voice2": "VOICE_GNG_LSV5",
+  "voices": [
+    "VOICE_GNG_LSV5"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 148
+}

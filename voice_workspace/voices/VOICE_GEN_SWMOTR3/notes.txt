@@ -1,0 +1,2 @@
+Voice token: VOICE_GEN_SWMOTR3
+Pon aqui notas globales de la voz, slang, tono y equivalencias.

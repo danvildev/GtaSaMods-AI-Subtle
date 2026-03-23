@@ -1,0 +1,6 @@
+Ped: HMOGAR
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_WMYGAR
+Voice 2: VOICE_GEN_WMYGAR
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

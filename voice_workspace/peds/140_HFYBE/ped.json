@@ -1,0 +1,21 @@
+{
+  "model_id": 140,
+  "model_name": "HFYBE",
+  "txd_name": "HFYBE",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_BEACH_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "0",
+  "anim_file": "beach",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_HFYBE",
+  "voice2": "VOICE_GEN_HFYBE",
+  "voices": [
+    "VOICE_GEN_HFYBE"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 178
+}

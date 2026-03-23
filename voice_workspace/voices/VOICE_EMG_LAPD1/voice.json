@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_EMG_LAPD1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 280,
+      "model_name": "lapd1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

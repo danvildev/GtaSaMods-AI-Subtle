@@ -1,0 +1,21 @@
+{
+  "model_id": 177,
+  "model_name": "WMYBAR",
+  "txd_name": "WMYBAR",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SENSIBLE_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GFD",
+  "voice1": "VOICE_GFD_WMYBARB",
+  "voice2": "VOICE_GFD_WMYBARB",
+  "voices": [
+    "VOICE_GFD_WMYBARB"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 214
+}

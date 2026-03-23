@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_HELENA",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 191,
+      "model_name": "GUNGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

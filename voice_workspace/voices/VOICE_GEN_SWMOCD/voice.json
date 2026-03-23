@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SWMOCD",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 234,
+      "model_name": "SWMOCD",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

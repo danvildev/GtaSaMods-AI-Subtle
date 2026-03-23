@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_BMOSEC",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 253,
+      "model_name": "BMOSEC",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "model_id": 217,
+  "model_name": "WMYCLOT",
+  "txd_name": "WMYCLOT",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_STREET_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1FFF",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GFD",
+  "voice1": "VOICE_GFD_WMYCLOT",
+  "voice2": "VOICE_GFD_WMYCLOT",
+  "voices": [
+    "VOICE_GFD_WMYCLOT"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 254
+}

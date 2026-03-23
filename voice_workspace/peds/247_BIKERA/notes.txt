@@ -1,0 +1,6 @@
+Ped: BIKERA
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_BIKERA
+Voice 2: VOICE_GEN_BIKERA
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

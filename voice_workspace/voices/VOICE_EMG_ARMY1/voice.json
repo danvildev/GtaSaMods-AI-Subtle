@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_EMG_ARMY1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 287,
+      "model_name": "army",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

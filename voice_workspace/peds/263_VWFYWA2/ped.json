@@ -1,0 +1,21 @@
+{
+  "model_id": 263,
+  "model_name": "VWFYWA2",
+  "txd_name": "VWFYWA2",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_STREET_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1FFF",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_VWFYWAI",
+  "voice2": "VOICE_GEN_VWFYWAI",
+  "voices": [
+    "VOICE_GEN_VWFYWAI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 300
+}

@@ -1,0 +1,21 @@
+{
+  "model_id": 163,
+  "model_name": "BMYBOUN",
+  "txd_name": "bmyboun",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "170F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "5",
+  "radio2": "8",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BMYBOUN",
+  "voice2": "VOICE_GEN_BMYBOUN",
+  "voices": [
+    "VOICE_GEN_BMYBOUN"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 200
+}

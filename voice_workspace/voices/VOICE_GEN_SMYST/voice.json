@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_SMYST",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 241,
+      "model_name": "SMYST",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

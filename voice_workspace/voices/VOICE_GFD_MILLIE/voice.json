@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_MILLIE",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 194,
+      "model_name": "CROGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_DWFOLC",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 31,
+      "model_name": "DWFOLC",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

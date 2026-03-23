@@ -1,0 +1,21 @@
+{
+  "model_id": 241,
+  "model_name": "SMYST",
+  "txd_name": "SMYST",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_STREET_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "0",
+  "radio2": "5",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SMYST",
+  "voice2": "VOICE_GEN_SMYST",
+  "voices": [
+    "VOICE_GEN_SMYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 278
+}

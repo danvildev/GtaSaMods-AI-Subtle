@@ -1,0 +1,21 @@
+{
+  "model_id": 75,
+  "model_name": "SWFOPRO",
+  "txd_name": "sWFOpro",
+  "default_ped_type": "PROSTITUTE",
+  "stat_type": "STAT_PROSTITUTE",
+  "anim_group": "pro",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "3",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SWFOPRO",
+  "voice2": "VOICE_GEN_SWFOPRO",
+  "voices": [
+    "VOICE_GEN_SWFOPRO"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 112
+}

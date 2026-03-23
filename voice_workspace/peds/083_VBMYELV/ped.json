@@ -1,0 +1,21 @@
+{
+  "model_id": 83,
+  "model_name": "VBMYELV",
+  "txd_name": "VBMYELV",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "170F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "2",
+  "radio2": "1",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_VBMYELV",
+  "voice2": "VOICE_GEN_VBMYELV",
+  "voices": [
+    "VOICE_GEN_VBMYELV"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 120
+}

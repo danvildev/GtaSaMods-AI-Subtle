@@ -1,0 +1,21 @@
+{
+  "model_id": 48,
+  "model_name": "HMYST",
+  "txd_name": "HMYST",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOURIST",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "0",
+  "radio2": "5",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_HMYST",
+  "voice2": "VOICE_GEN_HMYST",
+  "voices": [
+    "VOICE_GEN_HMYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 85
+}

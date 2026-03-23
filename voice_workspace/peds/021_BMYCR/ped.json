@@ -1,0 +1,21 @@
+{
+  "model_id": 21,
+  "model_name": "BMYCR",
+  "txd_name": "BMYCR",
+  "default_ped_type": "CRIMINAL",
+  "stat_type": "STAT_CRIMINAL",
+  "anim_group": "gang1",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "5",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BMYCR",
+  "voice2": "VOICE_GEN_BMYCR",
+  "voices": [
+    "VOICE_GEN_BMYCR"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 58
+}

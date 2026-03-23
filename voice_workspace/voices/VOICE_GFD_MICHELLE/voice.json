@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GFD_MICHELLE",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 192,
+      "model_name": "MECGRL3",
+      "ped_audio_type": "PED_TYPE_GFD"
+    }
+  ]
+}

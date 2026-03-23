@@ -1,0 +1,4 @@
+# Traduccion manual por ped.
+# Formato sugerido: PHRASE_ID = texto en espanol
+# model_name = VLA2
+# voices = VOICE_GNG_VLA3, VOICE_GNG_VLA4

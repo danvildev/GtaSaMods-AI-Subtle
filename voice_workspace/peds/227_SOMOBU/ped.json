@@ -1,0 +1,21 @@
+{
+  "model_id": 227,
+  "model_name": "SOMOBU",
+  "txd_name": "SOMOBU",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SUIT_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "10",
+  "radio2": "10",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_SOMOBU",
+  "voice2": "VOICE_GEN_SOMOBU",
+  "voices": [
+    "VOICE_GEN_SOMOBU"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 264
+}

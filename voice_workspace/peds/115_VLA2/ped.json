@@ -1,0 +1,22 @@
+{
+  "model_id": 115,
+  "model_name": "VLA2",
+  "txd_name": "VLA2",
+  "default_ped_type": "GANG8",
+  "stat_type": "STAT_GANG8",
+  "anim_group": "gang2",
+  "cars_can_drive_mask": "110F",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "0",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GANG",
+  "voice1": "VOICE_GNG_VLA3",
+  "voice2": "VOICE_GNG_VLA4",
+  "voices": [
+    "VOICE_GNG_VLA3",
+    "VOICE_GNG_VLA4"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 153
+}

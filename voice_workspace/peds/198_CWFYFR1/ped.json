@@ -1,0 +1,21 @@
+{
+  "model_id": 198,
+  "model_name": "CWFYFR1",
+  "txd_name": "CWFYFR1",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_TOUGH_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "0",
+  "anim_file": "null",
+  "radio1": "2",
+  "radio2": "1",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_CWFYFR1",
+  "voice2": "VOICE_GEN_CWFYFR1",
+  "voices": [
+    "VOICE_GEN_CWFYFR1"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 235
+}

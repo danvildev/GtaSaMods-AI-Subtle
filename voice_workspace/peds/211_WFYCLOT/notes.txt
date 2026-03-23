@@ -1,0 +1,6 @@
+Ped: WFYCLOT
+Ped audio type: PED_TYPE_GFD
+Voice 1: VOICE_GFD_WFYCLOT
+Voice 2: VOICE_GFD_WFYCLOT
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

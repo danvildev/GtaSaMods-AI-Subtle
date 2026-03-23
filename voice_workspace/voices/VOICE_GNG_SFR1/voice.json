@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_SFR1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 173,
+      "model_name": "SFR1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Ped: OFYRI
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_OFYRI
+Voice 2: VOICE_GEN_OFYRI
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

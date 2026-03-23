@@ -1,0 +1,21 @@
+{
+  "model_id": 161,
+  "model_name": "CWMYFR",
+  "txd_name": "cwmyfr",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "6",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_CWMYFR",
+  "voice2": "VOICE_GEN_CWMYFR",
+  "voices": [
+    "VOICE_GEN_CWMYFR"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 198
+}

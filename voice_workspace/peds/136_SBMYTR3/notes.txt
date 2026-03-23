@@ -1,0 +1,6 @@
+Ped: SBMYTR3
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_SBMYTR3
+Voice 2: VOICE_GEN_SBMYTR3
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

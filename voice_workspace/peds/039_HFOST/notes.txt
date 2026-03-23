@@ -1,0 +1,6 @@
+Ped: HFOST
+Ped audio type: PED_TYPE_GEN
+Voice 1: VOICE_GEN_HFOST
+Voice 2: VOICE_GEN_HFOST
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

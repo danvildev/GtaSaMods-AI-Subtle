@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GEN_BIKERB",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 248,
+      "model_name": "BIKERB",
+      "ped_audio_type": "PED_TYPE_GEN"
+    }
+  ]
+}

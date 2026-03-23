@@ -1,0 +1,21 @@
+{
+  "model_id": 19,
+  "model_name": "BMYDJ",
+  "txd_name": "BMYDJ",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_STREET_GUY",
+  "anim_group": "gang1",
+  "cars_can_drive_mask": "170F",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "5",
+  "radio2": "0",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BMYDJ",
+  "voice2": "VOICE_GEN_BMYDJ",
+  "voices": [
+    "VOICE_GEN_BMYDJ"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 56
+}

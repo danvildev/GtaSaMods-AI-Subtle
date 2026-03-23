@@ -1,0 +1,21 @@
+{
+  "model_id": 247,
+  "model_name": "BIKERA",
+  "txd_name": "BIKERA",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_TOUGH_GUY",
+  "anim_group": "man",
+  "cars_can_drive_mask": "0",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "5",
+  "radio2": "2",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BIKERA",
+  "voice2": "VOICE_GEN_BIKERA",
+  "voices": [
+    "VOICE_GEN_BIKERA"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 284
+}

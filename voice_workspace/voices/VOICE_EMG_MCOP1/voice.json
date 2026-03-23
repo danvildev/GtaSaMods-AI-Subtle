@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_EMG_MCOP1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 284,
+      "model_name": "lapdm1",
+      "ped_audio_type": "PED_TYPE_EMG"
+    }
+  ]
+}

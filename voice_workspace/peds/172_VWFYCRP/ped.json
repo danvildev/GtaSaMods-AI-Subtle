@@ -1,0 +1,21 @@
+{
+  "model_id": 172,
+  "model_name": "VWFYCRP",
+  "txd_name": "vwfycrp",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_SUIT_GIRL",
+  "anim_group": "busywoman",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "man",
+  "radio1": "1",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WFYCRP",
+  "voice2": "VOICE_GEN_WFYCRP",
+  "voices": [
+    "VOICE_GEN_WFYCRP"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 209
+}

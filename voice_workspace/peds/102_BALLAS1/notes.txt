@@ -1,0 +1,6 @@
+Ped: BALLAS1
+Ped audio type: PED_TYPE_GANG
+Voice 1: VOICE_GNG_BALLAS1
+Voice 2: VOICE_GNG_BALLAS2
+
+Pon aqui contexto, insultos recurrentes, tono, slang, etc.

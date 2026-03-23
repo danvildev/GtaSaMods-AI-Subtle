@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_VLA1",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 114,
+      "model_name": "VLA1",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}

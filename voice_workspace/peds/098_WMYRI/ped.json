@@ -1,0 +1,21 @@
+{
+  "model_id": 98,
+  "model_name": "WMYRI",
+  "txd_name": "WMYRI",
+  "default_ped_type": "CIVMALE",
+  "stat_type": "STAT_SHOPPER",
+  "anim_group": "man",
+  "cars_can_drive_mask": "120C",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "6",
+  "radio2": "9",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WMYRI",
+  "voice2": "VOICE_GEN_WMYRI",
+  "voices": [
+    "VOICE_GEN_WMYRI"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 135
+}

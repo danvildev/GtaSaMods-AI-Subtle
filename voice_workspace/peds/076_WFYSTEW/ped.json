@@ -1,0 +1,21 @@
+{
+  "model_id": 76,
+  "model_name": "WFYSTEW",
+  "txd_name": "WFYSTEW",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_GEEK_GIRL",
+  "anim_group": "sexywoman",
+  "cars_can_drive_mask": "1000",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "6",
+  "radio2": "4",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_WFYSTEW",
+  "voice2": "VOICE_GEN_WFYSTEW",
+  "voices": [
+    "VOICE_GEN_WFYSTEW"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 113
+}

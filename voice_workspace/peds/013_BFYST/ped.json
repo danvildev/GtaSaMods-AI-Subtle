@@ -1,0 +1,21 @@
+{
+  "model_id": 13,
+  "model_name": "BFYST",
+  "txd_name": "BFYST",
+  "default_ped_type": "CIVFEMALE",
+  "stat_type": "STAT_STREET_GIRL",
+  "anim_group": "woman",
+  "cars_can_drive_mask": "1983",
+  "ped_flags": "1",
+  "anim_file": "null",
+  "radio1": "0",
+  "radio2": "3",
+  "ped_audio_type": "PED_TYPE_GEN",
+  "voice1": "VOICE_GEN_BFYST",
+  "voice2": "VOICE_GEN_BFYST",
+  "voices": [
+    "VOICE_GEN_BFYST"
+  ],
+  "source_file": "data\\peds.ide",
+  "source_line": 50
+}

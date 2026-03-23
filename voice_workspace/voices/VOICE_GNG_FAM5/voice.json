@@ -1,0 +1,11 @@
+{
+  "voice": "VOICE_GNG_FAM5",
+  "ped_count": 1,
+  "peds": [
+    {
+      "model_id": 107,
+      "model_name": "FAM3",
+      "ped_audio_type": "PED_TYPE_GANG"
+    }
+  ]
+}
