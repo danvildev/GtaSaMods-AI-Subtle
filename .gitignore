@@ -45,6 +45,7 @@ __pycache__/
 *.pyc
 /modding_sdk/projects/AIMOD/tts/.venv/
 /modding_sdk/projects/AIMOD/tts/cache/
+/modding_sdk/projects/AIMOD/tts/hf_cache/
 /modding_sdk/projects/AIMOD/tts/voices/
 /modding_sdk/projects/AIMOD/tools/build/
 /modding_sdk/projects/AIMOD/tools/models/

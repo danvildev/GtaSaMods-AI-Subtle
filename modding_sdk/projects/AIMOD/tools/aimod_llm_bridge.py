@@ -63,6 +63,23 @@ def load_profile(group_name: str) -> dict:
         return dict(row) if row is not None else {}
 
 
+def load_ped_profile(model_id: int) -> dict:
+    if not DB_PATH.exists():
+        return {}
+
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+        row = conn.execute(
+            """
+            SELECT model_id, group_name, persona_title, temperament, street_role, prompt_hint
+            FROM ped_dialogue_profiles
+            WHERE model_id = ?
+            """,
+            (model_id,),
+        ).fetchone()
+        return dict(row) if row is not None else {}
+
+
 def classify_intent(text: str) -> str:
     lower = text.lower()
     if any(word in lower for word in ("hola", "buenas", "que onda", "oye")):
@@ -84,7 +101,10 @@ def fallback_response(payload: dict) -> dict:
     player_text = normalize_text(payload.get("player_text", ""))
     group_name = payload.get("group_name", "default") or "default"
     npc_name = payload.get("npc_name", "peaton") or "peaton"
+    model_id = int(payload.get("model_id", -1) or -1)
+    expected_reaction = normalize_text(payload.get("expected_reaction", ""))
     profile = load_profile(group_name)
+    ped_profile = load_ped_profile(model_id) if model_id >= 0 else {}
     intent = classify_intent(player_text)
 
     if intent == "insult":
@@ -109,13 +129,21 @@ def fallback_response(payload: dict) -> dict:
         reaction = "neutral"
         reply = f"No se, {npc_name}, pero te escuche."
 
+    if expected_reaction and intent in {"greet", "ask", "calm", "dismiss", "recruit"}:
+        reaction = expected_reaction
+
+    persona_title = ped_profile.get("persona_title")
+    if persona_title and intent == "ask" and group_name in {"ambient", "special"}:
+        reply = f"{reply} Soy {persona_title.lower()}."
+
     return {
         "ok": True,
         "backend": "fallback",
         "intent": intent,
         "reaction": reaction,
         "reply_es": reply,
-        "prompt_used": "fallback_rules"
+        "prompt_used": "fallback_rules",
+        "persona_title": persona_title or "",
     }
 
 

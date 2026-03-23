@@ -59,15 +59,21 @@ constexpr char kTargetLogRelativePath[] = "modding_sdk\\projects\\AIMOD\\data\\l
 constexpr char kObservedRootRelativePath[] = "modding_sdk\\projects\\AIMOD\\data\\observed";
 constexpr char kCatalogDbRelativePath[] = "modding_sdk\\projects\\AIMOD\\data\\aimod_catalog.db";
 constexpr char kTtsStartServerRelativePath[] = "modding_sdk\\projects\\AIMOD\\tts\\start_tts_server.cmd";
+constexpr char kLlmBridgeStartServerRelativePath[] = "modding_sdk\\projects\\AIMOD\\tools\\start_llm_bridge.cmd";
 constexpr char kDbMissingSeedText[] = "[db:sin_seed]";
 constexpr char kDbMissingCatalogText[] = "[db:sin_catalogo]";
 constexpr char kDbMissingReplyText[] = "[db:reply_missing]";
+constexpr char kAiPendingText[] = "...";
 constexpr unsigned int kTtsStatusLifetimeMs = 3200;
 constexpr unsigned int kTtsBusyStatusLifetimeMs = 1500;
 constexpr wchar_t kTtsServerHost[] = L"127.0.0.1";
 constexpr INTERNET_PORT kTtsServerPort = 5055;
 constexpr wchar_t kTtsHealthPath[] = L"/health";
 constexpr wchar_t kTtsSynthesizePath[] = L"/synthesize-for-ped";
+constexpr wchar_t kLlmBridgeHost[] = L"127.0.0.1";
+constexpr INTERNET_PORT kLlmBridgePort = 5056;
+constexpr wchar_t kLlmBridgeHealthPath[] = L"/health";
+constexpr wchar_t kLlmBridgeChatPath[] = L"/npc-chat";
 
 struct PedSpeechState {
     bool wasTalking = false;
@@ -173,6 +179,14 @@ struct TtsAssignment {
     float speed = 1.0f;
 };
 
+struct PedDialogueProfile {
+    std::string groupName;
+    std::string personaTitle;
+    std::string temperament;
+    std::string streetRole;
+    std::string promptHint;
+};
+
 struct InteractionKeywordRule {
     std::string keyword;
     InteractionActionId actionId = InteractionActionId::Ask;
@@ -184,6 +198,29 @@ struct TtsJob {
     std::string text;
 };
 
+struct AiJob {
+    int pedRef = -1;
+    int modelId = -1;
+    std::string npcName;
+    std::string groupName;
+    std::string profileName;
+    std::string playerText;
+    InteractionActionId actionId = InteractionActionId::Ask;
+    std::string fallbackReactionKey;
+    unsigned int submittedAt = 0;
+};
+
+struct AiResult {
+    int pedRef = -1;
+    int modelId = -1;
+    std::string groupName;
+    std::string replyText;
+    std::string reactionKey;
+    InteractionActionId actionId = InteractionActionId::Ask;
+    unsigned int submittedAt = 0;
+    bool usedBridge = false;
+};
+
 struct RuntimeVoiceCatalog {
     bool attemptedLoad = false;
     bool loaded = false;
@@ -192,6 +229,7 @@ struct RuntimeVoiceCatalog {
     std::unordered_map<int, std::vector<std::string>> modelSeedTexts;
     std::unordered_map<std::string, std::vector<std::string>> groupSeedTexts;
     std::unordered_map<int, TtsAssignment> ttsAssignments;
+    std::unordered_map<int, PedDialogueProfile> pedDialogueProfiles;
     std::vector<InteractionKeywordRule> interactionKeywordRules;
     std::vector<InteractionActionConfig> interactionActions;
     std::unordered_map<std::string, InteractionProfile> interactionProfiles;
@@ -308,6 +346,85 @@ const char *ActionKeyName(InteractionActionId actionId) {
     }
 }
 
+bool IsKnownReactionKey(const std::string &reactionKey) {
+    return reactionKey == "friendly" ||
+        reactionKey == "neutral" ||
+        reactionKey == "warn" ||
+        reactionKey == "dismiss" ||
+        reactionKey == "refuse" ||
+        reactionKey == "flee" ||
+        reactionKey == "follow" ||
+        reactionKey == "attack";
+}
+
+bool IsReactionAllowedForAction(InteractionActionId actionId, const std::string &reactionKey) {
+    if (!IsKnownReactionKey(reactionKey)) {
+        return false;
+    }
+
+    switch (actionId) {
+    case InteractionActionId::Greet:
+        return reactionKey == "friendly" || reactionKey == "neutral" || reactionKey == "dismiss" || reactionKey == "warn";
+    case InteractionActionId::Ask:
+        return reactionKey == "friendly" || reactionKey == "neutral" || reactionKey == "dismiss" || reactionKey == "warn" || reactionKey == "refuse";
+    case InteractionActionId::Insult:
+        return reactionKey == "dismiss" || reactionKey == "warn" || reactionKey == "attack";
+    case InteractionActionId::Threaten:
+        return reactionKey == "warn" || reactionKey == "attack" || reactionKey == "flee";
+    case InteractionActionId::Calm:
+        return reactionKey == "friendly" || reactionKey == "neutral" || reactionKey == "warn";
+    case InteractionActionId::Recruit:
+        return reactionKey == "follow" || reactionKey == "refuse" || reactionKey == "dismiss" || reactionKey == "neutral";
+    case InteractionActionId::Dismiss:
+        return reactionKey == "dismiss" || reactionKey == "warn" || reactionKey == "neutral";
+    default:
+        return false;
+    }
+}
+
+std::string CanonicalizeReactionKey(
+    const std::string &groupName,
+    InteractionActionId actionId,
+    const std::string &fallbackReactionKey,
+    const std::string &suggestedReactionKey
+) {
+    if (suggestedReactionKey.empty() || !IsReactionAllowedForAction(actionId, suggestedReactionKey)) {
+        return fallbackReactionKey;
+    }
+
+    if (actionId == InteractionActionId::Insult || actionId == InteractionActionId::Threaten) {
+        return fallbackReactionKey;
+    }
+
+    if (groupName == "police") {
+        if (actionId == InteractionActionId::Recruit) {
+            return "refuse";
+        }
+        if (actionId == InteractionActionId::Dismiss && suggestedReactionKey == "dismiss") {
+            return "warn";
+        }
+        if ((actionId == InteractionActionId::Greet || actionId == InteractionActionId::Ask || actionId == InteractionActionId::Calm) &&
+            suggestedReactionKey == "friendly") {
+            return fallbackReactionKey == "friendly" ? "neutral" : fallbackReactionKey;
+        }
+    }
+
+    if ((groupName == "ballas" || groupName == "gang")) {
+        if ((actionId == InteractionActionId::Greet || actionId == InteractionActionId::Ask) && suggestedReactionKey == "friendly") {
+            return fallbackReactionKey;
+        }
+        if (actionId == InteractionActionId::Recruit && suggestedReactionKey == "friendly") {
+            return "refuse";
+        }
+    }
+
+    if (fallbackReactionKey == "follow" && suggestedReactionKey != "follow" && suggestedReactionKey != "refuse") {
+        return fallbackReactionKey;
+    }
+
+    return suggestedReactionKey;
+}
+
 std::vector<InteractionActionConfig> GetFallbackInteractionActions() {
     return {
         { InteractionActionId::Greet, "greet", "1 Saludar", "Oye, buenas.", '1', 1 },
@@ -417,6 +534,31 @@ void LoadRuntimeVoiceCatalog() {
             assignment.pitch = static_cast<float>(sqlite3_column_double(stmt, 3));
             assignment.speed = static_cast<float>(sqlite3_column_double(stmt, 4));
             g_runtimeCatalog.ttsAssignments[modelId] = assignment;
+        }
+    }
+    sqlite3_finalize(stmt);
+    stmt = nullptr;
+
+    const char *pedProfileSql =
+        "SELECT model_id, group_name, persona_title, temperament, street_role, prompt_hint "
+        "FROM ped_dialogue_profiles";
+    if (sqlite3_prepare_v2(db, pedProfileSql, -1, &stmt, nullptr) == SQLITE_OK) {
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            const int modelId = sqlite3_column_int(stmt, 0);
+            const unsigned char *groupName = sqlite3_column_text(stmt, 1);
+            const unsigned char *personaTitle = sqlite3_column_text(stmt, 2);
+            const unsigned char *temperament = sqlite3_column_text(stmt, 3);
+            const unsigned char *streetRole = sqlite3_column_text(stmt, 4);
+            const unsigned char *promptHint = sqlite3_column_text(stmt, 5);
+            if (!groupName || !personaTitle || !temperament || !streetRole || !promptHint) continue;
+
+            PedDialogueProfile profile;
+            profile.groupName = reinterpret_cast<const char *>(groupName);
+            profile.personaTitle = reinterpret_cast<const char *>(personaTitle);
+            profile.temperament = reinterpret_cast<const char *>(temperament);
+            profile.streetRole = reinterpret_cast<const char *>(streetRole);
+            profile.promptHint = reinterpret_cast<const char *>(promptHint);
+            g_runtimeCatalog.pedDialogueProfiles[modelId] = profile;
         }
     }
     sqlite3_finalize(stmt);
@@ -552,6 +694,15 @@ std::string GetCatalogModelName(int modelId) {
     std::ostringstream out;
     out << "[db:model_missing:" << modelId << "]";
     return out.str();
+}
+
+std::string GetPedPersonaTitle(int modelId) {
+    LoadRuntimeVoiceCatalog();
+    const auto it = g_runtimeCatalog.pedDialogueProfiles.find(modelId);
+    if (it != g_runtimeCatalog.pedDialogueProfiles.end() && !it->second.personaTitle.empty()) {
+        return it->second.personaTitle;
+    }
+    return {};
 }
 
 std::string GetCatalogVoiceLabel(CPed *ped) {
@@ -940,6 +1091,25 @@ void EnsureTtsServerRunning() {
     ShellExecuteA(nullptr, "open", scriptPath.c_str(), nullptr, workingDir.c_str(), SW_MINIMIZE);
 }
 
+bool IsLlmBridgeAvailable() {
+    std::string response;
+    return HttpGetText(kLlmBridgeHost, kLlmBridgePort, kLlmBridgeHealthPath, response) && JsonContainsTrue(response, "ok");
+}
+
+void EnsureLlmBridgeRunning() {
+    if (IsLlmBridgeAvailable()) {
+        return;
+    }
+
+    const std::string scriptPath = GetAbsoluteRuntimePath(kLlmBridgeStartServerRelativePath);
+    if (scriptPath.empty() || !std::filesystem::exists(scriptPath)) {
+        return;
+    }
+
+    const std::string workingDir = std::filesystem::path(scriptPath).parent_path().string();
+    ShellExecuteA(nullptr, "open", scriptPath.c_str(), nullptr, workingDir.c_str(), SW_MINIMIZE);
+}
+
 std::string ToLowerAscii(std::string value) {
     for (char &ch : value) {
         ch = static_cast<char>(std::tolower(static_cast<unsigned char>(ch)));
@@ -1320,18 +1490,30 @@ struct Main {
     std::deque<TtsJob> m_ttsQueue;
     std::thread m_ttsWorker;
     std::atomic<bool> m_ttsWorkerStop = false;
+    std::mutex m_aiQueueMutex;
+    std::condition_variable m_aiQueueCv;
+    std::deque<AiJob> m_aiQueue;
+    std::mutex m_aiResultMutex;
+    std::deque<AiResult> m_aiResults;
+    std::unordered_map<int, unsigned int> m_pendingAiByPed;
+    std::thread m_aiWorker;
+    std::atomic<bool> m_aiWorkerStop = false;
     bool m_runtimeBootstrapped = false;
 
     Main();
     ~Main();
     void EnsureRuntimeBootstrapped();
     void StartTtsWorkerIfNeeded();
+    void StartAiWorkerIfNeeded();
     void PollKeys();
     bool IsKeyJustPressed(int vk) const;
     void SetPedBubble(int pedRef, const std::string &text, short phraseId, unsigned int expiresAt);
     void SetTtsStatus(const std::string &text, unsigned int holdMs);
     void QueueTtsLine(int modelId, const std::string &text);
     void TtsWorkerLoop();
+    void QueueAiReply(const AiJob &job);
+    void AiWorkerLoop();
+    void DrainAiResults(CPlayerPed *player, unsigned int now);
     void DecayInteractionMemory(PedInteractionMemory &memory, unsigned int now);
     void DecayGroupInteractionMemory(GroupInteractionMemory &memory, unsigned int now);
     void AddConversationLine(bool fromPlayer, const std::string &text);
@@ -1359,6 +1541,12 @@ Main::~Main() {
     if (m_ttsWorker.joinable()) {
         m_ttsWorker.join();
     }
+
+    m_aiWorkerStop = true;
+    m_aiQueueCv.notify_all();
+    if (m_aiWorker.joinable()) {
+        m_aiWorker.join();
+    }
 }
 
 void Main::StartTtsWorkerIfNeeded() {
@@ -1370,6 +1558,15 @@ void Main::StartTtsWorkerIfNeeded() {
     m_ttsWorker = std::thread([this]() { TtsWorkerLoop(); });
 }
 
+void Main::StartAiWorkerIfNeeded() {
+    if (m_aiWorker.joinable()) {
+        return;
+    }
+
+    m_aiWorkerStop = false;
+    m_aiWorker = std::thread([this]() { AiWorkerLoop(); });
+}
+
 void Main::EnsureRuntimeBootstrapped() {
     if (m_runtimeBootstrapped) {
         return;
@@ -1378,6 +1575,7 @@ void Main::EnsureRuntimeBootstrapped() {
     LoadRuntimeVoiceCatalog();
     LoadPersistedGroupMemories(m_groupInteractionMemory);
     StartTtsWorkerIfNeeded();
+    StartAiWorkerIfNeeded();
     m_runtimeBootstrapped = true;
 
     SetTtsStatus(g_runtimeCatalog.loaded ? "AIMOD listo" : "AIMOD sin catalogo", 1800);
@@ -1471,6 +1669,125 @@ void Main::TtsWorkerLoop() {
         }
 
         SetTtsStatus(voiceId.empty() ? "TTS listo" : ("TTS " + voiceId), 2200);
+    }
+}
+
+void Main::QueueAiReply(const AiJob &job) {
+    if (job.pedRef == -1 || job.playerText.empty()) {
+        return;
+    }
+
+    StartAiWorkerIfNeeded();
+
+    {
+        std::lock_guard<std::mutex> lock(m_aiQueueMutex);
+        m_pendingAiByPed[job.pedRef] = job.submittedAt;
+        m_aiQueue.push_back(job);
+    }
+    m_aiQueueCv.notify_one();
+}
+
+void Main::AiWorkerLoop() {
+    while (!m_aiWorkerStop) {
+        AiJob job;
+        {
+            std::unique_lock<std::mutex> lock(m_aiQueueMutex);
+            m_aiQueueCv.wait(lock, [this]() { return m_aiWorkerStop || !m_aiQueue.empty(); });
+            if (m_aiWorkerStop) {
+                return;
+            }
+            job = m_aiQueue.front();
+            m_aiQueue.pop_front();
+        }
+
+        AiResult result;
+        result.pedRef = job.pedRef;
+        result.modelId = job.modelId;
+        result.groupName = job.groupName;
+        result.actionId = job.actionId;
+        result.submittedAt = job.submittedAt;
+        result.reactionKey = job.fallbackReactionKey;
+
+        SetTtsStatus("AIMOD pensando...", kTtsStatusLifetimeMs);
+
+        const std::string body =
+            std::string("{\"model_id\":") + std::to_string(job.modelId) +
+            ",\"npc_name\":\"" + JsonEscape(job.npcName) +
+            "\",\"group_name\":\"" + JsonEscape(job.groupName) +
+            "\",\"profile_name\":\"" + JsonEscape(job.profileName) +
+            "\",\"player_text\":\"" + JsonEscape(job.playerText) +
+            "\",\"expected_reaction\":\"" + JsonEscape(job.fallbackReactionKey) + "\"}";
+
+        std::string response;
+        bool requestOk = HttpPostJson(kLlmBridgeHost, kLlmBridgePort, kLlmBridgeChatPath, body, response);
+        if (!requestOk || !JsonContainsTrue(response, "ok")) {
+            EnsureLlmBridgeRunning();
+            Sleep(1200);
+            response.clear();
+            requestOk = HttpPostJson(kLlmBridgeHost, kLlmBridgePort, kLlmBridgeChatPath, body, response);
+        }
+
+        if (requestOk && JsonContainsTrue(response, "ok")) {
+            const std::string reaction = ExtractJsonStringValue(response, "reaction");
+            result.reactionKey = CanonicalizeReactionKey(job.groupName, job.actionId, job.fallbackReactionKey, reaction);
+            result.usedBridge = !reaction.empty() && result.reactionKey != job.fallbackReactionKey;
+        }
+
+        result.replyText = PickInteractionReply(
+            job.groupName,
+            job.actionId,
+            result.reactionKey,
+            static_cast<unsigned int>(job.pedRef + job.submittedAt)
+        );
+
+        if (result.replyText.empty()) {
+            result.replyText = kDbMissingReplyText;
+        }
+
+        {
+            std::lock_guard<std::mutex> lock(m_aiResultMutex);
+            m_aiResults.push_back(result);
+        }
+    }
+}
+
+void Main::DrainAiResults(CPlayerPed *player, unsigned int now) {
+    std::deque<AiResult> ready;
+    {
+        std::lock_guard<std::mutex> lock(m_aiResultMutex);
+        ready.swap(m_aiResults);
+    }
+
+    for (const AiResult &result : ready) {
+        bool stale = false;
+        {
+            std::lock_guard<std::mutex> lock(m_aiQueueMutex);
+            const auto pendingIt = m_pendingAiByPed.find(result.pedRef);
+            if (pendingIt == m_pendingAiByPed.end() || pendingIt->second != result.submittedAt) {
+                stale = true;
+            } else {
+                m_pendingAiByPed.erase(pendingIt);
+            }
+        }
+
+        if (stale || !player || !IsPedHandleValid(result.pedRef)) {
+            continue;
+        }
+
+        CPed *ped = CPools::GetPed(result.pedRef);
+        if (!ped || !ped->IsAlive()) {
+            continue;
+        }
+
+        SetPedBubble(result.pedRef, result.replyText, static_cast<short>(-850 - static_cast<int>(result.actionId)), now + kInteractionBubbleLifetimeMs);
+        QueueTtsLine(ped->m_nModelIndex, result.replyText);
+        AddConversationLine(false, result.replyText);
+
+        PedInteractionMemory &memory = m_pedInteractionMemory[result.pedRef];
+        ApplyPedReaction(ped, player, result.reactionKey, memory);
+        ApplyGroupAction(result.groupName, result.actionId, result.reactionKey, now);
+
+        SetTtsStatus(result.usedBridge ? "AIMOD bridge listo" : "AIMOD fallback listo", 1800);
     }
 }
 
@@ -1736,7 +2053,10 @@ int Main::FindBestInteractionTarget(CPlayerPed *player, std::string &outName, st
             bestScore = score;
             bestRef = CPools::GetPedRef(ped);
             outName = GetCatalogModelName(ped->m_nModelIndex);
-            outProfile = GetInteractionProfileForGroup(GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType)).profileName;
+            const std::string personaTitle = GetPedPersonaTitle(ped->m_nModelIndex);
+            outProfile = !personaTitle.empty()
+                ? personaTitle
+                : GetInteractionProfileForGroup(GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType)).profileName;
         }
     }
 
@@ -1790,24 +2110,33 @@ void Main::ExecuteCustomInteraction(CPlayerPed *player, CPed *ped, const std::st
 
     const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
     const InteractionProfile profile = GetInteractionProfileForGroup(groupName);
+    const std::string personaTitle = GetPedPersonaTitle(ped->m_nModelIndex);
     const std::string reactionKey = DetermineReactionKey(groupName, profile, memory, inferredAction);
     memory.lastInteractionAt = now;
 
-    const std::string reply = PickInteractionReply(groupName, inferredAction, reactionKey, static_cast<unsigned int>(pedRef + now + safeText.size()));
-    SetPedBubble(pedRef, reply, static_cast<short>(-350 - static_cast<int>(inferredAction)), now + kInteractionBubbleLifetimeMs);
+    SetPedBubble(pedRef, kAiPendingText, static_cast<short>(-350 - static_cast<int>(inferredAction)), now + kInteractionBubbleLifetimeMs);
     m_playerBubble.text = SanitizeBubbleText(safeText);
     m_playerBubble.phraseId = static_cast<short>(-650 - static_cast<int>(inferredAction));
     m_playerBubble.expiresAt = now + kPlayerBubbleLifetimeMs;
-    ApplyPedReaction(ped, player, reactionKey, memory);
-    ApplyGroupAction(groupName, inferredAction, reactionKey, now);
     QueueTtsLine(kPlayerTtsModelId, safeText);
-    QueueTtsLine(ped->m_nModelIndex, reply);
     AddConversationLine(true, safeText);
-    AddConversationLine(false, reply);
+
+    QueueAiReply({
+        pedRef,
+        ped->m_nModelIndex,
+        GetCatalogModelName(ped->m_nModelIndex),
+        groupName,
+        !personaTitle.empty() ? personaTitle : profile.profileName,
+        safeText,
+        inferredAction,
+        reactionKey,
+        now
+    });
 
     m_interactionSession.playerText = safeText;
     m_interactionSession.playerTextExpiresAt = now + kInteractionStatusLifetimeMs;
     m_interactionSession.inputIntentLabel = InteractionLabel(inferredAction);
+    SetTtsStatus("AIMOD pensando...", kTtsStatusLifetimeMs);
 }
 
 void Main::UpdateInteraction(CPlayerPed *player, unsigned int now) {
@@ -1824,6 +2153,11 @@ void Main::UpdateInteraction(CPlayerPed *player, unsigned int now) {
     if (IsKeyJustPressed(VK_F6)) {
         EnsureTtsServerRunning();
         SetTtsStatus("AIMOD verifico TTS", 1800);
+    }
+
+    if (IsKeyJustPressed(VK_F7)) {
+        EnsureLlmBridgeRunning();
+        SetTtsStatus("AIMOD verifico bridge IA", 1800);
     }
 
     std::string targetName;
@@ -2039,6 +2373,7 @@ void Main::OnGameProcess() {
     EnsureRuntimeBootstrapped();
 
     const unsigned int now = CTimer::m_snTimeInMilliseconds;
+    DrainAiResults(player, now);
     UpdateInteraction(player, now);
 
     const int poolSize = CPools::ms_pPedPool->m_nSize;
@@ -2117,7 +2452,7 @@ void Main::DrawInteractionUi() {
         SetupUiFont(0.28f, 0.72f);
         CFont::SetColor(CRGBA(255, 255, 255, 255));
         std::ostringstream prompt;
-        prompt << "AIMOD [E] " << m_currentTargetName << " / " << m_currentTargetProfile << " / TAB chat / F5 DB";
+        prompt << "AIMOD [E] " << m_currentTargetName << " / " << m_currentTargetProfile << " / TAB chat / F5 DB / F7 IA";
         CFont::PrintString(left + ScaleX(6.0f), top + ScaleY(6.0f), prompt.str().c_str());
     }
 
@@ -2163,7 +2498,7 @@ void Main::DrawInteractionUi() {
         }
 
         CFont::SetColor(CRGBA(170, 210, 255, 255));
-        CFont::PrintString(left + ScaleX(8.0f), boxTop + height - ScaleY(11.0f), "ESC cerrar / F6 TTS");
+        CFont::PrintString(left + ScaleX(8.0f), boxTop + height - ScaleY(11.0f), "ESC cerrar / F6 TTS / F7 IA");
 
         if (m_interactionSession.textEntryOpen) {
             const float inputTop = boxTop + height + ScaleY(6.0f);

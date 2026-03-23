@@ -7,6 +7,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "aimod_catalog.db"
 
+BALLAS_MODELS = {102, 103, 104}
+POLICE_MODELS = {280, 281, 282, 283, 284, 288}
+
 
 KEYWORD_RULES = [
     ("hola", "greet", 3), ("buenas", "greet", 3), ("hey", "greet", 2), ("ey", "greet", 2),
@@ -298,6 +301,18 @@ def ensure_schema(cur: sqlite3.Cursor) -> None:
         ON interaction_replies(group_name, action_key, reaction_key, reply_text_es)
         """
     )
+    cur.execute(
+        """
+        CREATE TABLE IF NOT EXISTS ped_dialogue_profiles (
+            model_id INTEGER PRIMARY KEY,
+            group_name TEXT NOT NULL,
+            persona_title TEXT NOT NULL,
+            temperament TEXT NOT NULL,
+            street_role TEXT NOT NULL,
+            prompt_hint TEXT NOT NULL
+        )
+        """
+    )
 
 
 def seed_keywords(cur: sqlite3.Cursor) -> None:
@@ -325,20 +340,133 @@ def seed_replies(cur: sqlite3.Cursor) -> None:
     )
 
 
+def get_group_name(row: sqlite3.Row) -> str:
+    model_id = row["model_id"]
+    ped_audio_type = (row["ped_audio_type"] or "").upper()
+    if model_id in BALLAS_MODELS:
+        return "ballas"
+    if model_id in POLICE_MODELS:
+        return "police"
+    if ped_audio_type == "PED_TYPE_GANG":
+        return "gang"
+    if ped_audio_type == "PED_TYPE_EMG":
+        return "emergency"
+    if ped_audio_type == "PED_TYPE_GFD":
+        return "gfd"
+    if ped_audio_type == "PED_TYPE_SPC":
+        return "special"
+    if ped_audio_type == "PED_TYPE_PLAYER":
+        return "player"
+    return "ambient"
+
+
+def is_female(row: sqlite3.Row) -> bool:
+    default_ped_type = (row["default_ped_type"] or "").upper()
+    anim_group = (row["anim_group"] or "").lower()
+    model_name = (row["model_name"] or "").upper()
+    return (
+        "FEMALE" in default_ped_type
+        or "woman" in anim_group
+        or model_name.startswith(("BF", "HF", "VF", "WF", "SWF", "VWF"))
+    )
+
+
+def build_ped_profile(row: sqlite3.Row) -> tuple[int, str, str, str, str, str]:
+    model_id = row["model_id"]
+    model_name = row["model_name"]
+    group_name = get_group_name(row)
+    female = is_female(row)
+
+    ambient_roles = ["vecino", "peaton curtido", "buscavidas", "metiche", "sobreviviente urbano"]
+    gang_roles = ["soldado de barrio", "halcon de esquina", "vago caliente", "tirador novato", "mano derecha callejera"]
+    police_roles = ["oficial patrullero", "agente duro", "sheriff territorial", "policia veterano", "uniformado de calle"]
+    emergency_roles = ["paramedico apresurado", "bombero firme", "rescatista urbano", "medico de guardia"]
+    special_roles = ["tipo raro", "personaje especial", "sujeto impredecible", "contacto extraño"]
+
+    if model_id == 0:
+        return (
+            model_id,
+            "player",
+            "CJ",
+            "resuelto",
+            "protagonista de barrio",
+            "Habla con confianza, calle y liderazgo natural.",
+        )
+
+    if group_name == "ballas":
+        role = gang_roles[model_id % len(gang_roles)]
+        temperament = ["agresivo", "paranoico", "burlon", "territorial"][model_id % 4]
+        title = f"Ballas {role}"
+        hint = "Pandillero Ballas de Los Santos, tono retador, mexicano callejero, orgulloso de su territorio."
+    elif group_name == "police":
+        role = police_roles[model_id % len(police_roles)]
+        temperament = ["autoritario", "seco", "impaciente", "disciplinado"][model_id % 4]
+        title = f"Policia {role}"
+        hint = "Policia de San Andreas, habla corto, autoritario, profesional y con advertencias claras."
+    elif group_name in {"gang", "gfd"}:
+        role = gang_roles[(model_id + 2) % len(gang_roles)]
+        temperament = ["desconfiado", "callejero", "picado", "leal"][model_id % 4]
+        title = f"Pandillero {role}"
+        hint = "Miembro de pandilla o grupo duro, habla con jerga callejera y evalua respeto antes de responder."
+    elif group_name == "emergency":
+        role = emergency_roles[model_id % len(emergency_roles)]
+        temperament = ["urgente", "practico", "sereno", "firme"][model_id % 4]
+        title = f"Emergencia {role}"
+        hint = "Personal de emergencia, directo, funcional y concentrado en el peligro o la asistencia."
+    elif group_name == "special":
+        role = special_roles[model_id % len(special_roles)]
+        temperament = ["enigmatico", "teatral", "intenso", "raro"][model_id % 4]
+        title = f"Especial {role}"
+        hint = "NPC especial, raro o distintivo, habla con personalidad marcada y respuestas menos comunes."
+    else:
+        role = ambient_roles[model_id % len(ambient_roles)]
+        temperament = ["amigable", "cansado", "curioso", "apresurado", "defensivo"][model_id % 5]
+        title = f"{'Vecina' if female else 'Vecino'} {role}"
+        hint = "Civil de San Andreas, vida cotidiana, tono urbano, respuestas breves y creibles."
+
+    hint = f"{hint} Modelo base {model_name}."
+    return (model_id, group_name, title, temperament, role, hint)
+
+
+def seed_ped_dialogue_profiles(cur: sqlite3.Cursor) -> None:
+    rows = cur.execute(
+        """
+        SELECT model_id, model_name, default_ped_type, anim_group, ped_audio_type
+        FROM ped_models
+        ORDER BY model_id
+        """
+    ).fetchall()
+
+    cur.execute("DELETE FROM ped_dialogue_profiles")
+    payload = [build_ped_profile(row) for row in rows]
+    cur.executemany(
+        """
+        INSERT INTO ped_dialogue_profiles(
+            model_id, group_name, persona_title, temperament, street_role, prompt_hint
+        ) VALUES (?, ?, ?, ?, ?, ?)
+        """,
+        payload,
+    )
+
+
 def main() -> None:
     conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
     cur = conn.cursor()
     ensure_schema(cur)
     seed_keywords(cur)
     seed_replies(cur)
+    seed_ped_dialogue_profiles(cur)
     conn.commit()
 
     keyword_count = cur.execute("SELECT COUNT(*) FROM interaction_keyword_rules").fetchone()[0]
     reply_count = cur.execute("SELECT COUNT(*) FROM interaction_replies").fetchone()[0]
+    ped_profile_count = cur.execute("SELECT COUNT(*) FROM ped_dialogue_profiles").fetchone()[0]
     conn.close()
 
     print(f"keyword_rules={keyword_count}")
     print(f"interaction_replies={reply_count}")
+    print(f"ped_dialogue_profiles={ped_profile_count}")
 
 
 if __name__ == "__main__":

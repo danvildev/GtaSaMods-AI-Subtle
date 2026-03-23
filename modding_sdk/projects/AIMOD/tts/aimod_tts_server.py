@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import io
 import json
+import os
 import sqlite3
 import threading
 import wave
@@ -20,12 +20,24 @@ PROJECT_ROOT = ROOT.parent
 DB_PATH = PROJECT_ROOT / "data" / "aimod_catalog.db"
 VOICES_DIR = ROOT / "voices"
 CACHE_DIR = ROOT / "cache"
+HF_CACHE_DIR = ROOT / "hf_cache"
+
+os.environ.setdefault("HF_HOME", str(HF_CACHE_DIR))
+os.environ.setdefault("HF_HUB_CACHE", str(HF_CACHE_DIR / "hub"))
+
+try:
+    from kokoro import KPipeline
+    KOKORO_AVAILABLE = True
+except Exception:
+    KPipeline = None
+    KOKORO_AVAILABLE = False
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False
 
 _voice_lock = threading.Lock()
-_loaded_voices: dict[str, PiperVoice] = {}
+_loaded_piper_voices: dict[str, PiperVoice] = {}
+_loaded_kokoro_pipelines: dict[str, KPipeline] = {}
 
 
 def get_db() -> sqlite3.Connection:
@@ -78,7 +90,24 @@ def get_assignment_row(model_id: int) -> sqlite3.Row | None:
         ).fetchone()
 
 
-def get_or_load_voice(voice_id: str) -> PiperVoice:
+def normalize_kokoro_lang(language: str | None) -> str:
+    value = (language or "es").strip().lower()
+    if value in {"es", "es-es", "es-mx", "es-ar", "spanish"}:
+        return "e"
+    return value[:1] or "e"
+
+
+def resolve_kokoro_voice_ref(voice_row: sqlite3.Row, voice_id: str) -> str:
+    sample_path = str(voice_row["sample_path"] or "").strip()
+    if sample_path:
+        return sample_path
+    speaker_ref = str(voice_row["speaker_ref"] or "").strip()
+    if speaker_ref:
+        return speaker_ref
+    return voice_id
+
+
+def get_or_load_piper_voice(voice_id: str) -> PiperVoice:
     with _voice_lock:
         voice_row = get_voice_row(voice_id)
         if voice_row is None:
@@ -89,7 +118,7 @@ def get_or_load_voice(voice_id: str) -> PiperVoice:
             raise FileNotFoundError(f"Missing model file: {model_path}")
 
         cache_key = str(model_path).lower()
-        cached = _loaded_voices.get(cache_key)
+        cached = _loaded_piper_voices.get(cache_key)
         if cached is not None:
             return cached
 
@@ -98,14 +127,30 @@ def get_or_load_voice(voice_id: str) -> PiperVoice:
             raise FileNotFoundError(f"Missing model config: {config_path}")
 
         loaded = PiperVoice.load(model_path=model_path, config_path=config_path, use_cuda=False)
-        _loaded_voices[cache_key] = loaded
+        _loaded_piper_voices[cache_key] = loaded
         return loaded
 
 
-def make_cache_key(voice_id: str, text: str, speed: float, pitch: float) -> str:
+def get_or_load_kokoro_pipeline(language: str | None) -> KPipeline:
+    if not KOKORO_AVAILABLE or KPipeline is None:
+        raise RuntimeError("Kokoro no esta disponible en este entorno")
+
+    lang_code = normalize_kokoro_lang(language)
+    with _voice_lock:
+        cached = _loaded_kokoro_pipelines.get(lang_code)
+        if cached is not None:
+            return cached
+        pipeline = KPipeline(lang_code=lang_code, repo_id="hexgrad/Kokoro-82M", device="cpu")
+        _loaded_kokoro_pipelines[lang_code] = pipeline
+        return pipeline
+
+
+def make_cache_key(voice_row: sqlite3.Row, voice_id: str, text: str, speed: float, pitch: float) -> str:
     cache_payload = json.dumps(
         {
             "voice_id": voice_id,
+            "engine": str(voice_row["engine"] or "piper"),
+            "voice_ref": str(voice_row["sample_path"] or ""),
             "text": normalize_text(text),
             "speed": round(speed, 3),
             "pitch": round(pitch, 3),
@@ -128,12 +173,42 @@ def write_wav_file(wav_path: Path, sample_rate: int, audio_float: np.ndarray) ->
         wav_file.writeframes(audio_i16.tobytes())
 
 
+def synthesize_with_piper(voice_row: sqlite3.Row, voice_id: str, text: str, speed: float) -> tuple[np.ndarray, int]:
+    voice = get_or_load_piper_voice(voice_id)
+    length_scale = round(max(0.7, min(1.4, 1.0 / max(0.5, speed))), 3)
+    syn_config = SynthesisConfig(length_scale=length_scale)
+
+    chunks = list(voice.synthesize(text, syn_config=syn_config))
+    if not chunks:
+        raise RuntimeError("Piper returned no audio chunks")
+
+    sample_rate = chunks[0].sample_rate
+    audio = np.concatenate([chunk.audio_float_array for chunk in chunks])
+    return audio, sample_rate
+
+
+def synthesize_with_kokoro(voice_row: sqlite3.Row, voice_id: str, text: str, speed: float) -> tuple[np.ndarray, int]:
+    pipeline = get_or_load_kokoro_pipeline(voice_row["language"])
+    voice_ref = resolve_kokoro_voice_ref(voice_row, voice_id)
+    audio_parts: list[np.ndarray] = []
+    for result in pipeline(text, voice=voice_ref, speed=max(0.7, min(1.3, speed)), split_pattern=r"\n+"):
+        if result.audio is not None:
+            audio_parts.append(result.audio.numpy())
+    if not audio_parts:
+        raise RuntimeError(f"Kokoro no genero audio para {voice_ref}")
+    return np.concatenate(audio_parts), 24000
+
+
 def synthesize_wav(voice_id: str, text: str, speed: float, pitch: float) -> tuple[Path, bool, int]:
     normalized_text = normalize_text(text)
     if not normalized_text:
         raise ValueError("Text is empty")
 
-    cache_key = make_cache_key(voice_id, normalized_text, speed, pitch)
+    voice_row = get_voice_row(voice_id)
+    if voice_row is None:
+        raise KeyError(f"Unknown voice_id: {voice_id}")
+
+    cache_key = make_cache_key(voice_row, voice_id, normalized_text, speed, pitch)
     relative_wav = Path("cache") / voice_id / f"{cache_key}.wav"
     absolute_wav = ROOT / relative_wav
 
@@ -161,16 +236,11 @@ def synthesize_wav(voice_id: str, text: str, speed: float, pitch: float) -> tupl
                 conn.commit()
                 return cached_path, True, 0
 
-    voice = get_or_load_voice(voice_id)
-    length_scale = round(max(0.7, min(1.4, 1.0 / max(0.5, speed))), 3)
-    syn_config = SynthesisConfig(length_scale=length_scale)
-
-    chunks = list(voice.synthesize(normalized_text, syn_config=syn_config))
-    if not chunks:
-        raise RuntimeError("Piper returned no audio chunks")
-
-    sample_rate = chunks[0].sample_rate
-    audio = np.concatenate([chunk.audio_float_array for chunk in chunks])
+    engine = str(voice_row["engine"] or "piper").strip().lower()
+    if engine == "kokoro":
+        audio, sample_rate = synthesize_with_kokoro(voice_row, voice_id, normalized_text, speed)
+    else:
+        audio, sample_rate = synthesize_with_piper(voice_row, voice_id, normalized_text, speed)
     write_wav_file(absolute_wav, sample_rate, audio)
 
     with get_db() as conn:
@@ -197,14 +267,18 @@ def synthesize_wav(voice_id: str, text: str, speed: float, pitch: float) -> tupl
 @app.get("/health")
 def health():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    HF_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     return jsonify(
         {
             "ok": True,
-            "service": "AIMOD Piper TTS",
+            "service": "AIMOD Hybrid TTS",
             "db_path": str(DB_PATH),
             "voices_dir": str(VOICES_DIR),
             "cache_dir": str(CACHE_DIR),
-            "loaded_models": sorted(_loaded_voices.keys()),
+            "hf_cache_dir": str(HF_CACHE_DIR),
+            "kokoro_available": KOKORO_AVAILABLE,
+            "loaded_piper_models": sorted(_loaded_piper_voices.keys()),
+            "loaded_kokoro_pipelines": sorted(_loaded_kokoro_pipelines.keys()),
         }
     )
 
@@ -231,8 +305,8 @@ def voices():
                 "display_name": row["display_name"],
                 "language": row["language"],
                 "speaker_ref": row["speaker_ref"],
-                "model_path": str(model_path),
-                "model_exists": model_path.exists(),
+                "model_path": str(model_path) if row["engine"] == "piper" else str(resolve_kokoro_voice_ref(row, row["voice_id"])),
+                "model_exists": model_path.exists() if row["engine"] == "piper" else KOKORO_AVAILABLE,
             }
         )
 
@@ -334,6 +408,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    HF_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     app.run(host=args.host, port=args.port, debug=args.debug, threaded=True)
 
 
