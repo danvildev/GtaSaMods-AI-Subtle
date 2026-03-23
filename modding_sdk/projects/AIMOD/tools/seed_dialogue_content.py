@@ -420,10 +420,21 @@ def ensure_schema(cur: sqlite3.Cursor) -> None:
             persona_title TEXT NOT NULL,
             temperament TEXT NOT NULL,
             street_role TEXT NOT NULL,
-            prompt_hint TEXT NOT NULL
+            prompt_hint TEXT NOT NULL,
+            speech_style TEXT NOT NULL DEFAULT 'plain',
+            slang_pack TEXT NOT NULL DEFAULT 'default',
+            verbal_tick TEXT NOT NULL DEFAULT ''
         )
         """
     )
+    table_info = cur.execute("PRAGMA table_info(ped_dialogue_profiles)").fetchall()
+    existing = {row[1] for row in table_info}
+    if "speech_style" not in existing:
+        cur.execute("ALTER TABLE ped_dialogue_profiles ADD COLUMN speech_style TEXT NOT NULL DEFAULT 'plain'")
+    if "slang_pack" not in existing:
+        cur.execute("ALTER TABLE ped_dialogue_profiles ADD COLUMN slang_pack TEXT NOT NULL DEFAULT 'default'")
+    if "verbal_tick" not in existing:
+        cur.execute("ALTER TABLE ped_dialogue_profiles ADD COLUMN verbal_tick TEXT NOT NULL DEFAULT ''")
 
 
 def seed_keywords(cur: sqlite3.Cursor) -> None:
@@ -492,16 +503,16 @@ def is_female(row: sqlite3.Row) -> bool:
     )
 
 
-def build_ped_profile(row: sqlite3.Row) -> tuple[int, str, str, str, str, str]:
+def build_ped_profile(row: sqlite3.Row) -> tuple[int, str, str, str, str, str, str, str, str]:
     model_id = row["model_id"]
     model_name = row["model_name"]
     group_name = get_group_name(row)
     female = is_female(row)
 
-    ambient_roles = ["vecino", "peaton curtido", "buscavidas", "metiche", "sobreviviente urbano"]
+    ambient_roles = ["de barrio", "curtido de calle", "buscavidas", "metiche urbano", "sobreviviente urbano"]
     gang_roles = ["soldado de barrio", "halcon de esquina", "vago caliente", "tirador novato", "mano derecha callejera"]
-    police_roles = ["oficial patrullero", "agente duro", "sheriff territorial", "policia veterano", "uniformado de calle"]
-    emergency_roles = ["paramedico apresurado", "bombero firme", "rescatista urbano", "medico de guardia"]
+    police_roles = ["de patrulla", "de mano dura", "territorial", "veterano", "de calle"]
+    emergency_roles = ["de rescate rapido", "de apoyo firme", "rescatista urbano", "de guardia"]
     special_roles = ["tipo raro", "personaje especial", "sujeto impredecible", "contacto extraño"]
 
     if model_id == 0:
@@ -512,6 +523,9 @@ def build_ped_profile(row: sqlite3.Row) -> tuple[int, str, str, str, str, str]:
             "resuelto",
             "protagonista de barrio",
             "Habla con confianza, calle y liderazgo natural.",
+            "leader_street",
+            "cj_ls",
+            "you feel me?",
         )
 
     if group_name == "ballas":
@@ -519,34 +533,52 @@ def build_ped_profile(row: sqlite3.Row) -> tuple[int, str, str, str, str, str]:
         temperament = ["agresivo", "paranoico", "burlon", "territorial"][model_id % 4]
         title = f"Ballas {role}"
         hint = "Pandillero Ballas de Los Santos, tono retador, mexicano callejero, orgulloso de su territorio."
+        speech_style = ["taunting", "snappy", "territorial", "hotheaded"][model_id % 4]
+        slang_pack = "mx_ballas"
+        verbal_tick = ["carnal", "perro", "al tiro", "mijo"][model_id % 4]
     elif group_name == "police":
         role = police_roles[model_id % len(police_roles)]
         temperament = ["autoritario", "seco", "impaciente", "disciplinado"][model_id % 4]
         title = f"Policia {role}"
         hint = "Policia de San Andreas, habla corto, autoritario, profesional y con advertencias claras."
+        speech_style = ["commanding", "procedural", "dry", "commanding"][model_id % 4]
+        slang_pack = "police"
+        verbal_tick = ["entendido", "ciudadano", "proceda", "ahora"][model_id % 4]
     elif group_name in {"gang", "gfd"}:
         role = gang_roles[(model_id + 2) % len(gang_roles)]
         temperament = ["desconfiado", "callejero", "picado", "leal"][model_id % 4]
         title = f"Pandillero {role}"
         hint = "Miembro de pandilla o grupo duro, habla con jerga callejera y evalua respeto antes de responder."
+        speech_style = ["snappy", "streetwise", "taunting", "streetwise"][model_id % 4]
+        slang_pack = "street_latam"
+        verbal_tick = ["compa", "loco", "bro", "mano"][model_id % 4]
     elif group_name == "emergency":
         role = emergency_roles[model_id % len(emergency_roles)]
         temperament = ["urgente", "practico", "sereno", "firme"][model_id % 4]
         title = f"Emergencia {role}"
         hint = "Personal de emergencia, directo, funcional y concentrado en el peligro o la asistencia."
+        speech_style = ["urgent", "procedural", "calm", "procedural"][model_id % 4]
+        slang_pack = "emergency"
+        verbal_tick = ["rapido", "vamos", "respire", "tranquilo"][model_id % 4]
     elif group_name == "special":
         role = special_roles[model_id % len(special_roles)]
         temperament = ["enigmatico", "teatral", "intenso", "raro"][model_id % 4]
         title = f"Especial {role}"
         hint = "NPC especial, raro o distintivo, habla con personalidad marcada y respuestas menos comunes."
+        speech_style = ["cryptic", "dramatic", "intense", "odd"][model_id % 4]
+        slang_pack = "special"
+        verbal_tick = ["mira", "curioso", "escucha", "hmm"][model_id % 4]
     else:
         role = ambient_roles[model_id % len(ambient_roles)]
         temperament = ["amigable", "cansado", "curioso", "apresurado", "defensivo"][model_id % 5]
-        title = f"{'Vecina' if female else 'Vecino'} {role}"
+        title = f"Civil {role}"
         hint = "Civil de San Andreas, vida cotidiana, tono urbano, respuestas breves y creibles."
+        speech_style = ["warm", "tired", "curious", "hurried", "guarded"][model_id % 5]
+        slang_pack = "civil_female" if female else "civil_male"
+        verbal_tick = ["oye", "mira", "pues", "eh", "compa"][model_id % 5]
 
     hint = f"{hint} Modelo base {model_name}."
-    return (model_id, group_name, title, temperament, role, hint)
+    return (model_id, group_name, title, temperament, role, hint, speech_style, slang_pack, verbal_tick)
 
 
 def seed_ped_dialogue_profiles(cur: sqlite3.Cursor) -> None:
@@ -563,8 +595,8 @@ def seed_ped_dialogue_profiles(cur: sqlite3.Cursor) -> None:
     cur.executemany(
         """
         INSERT INTO ped_dialogue_profiles(
-            model_id, group_name, persona_title, temperament, street_role, prompt_hint
-        ) VALUES (?, ?, ?, ?, ?, ?)
+            model_id, group_name, persona_title, temperament, street_role, prompt_hint, speech_style, slang_pack, verbal_tick
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         payload,
     )

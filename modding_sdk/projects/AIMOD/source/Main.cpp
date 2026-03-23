@@ -69,6 +69,7 @@ constexpr unsigned int kTtsBusyStatusLifetimeMs = 1500;
 constexpr wchar_t kTtsServerHost[] = L"127.0.0.1";
 constexpr INTERNET_PORT kTtsServerPort = 5055;
 constexpr wchar_t kTtsHealthPath[] = L"/health";
+constexpr wchar_t kTtsSynthesizeVoicePath[] = L"/synthesize";
 constexpr wchar_t kTtsSynthesizePath[] = L"/synthesize-for-ped";
 constexpr wchar_t kLlmBridgeHost[] = L"127.0.0.1";
 constexpr INTERNET_PORT kLlmBridgePort = 5056;
@@ -142,6 +143,9 @@ struct PedInteractionMemory {
     int anger = 0;
     int fear = 0;
     int respect = 0;
+    int rapport = 0;
+    int suspicion = 0;
+    int encounters = 0;
     bool followingPlayer = false;
     unsigned int lastInteractionAt = 0;
 };
@@ -185,6 +189,9 @@ struct PedDialogueProfile {
     std::string temperament;
     std::string streetRole;
     std::string promptHint;
+    std::string speechStyle;
+    std::string slangPack;
+    std::string verbalTick;
 };
 
 struct TunedInteractionProfile {
@@ -200,6 +207,10 @@ struct InteractionKeywordRule {
 
 struct TtsJob {
     int modelId = 0;
+    int pedRef = -1;
+    std::string voiceId;
+    float pitch = 1.0f;
+    float speed = 1.0f;
     std::string text;
 };
 
@@ -234,6 +245,7 @@ struct RuntimeVoiceCatalog {
     std::unordered_map<int, std::vector<std::string>> modelSeedTexts;
     std::unordered_map<std::string, std::vector<std::string>> groupSeedTexts;
     std::unordered_map<int, TtsAssignment> ttsAssignments;
+    std::unordered_map<std::string, std::vector<std::string>> ttsVoicePools;
     std::unordered_map<int, PedDialogueProfile> pedDialogueProfiles;
     std::vector<InteractionKeywordRule> interactionKeywordRules;
     std::vector<InteractionActionConfig> interactionActions;
@@ -544,8 +556,27 @@ void LoadRuntimeVoiceCatalog() {
     sqlite3_finalize(stmt);
     stmt = nullptr;
 
+    const char *ttsPoolSql =
+        "SELECT pool_name, voice_id "
+        "FROM tts_voice_pools "
+        "WHERE voice_id IS NOT NULL AND TRIM(voice_id) <> '' "
+        "ORDER BY pool_name, voice_id";
+    if (sqlite3_prepare_v2(db, ttsPoolSql, -1, &stmt, nullptr) == SQLITE_OK) {
+        while (sqlite3_step(stmt) == SQLITE_ROW) {
+            const unsigned char *poolName = sqlite3_column_text(stmt, 0);
+            const unsigned char *voiceId = sqlite3_column_text(stmt, 1);
+            if (!poolName || !voiceId) continue;
+
+            g_runtimeCatalog.ttsVoicePools[reinterpret_cast<const char *>(poolName)].push_back(
+                reinterpret_cast<const char *>(voiceId)
+            );
+        }
+    }
+    sqlite3_finalize(stmt);
+    stmt = nullptr;
+
     const char *pedProfileSql =
-        "SELECT model_id, group_name, persona_title, temperament, street_role, prompt_hint "
+        "SELECT model_id, group_name, persona_title, temperament, street_role, prompt_hint, speech_style, slang_pack, verbal_tick "
         "FROM ped_dialogue_profiles";
     if (sqlite3_prepare_v2(db, pedProfileSql, -1, &stmt, nullptr) == SQLITE_OK) {
         while (sqlite3_step(stmt) == SQLITE_ROW) {
@@ -555,6 +586,9 @@ void LoadRuntimeVoiceCatalog() {
             const unsigned char *temperament = sqlite3_column_text(stmt, 3);
             const unsigned char *streetRole = sqlite3_column_text(stmt, 4);
             const unsigned char *promptHint = sqlite3_column_text(stmt, 5);
+            const unsigned char *speechStyle = sqlite3_column_text(stmt, 6);
+            const unsigned char *slangPack = sqlite3_column_text(stmt, 7);
+            const unsigned char *verbalTick = sqlite3_column_text(stmt, 8);
             if (!groupName || !personaTitle || !temperament || !streetRole || !promptHint) continue;
 
             PedDialogueProfile profile;
@@ -563,6 +597,9 @@ void LoadRuntimeVoiceCatalog() {
             profile.temperament = reinterpret_cast<const char *>(temperament);
             profile.streetRole = reinterpret_cast<const char *>(streetRole);
             profile.promptHint = reinterpret_cast<const char *>(promptHint);
+            profile.speechStyle = speechStyle ? reinterpret_cast<const char *>(speechStyle) : "";
+            profile.slangPack = slangPack ? reinterpret_cast<const char *>(slangPack) : "";
+            profile.verbalTick = verbalTick ? reinterpret_cast<const char *>(verbalTick) : "";
             g_runtimeCatalog.pedDialogueProfiles[modelId] = profile;
         }
     }
@@ -922,6 +959,201 @@ TunedInteractionProfile TuneInteractionProfileForPed(int modelId, const Interact
     return tuned;
 }
 
+void ReplaceAllCaseSensitive(std::string &value, const std::string &from, const std::string &to) {
+    if (from.empty()) {
+        return;
+    }
+
+    size_t startPos = 0;
+    while ((startPos = value.find(from, startPos)) != std::string::npos) {
+        value.replace(startPos, from.length(), to);
+        startPos += to.length();
+    }
+}
+
+std::string EnsureSentencePunctuation(const std::string &text, char ch) {
+    std::string result = TrimBubbleText(text);
+    if (result.empty()) {
+        return result;
+    }
+    const char last = result.back();
+    if (last == '.' || last == '!' || last == '?') {
+        return result;
+    }
+    result.push_back(ch);
+    return result;
+}
+
+std::string StylizeReplyForPed(int modelId, const std::string &baseText, InteractionActionId actionId, const std::string &reactionKey) {
+    const PedDialogueProfile *dialogue = GetPedDialogueProfileData(modelId);
+    if (!dialogue) {
+        return SanitizeBubbleText(baseText);
+    }
+
+    std::string text = SanitizeBubbleText(baseText);
+    if (text.empty()) {
+        return text;
+    }
+
+    const std::string speechStyle = ToLowerCopy(dialogue->speechStyle);
+    const std::string slangPack = ToLowerCopy(dialogue->slangPack);
+    const std::string verbalTick = TrimBubbleText(dialogue->verbalTick);
+    const std::string temperament = ToLowerCopy(dialogue->temperament);
+    const std::string streetRole = ToLowerCopy(dialogue->streetRole);
+    const int styleSeed = std::abs((modelId * 17) + (static_cast<int>(actionId) * 31) + static_cast<int>(reactionKey.size()));
+
+    if (slangPack == "mx_ballas") {
+        ReplaceAllCaseSensitive(text, "compa", "carnal");
+        ReplaceAllCaseSensitive(text, "hermano", "carnal");
+        ReplaceAllCaseSensitive(text, "loco", "perro");
+        if (reactionKey == "warn" && text.find("al tiro") == std::string::npos) {
+            text = EnsureSentencePunctuation(text, '.') + " Al tiro.";
+        }
+    } else if (slangPack == "street_latam") {
+        ReplaceAllCaseSensitive(text, "compa", "bro");
+        ReplaceAllCaseSensitive(text, "amigo", "bro");
+        if (reactionKey == "follow") {
+            text = EnsureSentencePunctuation(text, '.') + " Vamos.";
+        }
+    } else if (slangPack == "police") {
+        ReplaceAllCaseSensitive(text, "compa", "ciudadano");
+        ReplaceAllCaseSensitive(text, "bro", "ciudadano");
+        if (reactionKey == "warn") {
+            text = EnsureSentencePunctuation(text, '.');
+        }
+    } else if (slangPack == "emergency") {
+        ReplaceAllCaseSensitive(text, "compa", "senor");
+        ReplaceAllCaseSensitive(text, "bro", "senor");
+    } else if (slangPack == "civil_female") {
+        if (reactionKey == "friendly" && styleSeed % 3 == 0) {
+            text = "Oye, " + text;
+        }
+    } else if (slangPack == "civil_male") {
+        if (reactionKey == "neutral" && styleSeed % 3 == 1) {
+            text = "Mira, " + text;
+        }
+    } else if (slangPack == "cj_ls") {
+        ReplaceAllCaseSensitive(text, "compa", "homie");
+    }
+
+    if (speechStyle == "leader_street") {
+        if (reactionKey == "friendly" && styleSeed % 2 == 0) {
+            text = "Todo bien, " + text;
+        } else if ((reactionKey == "warn" || reactionKey == "attack") && styleSeed % 2 == 1) {
+            text = EnsureSentencePunctuation(text, '!') + " Ponte serio.";
+        }
+    } else if (speechStyle == "commanding" || speechStyle == "procedural") {
+        text = EnsureSentencePunctuation(text, '.');
+        if ((reactionKey == "warn" || reactionKey == "attack") && styleSeed % 2 == 0) {
+            text += " Ahora.";
+        }
+    } else if (speechStyle == "streetwise") {
+        if (styleSeed % 2 == 0) {
+            text = "Mira bien, " + text;
+        }
+    } else if (speechStyle == "taunting" || speechStyle == "hotheaded") {
+        text = EnsureSentencePunctuation(text, '!');
+    } else if (speechStyle == "snappy") {
+        if (styleSeed % 2 == 0) {
+            text = EnsureSentencePunctuation(text, '.');
+        }
+        if (reactionKey == "dismiss") {
+            text = "Ya, " + text;
+        }
+    } else if (speechStyle == "warm") {
+        if (reactionKey == "friendly" && styleSeed % 2 == 0) {
+            text = "Oye, " + text;
+        }
+    } else if (speechStyle == "curious") {
+        if (reactionKey == "neutral" || reactionKey == "friendly") {
+            text = "Entonces... " + text;
+        }
+    } else if (speechStyle == "guarded") {
+        if (reactionKey == "warn" || reactionKey == "dismiss") {
+            text = "Mejor calmado, " + text;
+        }
+    } else if (speechStyle == "cryptic") {
+        if (styleSeed % 2 == 0) {
+            text = "Mira... " + text;
+        }
+    } else if (speechStyle == "dramatic") {
+        text = EnsureSentencePunctuation(text, '!');
+        if (styleSeed % 2 == 0) {
+            text = "Escucha bien: " + text;
+        }
+    } else if (speechStyle == "intense") {
+        text = EnsureSentencePunctuation(text, '!');
+        if (reactionKey == "attack" || reactionKey == "warn") {
+            text += " Sin vueltas.";
+        }
+    } else if (speechStyle == "odd") {
+        if (styleSeed % 2 == 1) {
+            text = "Hmm... " + text;
+        }
+    } else if (speechStyle == "urgent") {
+        text = EnsureSentencePunctuation(text, '.');
+        if (text.find("rapido") == std::string::npos && styleSeed % 2 == 1) {
+            text += " Rapido.";
+        }
+    } else if (speechStyle == "calm") {
+        text = EnsureSentencePunctuation(text, '.');
+        if (reactionKey == "friendly" && styleSeed % 2 == 0) {
+            text = "Tranquilo, " + text;
+        }
+    } else if (speechStyle == "hurried") {
+        if (styleSeed % 2 == 0) {
+            text = "Ya, " + text;
+        }
+    } else if (speechStyle == "tired") {
+        if (styleSeed % 2 == 0) {
+            text = "Uf... " + text;
+        }
+    }
+
+    if (temperament == "paranoico" && (reactionKey == "warn" || reactionKey == "dismiss") && styleSeed % 3 == 0) {
+        text = "No te me acerques, " + text;
+    } else if (temperament == "territorial" && (reactionKey == "warn" || reactionKey == "attack") && styleSeed % 2 == 0) {
+        text = EnsureSentencePunctuation(text, '!') + " Este lado tiene dueno.";
+    } else if (temperament == "autoritario" && reactionKey == "warn" && styleSeed % 2 == 0) {
+        text = "Ultima advertencia. " + text;
+    } else if (temperament == "disciplinado" && reactionKey == "warn" && styleSeed % 3 == 1) {
+        text = "Mantenga la distancia. " + text;
+    } else if (temperament == "amigable" && reactionKey == "friendly" && styleSeed % 2 == 0) {
+        text = "Tranqui, " + text;
+    } else if (temperament == "curioso" && reactionKey == "friendly" && styleSeed % 2 == 1) {
+        text = "A ver, " + text;
+    } else if (temperament == "apresurado" && reactionKey == "dismiss" && styleSeed % 2 == 0) {
+        text = "Ando corto de tiempo, " + text;
+    } else if (temperament == "defensivo" && (reactionKey == "warn" || reactionKey == "dismiss") && styleSeed % 2 == 1) {
+        text = "No busco problemas, " + text;
+    }
+
+    if (streetRole.find("veterano") != std::string::npos && reactionKey == "warn" && styleSeed % 2 == 0) {
+        text = EnsureSentencePunctuation(text, '.') + " Ya te lo dije.";
+    } else if (streetRole.find("halcon") != std::string::npos && (reactionKey == "warn" || reactionKey == "attack") && styleSeed % 2 == 1) {
+        text = EnsureSentencePunctuation(text, '!') + " Te estoy midiendo.";
+    } else if (streetRole.find("rescatista") != std::string::npos && reactionKey == "friendly" && styleSeed % 2 == 0) {
+        text = "Respira. " + text;
+    } else if (streetRole.find("buscavidas") != std::string::npos && reactionKey == "neutral" && styleSeed % 3 == 2) {
+        text = "Yo ando en lo mio, " + text;
+    } else if (streetRole.find("mano derecha") != std::string::npos && reactionKey == "attack" && styleSeed % 2 == 0) {
+        text = EnsureSentencePunctuation(text, '!') + " Aqui nadie juega.";
+    }
+
+    if (!verbalTick.empty()) {
+        const bool canAppendTick = reactionKey != "attack" && reactionKey != "flee";
+        if (canAppendTick && text.find(verbalTick) == std::string::npos) {
+            if (styleSeed % 4 == 0) {
+                text = verbalTick + ", " + text;
+            } else if (styleSeed % 4 == 1) {
+                text = EnsureSentencePunctuation(text, '.') + " " + verbalTick + ".";
+            }
+        }
+    }
+
+    return SanitizeBubbleText(text);
+}
+
 std::string GetCatalogVoiceLabel(CPed *ped) {
     LoadRuntimeVoiceCatalog();
     const auto it = g_runtimeCatalog.voiceLabels.find(ped->m_nModelIndex);
@@ -933,6 +1165,8 @@ std::string GetCatalogVoiceLabel(CPed *ped) {
     return out.str();
 }
 
+std::string PickInteractionReply(const std::string &groupName, InteractionActionId actionId, const std::string &reactionKey, unsigned int seed);
+
 const TtsAssignment *GetTtsAssignmentForModel(int modelId) {
     LoadRuntimeVoiceCatalog();
     const auto it = g_runtimeCatalog.ttsAssignments.find(modelId);
@@ -940,6 +1174,124 @@ const TtsAssignment *GetTtsAssignmentForModel(int modelId) {
         return &it->second;
     }
     return nullptr;
+}
+
+bool IsLikelyFemaleModel(int modelId) {
+    if (const PedDialogueProfile *dialogue = GetPedDialogueProfileData(modelId)) {
+        if (ToLowerCopy(dialogue->slangPack) == "civil_female") {
+            return true;
+        }
+    }
+
+    std::string modelName = ToLowerCopy(GetCatalogModelName(modelId));
+    if (modelName.size() >= 2) {
+        const std::string prefix = modelName.substr(0, 2);
+        return prefix == "bf" || prefix == "hf" || prefix == "vf" || prefix == "wf";
+    }
+    return false;
+}
+
+const std::vector<std::string> *GetTtsVoicePool(const std::string &poolName) {
+    LoadRuntimeVoiceCatalog();
+    const auto it = g_runtimeCatalog.ttsVoicePools.find(poolName);
+    if (it != g_runtimeCatalog.ttsVoicePools.end() && !it->second.empty()) {
+        return &it->second;
+    }
+    return nullptr;
+}
+
+std::string ResolveTtsVoicePoolName(int modelId, const std::string &groupName) {
+    const bool female = IsLikelyFemaleModel(modelId);
+    if (modelId == kPlayerTtsModelId) {
+        return "player_cj";
+    }
+    if (groupName == "ballas" || groupName == "gang") {
+        return female ? "street_female" : "street_male";
+    }
+    if (groupName == "police" || groupName == "emergency" || groupName == "gfd") {
+        return female ? "authority_female" : "authority_male";
+    }
+    if (groupName == "special") {
+        return female ? "special_female" : "special_male";
+    }
+    return female ? "civil_female" : "civil_male";
+}
+
+std::string PickVoiceIdForInstance(int modelId, int pedRef, const TtsAssignment &assignment) {
+    const std::string poolName = ResolveTtsVoicePoolName(modelId, assignment.groupName);
+    const std::vector<std::string> *pool = GetTtsVoicePool(poolName);
+    if (!pool || pool->empty()) {
+        return assignment.voiceId;
+    }
+
+    const unsigned int seed = static_cast<unsigned int>(std::abs((modelId * 73) + ((pedRef == -1 ? modelId : pedRef) * 17)));
+    return (*pool)[seed % static_cast<unsigned int>(pool->size())];
+}
+
+float ClampPitch(float value) {
+    return std::max(0.82f, std::min(1.22f, value));
+}
+
+float ClampSpeed(float value) {
+    return std::max(0.86f, std::min(1.18f, value));
+}
+
+std::string BuildPedStreetAlias(int pedRef, int modelId, const std::string &groupName) {
+    static const std::array<const char *, 10> kStreetMale = { "Sombra", "Navaja", "Roco", "Tigre", "Chino", "Fierro", "Rata", "Flaco", "Ghost", "Trueno" };
+    static const std::array<const char *, 8> kStreetFemale = { "Loba", "Nena", "Roxy", "Siren", "China", "Mamba", "Mika", "Brava" };
+    static const std::array<const char *, 8> kPolice = { "Bravo", "Delta", "Soto", "Rojas", "Mendez", "Vega", "Sierra", "Stone" };
+    static const std::array<const char *, 8> kCivil = { "Veci", "Pana", "Mota", "Rulo", "Tessa", "Yeyo", "Nico", "Gaby" };
+    static const std::array<const char *, 8> kSpecial = { "Zero", "Oracle", "Mistica", "Frost", "Rune", "Echo", "Nova", "Shade" };
+
+    const bool female = IsLikelyFemaleModel(modelId);
+    const unsigned int seed = static_cast<unsigned int>(std::abs((modelId * 41) + ((pedRef == -1 ? modelId : pedRef) * 29)));
+
+    if (groupName == "police" || groupName == "emergency" || groupName == "gfd") {
+        return kPolice[seed % kPolice.size()];
+    }
+    if (groupName == "ballas" || groupName == "gang") {
+        return female ? kStreetFemale[seed % kStreetFemale.size()] : kStreetMale[seed % kStreetMale.size()];
+    }
+    if (groupName == "special") {
+        return kSpecial[seed % kSpecial.size()];
+    }
+    return kCivil[seed % kCivil.size()];
+}
+
+std::string ApplyMemoryInflection(int modelId, const std::string &baseText, const PedInteractionMemory &memory, const std::string &reactionKey) {
+    std::string text = SanitizeBubbleText(baseText);
+    if (text.empty()) {
+        return text;
+    }
+
+    const int memorySeed = std::abs((modelId * 13) + (memory.encounters * 7) + (memory.rapport * 11) + (memory.suspicion * 17));
+    if (memory.encounters >= 3 && memory.rapport >= 3 && (reactionKey == "friendly" || reactionKey == "neutral")) {
+        if (memorySeed % 2 == 0) {
+            text = "Ya te ubico, " + text;
+        } else {
+            text = "Contigo todo bien, " + text;
+        }
+    } else if (memory.suspicion >= 3 && (reactionKey == "warn" || reactionKey == "dismiss" || reactionKey == "attack")) {
+        text = "Otra vez tu, " + text;
+    } else if (memory.respect >= 3 && (reactionKey == "follow" || reactionKey == "friendly")) {
+        text = "Va por respeto, " + text;
+    } else if (memory.fear >= 3 && reactionKey == "flee") {
+        text = "Ni loco, " + text;
+    }
+
+    if (memory.anger >= 5 && reactionKey == "attack" && text.find("Se acabo") == std::string::npos) {
+        text = EnsureSentencePunctuation(text, '!') + " Se acabo.";
+    }
+
+    return SanitizeBubbleText(text);
+}
+
+std::string ComposePedReplyText(int pedRef, int modelId, const std::string &groupName, InteractionActionId actionId, const std::string &reactionKey, unsigned int seed, const PedInteractionMemory *memory) {
+    std::string reply = StylizeReplyForPed(modelId, PickInteractionReply(groupName, actionId, reactionKey, seed), actionId, reactionKey);
+    if (memory) {
+        reply = ApplyMemoryInflection(modelId, reply, *memory, reactionKey);
+    }
+    return reply.empty() ? kDbMissingReplyText : reply;
 }
 
 std::string GetResolvedGroupName(int modelId, short voiceType) {
@@ -1726,7 +2078,7 @@ struct Main {
     bool IsKeyJustPressed(int vk) const;
     void SetPedBubble(int pedRef, const std::string &text, short phraseId, unsigned int expiresAt);
     void SetTtsStatus(const std::string &text, unsigned int holdMs);
-    void QueueTtsLine(int modelId, const std::string &text);
+    void QueueTtsLine(int modelId, const std::string &text, int pedRef = -1);
     void TtsWorkerLoop();
     void QueueAiReply(const AiJob &job);
     void AiWorkerLoop();
@@ -1824,7 +2176,7 @@ void Main::SetTtsStatus(const std::string &text, unsigned int holdMs) {
     m_ttsStatusUntilTick = GetTickCount() + holdMs;
 }
 
-void Main::QueueTtsLine(int modelId, const std::string &text) {
+void Main::QueueTtsLine(int modelId, const std::string &text, int pedRef) {
     const TtsAssignment *assignment = GetTtsAssignmentForModel(modelId);
     if (!assignment || assignment->voiceId.empty()) {
         return;
@@ -1839,7 +2191,19 @@ void Main::QueueTtsLine(int modelId, const std::string &text) {
 
     {
         std::lock_guard<std::mutex> lock(m_ttsQueueMutex);
-        m_ttsQueue.push_back({ modelId, safeText });
+        TtsJob job;
+        job.modelId = modelId;
+        job.pedRef = pedRef;
+        job.text = safeText;
+        job.voiceId = PickVoiceIdForInstance(modelId, pedRef, *assignment);
+
+        const int jitterSeed = std::abs((modelId * 19) + ((pedRef == -1 ? modelId : pedRef) * 23));
+        const float pitchJitter = ((jitterSeed % 9) - 4) * 0.012f;
+        const float speedJitter = ((jitterSeed % 7) - 3) * 0.014f;
+        job.pitch = ClampPitch(assignment->pitch + pitchJitter);
+        job.speed = ClampSpeed(assignment->speed + speedJitter);
+
+        m_ttsQueue.push_back(job);
     }
     m_ttsQueueCv.notify_one();
 }
@@ -1858,17 +2222,23 @@ void Main::TtsWorkerLoop() {
         }
 
         SetTtsStatus("TTS generando voz...", kTtsStatusLifetimeMs);
-        const std::string body =
-            std::string("{\"model_id\":") + std::to_string(job.modelId) +
-            ",\"text\":\"" + JsonEscape(job.text) + "\"}";
+        const bool useExplicitVoice = !job.voiceId.empty();
+        const std::wstring requestPath = useExplicitVoice ? kTtsSynthesizeVoicePath : kTtsSynthesizePath;
+        const std::string body = useExplicitVoice
+            ? (std::string("{\"voice_id\":\"") + JsonEscape(job.voiceId) +
+               "\",\"text\":\"" + JsonEscape(job.text) +
+               "\",\"pitch\":" + std::to_string(job.pitch) +
+               ",\"speed\":" + std::to_string(job.speed) + "}")
+            : (std::string("{\"model_id\":") + std::to_string(job.modelId) +
+               ",\"text\":\"" + JsonEscape(job.text) + "\"}");
 
         std::string response;
-        bool requestOk = HttpPostJson(kTtsServerHost, kTtsServerPort, kTtsSynthesizePath, body, response);
+        bool requestOk = HttpPostJson(kTtsServerHost, kTtsServerPort, requestPath.c_str(), body, response);
         if (!requestOk || !JsonContainsTrue(response, "ok")) {
             EnsureTtsServerRunning();
             Sleep(1500);
             response.clear();
-            requestOk = HttpPostJson(kTtsServerHost, kTtsServerPort, kTtsSynthesizePath, body, response);
+            requestOk = HttpPostJson(kTtsServerHost, kTtsServerPort, requestPath.c_str(), body, response);
         }
         if (!requestOk || !JsonContainsTrue(response, "ok")) {
             SetTtsStatus("TTS offline o con error", kTtsStatusLifetimeMs);
@@ -1952,11 +2322,16 @@ void Main::AiWorkerLoop() {
             result.usedBridge = !reaction.empty() && result.reactionKey != job.fallbackReactionKey;
         }
 
-        result.replyText = PickInteractionReply(
-            job.groupName,
+        result.replyText = StylizeReplyForPed(
+            job.modelId,
+            PickInteractionReply(
+                job.groupName,
+                job.actionId,
+                result.reactionKey,
+                static_cast<unsigned int>(job.pedRef + job.submittedAt)
+            ),
             job.actionId,
-            result.reactionKey,
-            static_cast<unsigned int>(job.pedRef + job.submittedAt)
+            result.reactionKey
         );
 
         if (result.replyText.empty()) {
@@ -1998,11 +2373,20 @@ void Main::DrainAiResults(CPlayerPed *player, unsigned int now) {
             continue;
         }
 
-        SetPedBubble(result.pedRef, result.replyText, static_cast<short>(-850 - static_cast<int>(result.actionId)), now + kInteractionBubbleLifetimeMs);
-        QueueTtsLine(ped->m_nModelIndex, result.replyText);
-        AddConversationLine(false, result.replyText);
-
         PedInteractionMemory &memory = m_pedInteractionMemory[result.pedRef];
+        const std::string finalReply = ComposePedReplyText(
+            result.pedRef,
+            ped->m_nModelIndex,
+            result.groupName,
+            result.actionId,
+            result.reactionKey,
+            static_cast<unsigned int>(result.pedRef + result.submittedAt + static_cast<unsigned int>(result.actionId) * 17u),
+            &memory
+        );
+        SetPedBubble(result.pedRef, finalReply, static_cast<short>(-850 - static_cast<int>(result.actionId)), now + kInteractionBubbleLifetimeMs);
+        QueueTtsLine(ped->m_nModelIndex, finalReply, result.pedRef);
+        AddConversationLine(false, finalReply);
+
         ApplyPedReaction(ped, player, result.reactionKey, memory);
         ApplyGroupAction(result.groupName, result.actionId, result.reactionKey, now);
         TriggerNearbySocialRipple(ped, player, result.groupName, result.reactionKey, now);
@@ -2027,6 +2411,8 @@ void Main::DecayInteractionMemory(PedInteractionMemory &memory, unsigned int now
     memory.fear = std::max(0, memory.fear - decaySteps);
     memory.trust = std::max(0, memory.trust - (decaySteps / 2));
     memory.respect = std::max(0, memory.respect - (decaySteps / 3));
+    memory.rapport = std::max(0, memory.rapport - (decaySteps / 2));
+    memory.suspicion = std::max(0, memory.suspicion - (decaySteps / 2));
     memory.lastInteractionAt = now;
 }
 
@@ -2065,35 +2451,43 @@ std::string Main::DetermineReactionKey(int modelId, const std::string &groupName
     const InteractionProfile &profile = tuned.profile;
     GroupInteractionMemory &groupMemory = m_groupInteractionMemory[groupName];
     const int sharedPressure = groupMemory.anger + (groupMemory.fear / 2) - (groupMemory.trust / 2) - (groupMemory.respect / 3) + tuned.volatility;
+    const int personalPressure = memory.anger + memory.suspicion + (memory.fear / 2) - memory.rapport - (memory.respect / 2);
+    memory.encounters += 1;
 
     switch (actionId) {
     case InteractionActionId::Greet:
         memory.trust += 1 + (profile.warmth >= 4 ? 1 : 0);
+        memory.rapport += 1 + (profile.sociability >= 4 ? 1 : 0);
         memory.anger = std::max(0, memory.anger - 1);
-        if (groupName == "police") return (memory.anger + sharedPressure) > 2 ? "warn" : "neutral";
-        if (groupName == "ballas" || groupName == "gang") return (memory.respect + profile.loyalty - sharedPressure >= 4) ? "neutral" : "dismiss";
-        return (profile.warmth + memory.trust >= 4) ? "friendly" : "neutral";
+        memory.suspicion = std::max(0, memory.suspicion - 1);
+        if (groupName == "police") return (personalPressure + sharedPressure) > 2 ? "warn" : "neutral";
+        if (groupName == "ballas" || groupName == "gang") return (memory.respect + memory.rapport + profile.loyalty - sharedPressure >= 4) ? "neutral" : "dismiss";
+        return (profile.warmth + memory.trust + memory.rapport >= 5) ? "friendly" : "neutral";
 
     case InteractionActionId::Ask:
         memory.respect += 1 + (profile.authority >= 4 ? 1 : 0);
+        memory.rapport += profile.sociability >= 4 ? 1 : 0;
         if (groupName == "police") return "warn";
-        if (groupName == "ballas" || groupName == "gang") return (memory.trust + memory.respect - sharedPressure >= 4) ? "neutral" : "dismiss";
-        return (profile.sociability + memory.trust >= 4) ? "friendly" : "neutral";
+        if (groupName == "ballas" || groupName == "gang") return (memory.trust + memory.respect + memory.rapport - sharedPressure >= 5) ? "neutral" : "dismiss";
+        return (profile.sociability + memory.trust + memory.rapport >= 5) ? "friendly" : "neutral";
 
     case InteractionActionId::Insult:
         memory.anger += 2 + (profile.aggression >= 4 ? 1 : 0) + tuned.volatility;
         memory.respect -= 1;
-        if (groupName == "police") return (profile.authority + memory.anger + sharedPressure >= 6) ? "attack" : "warn";
-        if (groupName == "ballas" || groupName == "gang") return (profile.aggression + memory.anger + sharedPressure >= 6) ? "attack" : "warn";
+        memory.suspicion += 2;
+        memory.rapport = std::max(0, memory.rapport - 1);
+        if (groupName == "police") return (profile.authority + personalPressure + sharedPressure >= 6) ? "attack" : "warn";
+        if (groupName == "ballas" || groupName == "gang") return (profile.aggression + personalPressure + sharedPressure >= 6) ? "attack" : "warn";
         return memory.anger >= 4 ? "attack" : "dismiss";
 
     case InteractionActionId::Threaten:
         memory.fear += 1 + (profile.bravery <= 2 ? 1 : 0);
+        memory.suspicion += 2;
         if (groupName == "police") {
             memory.anger += 2;
             return "attack";
         }
-        if (profile.bravery + profile.aggression + memory.anger + sharedPressure >= 7) {
+        if (profile.bravery + profile.aggression + personalPressure + sharedPressure >= 7) {
             memory.anger += 2;
             return "attack";
         }
@@ -2102,20 +2496,23 @@ std::string Main::DetermineReactionKey(int modelId, const std::string &groupName
     case InteractionActionId::Calm:
         memory.anger = std::max(0, memory.anger - 2);
         memory.fear = std::max(0, memory.fear - 1);
+        memory.suspicion = std::max(0, memory.suspicion - 1);
         memory.trust += 1 + (profile.warmth >= 4 ? 1 : 0);
-        if (groupName == "police") return (memory.anger + sharedPressure) > 2 ? "warn" : "neutral";
+        memory.rapport += 1;
+        if (groupName == "police") return (personalPressure + sharedPressure) > 2 ? "warn" : "neutral";
         if ((memory.anger + sharedPressure) >= 4 && profile.aggression >= 4) return "warn";
-        return (memory.trust + profile.warmth + groupMemory.trust >= 4) ? "friendly" : "neutral";
+        return (memory.trust + memory.rapport + profile.warmth + groupMemory.trust >= 5) ? "friendly" : "neutral";
 
     case InteractionActionId::Recruit:
         if (groupName == "police") return "refuse";
         if (groupName == "ballas" || groupName == "gang") {
-            return (memory.trust + memory.respect + profile.loyalty + groupMemory.respect - sharedPressure >= 7) ? "follow" : "refuse";
+            return (memory.trust + memory.respect + memory.rapport + profile.loyalty + groupMemory.respect - sharedPressure >= 8) ? "follow" : "refuse";
         }
-        return (memory.trust + memory.respect + profile.loyalty + profile.warmth + groupMemory.trust >= 6) ? "follow" : "refuse";
+        return (memory.trust + memory.respect + memory.rapport + profile.loyalty + profile.warmth + groupMemory.trust >= 7) ? "follow" : "refuse";
 
     case InteractionActionId::Dismiss:
         memory.followingPlayer = false;
+        memory.rapport = std::max(0, memory.rapport - 1);
         return groupName == "police" ? "warn" : "dismiss";
     }
 
@@ -2298,7 +2695,15 @@ void Main::TriggerNearbySocialRipple(CPed *sourcePed, CPlayerPed *player, const 
         ApplyPedReaction(ped, player, rippleReaction, memory);
 
         const InteractionActionId bubbleAction = rippleReaction == "flee" ? InteractionActionId::Threaten : InteractionActionId::Insult;
-        const std::string bubbleText = PickInteractionReply(groupName, bubbleAction, rippleReaction, static_cast<unsigned int>(pedRef + now + affected));
+        const std::string bubbleText = ComposePedReplyText(
+            pedRef,
+            ped->m_nModelIndex,
+            groupName,
+            bubbleAction,
+            rippleReaction,
+            static_cast<unsigned int>(pedRef + now + affected),
+            &memory
+        );
         SetPedBubble(pedRef, bubbleText, static_cast<short>(-950 - affected), now + 2600);
         ++affected;
     }
@@ -2366,7 +2771,15 @@ void Main::TriggerCityWitnesses(CPed *sourcePed, CPlayerPed *player, const std::
         }
 
         ApplyPedReaction(ped, player, witnessReaction, memory);
-        const std::string bubbleText = PickInteractionReply(witnessGroup, bubbleAction, witnessReaction, static_cast<unsigned int>(pedRef + now + affected + 50));
+        const std::string bubbleText = ComposePedReplyText(
+            pedRef,
+            ped->m_nModelIndex,
+            witnessGroup,
+            bubbleAction,
+            witnessReaction,
+            static_cast<unsigned int>(pedRef + now + affected + 50),
+            &memory
+        );
         SetPedBubble(pedRef, bubbleText, static_cast<short>(-980 - affected), now + 2400);
         ++affected;
     }
@@ -2433,11 +2846,13 @@ int Main::FindBestInteractionTarget(CPlayerPed *player, std::string &outName, st
         if (score < bestScore) {
             bestScore = score;
             bestRef = CPools::GetPedRef(ped);
-            outName = GetCatalogModelName(ped->m_nModelIndex);
+            const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
+            const std::string alias = BuildPedStreetAlias(bestRef, ped->m_nModelIndex, groupName);
+            outName = GetCatalogModelName(ped->m_nModelIndex) + " \"" + alias + "\"";
             const std::string personaTitle = GetPedPersonaTitle(ped->m_nModelIndex);
             outProfile = !personaTitle.empty()
                 ? personaTitle
-                : GetInteractionProfileForGroup(GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType)).profileName;
+                : GetInteractionProfileForGroup(groupName).profileName;
         }
     }
 
@@ -2458,7 +2873,15 @@ void Main::ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionAc
     const std::string reactionKey = DetermineReactionKey(ped->m_nModelIndex, groupName, profile, memory, action.id);
     memory.lastInteractionAt = now;
 
-    const std::string reply = PickInteractionReply(groupName, action.id, reactionKey, static_cast<unsigned int>(pedRef + now));
+    const std::string reply = ComposePedReplyText(
+        pedRef,
+        ped->m_nModelIndex,
+        groupName,
+        action.id,
+        reactionKey,
+        static_cast<unsigned int>(pedRef + now),
+        &memory
+    );
     SetPedBubble(pedRef, reply, static_cast<short>(-200 - action.displayOrder), now + kInteractionBubbleLifetimeMs);
     m_playerBubble.text = SanitizeBubbleText(action.playerText);
     m_playerBubble.phraseId = static_cast<short>(-500 - action.displayOrder);
@@ -2468,7 +2891,7 @@ void Main::ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionAc
     TriggerNearbySocialRipple(ped, player, groupName, reactionKey, now);
     TriggerCityWitnesses(ped, player, groupName, reactionKey, now);
     QueueTtsLine(kPlayerTtsModelId, action.playerText);
-    QueueTtsLine(ped->m_nModelIndex, reply);
+    QueueTtsLine(ped->m_nModelIndex, reply, pedRef);
     AddConversationLine(true, action.playerText);
     AddConversationLine(false, reply);
 

@@ -35,6 +35,88 @@ KOKORO_FEMALE_STREET = ["af_river", "af_sky", "af_nova", "af_jessica", "bf_isabe
 KOKORO_FEMALE_CIVIL = ["af_sarah", "af_nicole", "af_bella", "af_heart", "bf_emma", "bf_lily"]
 KOKORO_FEMALE_SPECIAL = ["af_aoede", "af_kore", "af_river", "bf_isabella", "af_sky", "af_nova"]
 
+VOICE_POOL_BLUEPRINTS = {
+    "player_cj": [("cj_story_01", "CJ Story Voice", "bm_george")],
+    "street_male": [
+        ("pool_street_male_01", "Street Male 01", "em_alex"),
+        ("pool_street_male_02", "Street Male 02", "am_onyx"),
+        ("pool_street_male_03", "Street Male 03", "am_michael"),
+        ("pool_street_male_04", "Street Male 04", "am_fenrir"),
+        ("pool_street_male_05", "Street Male 05", "bm_daniel"),
+        ("pool_street_male_06", "Street Male 06", "am_eric"),
+        ("pool_street_male_07", "Street Male 07", "am_liam"),
+        ("pool_street_male_08", "Street Male 08", "em_alex,am_onyx"),
+        ("pool_street_male_09", "Street Male 09", "am_michael,bm_daniel"),
+        ("pool_street_male_10", "Street Male 10", "am_fenrir,am_eric"),
+    ],
+    "street_female": [
+        ("pool_street_female_01", "Street Female 01", "af_river"),
+        ("pool_street_female_02", "Street Female 02", "af_sky"),
+        ("pool_street_female_03", "Street Female 03", "af_nova"),
+        ("pool_street_female_04", "Street Female 04", "af_jessica"),
+        ("pool_street_female_05", "Street Female 05", "bf_isabella"),
+        ("pool_street_female_06", "Street Female 06", "bf_emma"),
+        ("pool_street_female_07", "Street Female 07", "af_river,af_sky"),
+        ("pool_street_female_08", "Street Female 08", "af_nova,bf_isabella"),
+    ],
+    "authority_male": [
+        ("pool_authority_male_01", "Authority Male 01", "bm_george"),
+        ("pool_authority_male_02", "Authority Male 02", "bm_lewis"),
+        ("pool_authority_male_03", "Authority Male 03", "am_adam"),
+        ("pool_authority_male_04", "Authority Male 04", "am_echo"),
+        ("pool_authority_male_05", "Authority Male 05", "hm_omega"),
+        ("pool_authority_male_06", "Authority Male 06", "am_michael"),
+        ("pool_authority_male_07", "Authority Male 07", "bm_george,am_echo"),
+        ("pool_authority_male_08", "Authority Male 08", "bm_lewis,hm_omega"),
+    ],
+    "authority_female": [
+        ("pool_authority_female_01", "Authority Female 01", "af_sarah"),
+        ("pool_authority_female_02", "Authority Female 02", "bf_isabella"),
+        ("pool_authority_female_03", "Authority Female 03", "af_nicole"),
+        ("pool_authority_female_04", "Authority Female 04", "af_sky,bf_isabella"),
+    ],
+    "civil_male": [
+        ("pool_civil_male_01", "Civil Male 01", "am_adam"),
+        ("pool_civil_male_02", "Civil Male 02", "am_echo"),
+        ("pool_civil_male_03", "Civil Male 03", "am_eric"),
+        ("pool_civil_male_04", "Civil Male 04", "am_liam"),
+        ("pool_civil_male_05", "Civil Male 05", "bm_fable"),
+        ("pool_civil_male_06", "Civil Male 06", "bm_daniel"),
+        ("pool_civil_male_07", "Civil Male 07", "em_alex"),
+        ("pool_civil_male_08", "Civil Male 08", "am_adam,bm_fable"),
+    ],
+    "civil_female": [
+        ("pool_civil_female_01", "Civil Female 01", "af_sarah"),
+        ("pool_civil_female_02", "Civil Female 02", "af_nicole"),
+        ("pool_civil_female_03", "Civil Female 03", "af_bella"),
+        ("pool_civil_female_04", "Civil Female 04", "af_heart"),
+        ("pool_civil_female_05", "Civil Female 05", "bf_emma"),
+        ("pool_civil_female_06", "Civil Female 06", "bf_lily"),
+        ("pool_civil_female_07", "Civil Female 07", "af_bella,bf_lily"),
+        ("pool_civil_female_08", "Civil Female 08", "af_sarah,af_nicole"),
+    ],
+    "special_male": [
+        ("pool_special_male_01", "Special Male 01", "hm_omega"),
+        ("pool_special_male_02", "Special Male 02", "am_fenrir"),
+        ("pool_special_male_03", "Special Male 03", "am_onyx"),
+        ("pool_special_male_04", "Special Male 04", "bm_george"),
+        ("pool_special_male_05", "Special Male 05", "bm_fable"),
+        ("pool_special_male_06", "Special Male 06", "am_michael"),
+        ("pool_special_male_07", "Special Male 07", "hm_omega,am_fenrir"),
+        ("pool_special_male_08", "Special Male 08", "am_onyx,bm_fable"),
+    ],
+    "special_female": [
+        ("pool_special_female_01", "Special Female 01", "af_aoede"),
+        ("pool_special_female_02", "Special Female 02", "af_kore"),
+        ("pool_special_female_03", "Special Female 03", "af_river"),
+        ("pool_special_female_04", "Special Female 04", "bf_isabella"),
+        ("pool_special_female_05", "Special Female 05", "af_sky"),
+        ("pool_special_female_06", "Special Female 06", "af_nova"),
+        ("pool_special_female_07", "Special Female 07", "af_aoede,af_kore"),
+        ("pool_special_female_08", "Special Female 08", "af_river,af_nova"),
+    ],
+}
+
 
 def slugify(value: str) -> str:
     value = (value or "").strip().lower()
@@ -273,10 +355,47 @@ def build_voice_row(row: sqlite3.Row) -> dict[str, object]:
     }
 
 
+def ensure_schema(cur: sqlite3.Cursor) -> None:
+    cur.execute(
+        """
+        CREATE TABLE IF NOT EXISTS tts_voice_pools (
+            pool_name TEXT NOT NULL,
+            voice_id TEXT NOT NULL,
+            weight INTEGER NOT NULL DEFAULT 1,
+            PRIMARY KEY(pool_name, voice_id)
+        )
+        """
+    )
+
+
+def build_pool_voice_rows() -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+    voice_rows: list[dict[str, object]] = []
+    pool_rows: list[dict[str, object]] = []
+
+    for pool_name, entries in VOICE_POOL_BLUEPRINTS.items():
+        for voice_id, display_name, sample_path in entries:
+            if voice_id != "cj_story_01":
+                voice_rows.append(
+                    {
+                        "voice_id": voice_id,
+                        "engine": "kokoro",
+                        "display_name": display_name,
+                        "language": "es",
+                        "speaker_ref": f"{pool_name}:{slugify(display_name)}",
+                        "sample_path": sample_path,
+                        "enabled": 1,
+                    }
+                )
+            pool_rows.append({"pool_name": pool_name, "voice_id": voice_id, "weight": 1})
+
+    return voice_rows, pool_rows
+
+
 def main() -> None:
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
+    ensure_schema(cur)
 
     rows = list(
         cur.execute(
@@ -289,6 +408,10 @@ def main() -> None:
     )
 
     voice_rows = [build_voice_row(row) for row in rows]
+    pool_voice_rows, pool_rows = build_pool_voice_rows()
+    all_voice_rows = {row["voice_id"]: row for row in voice_rows}
+    for row in pool_voice_rows:
+        all_voice_rows[row["voice_id"]] = row
 
     cur.execute("BEGIN")
     cur.execute("DELETE FROM tts_voices")
@@ -300,7 +423,7 @@ def main() -> None:
             :voice_id, :engine, :display_name, :language, :speaker_ref, :sample_path, :enabled
         )
         """,
-        voice_rows,
+        list(all_voice_rows.values()),
     )
 
     cur.execute("DELETE FROM ped_tts_assignments")
@@ -313,6 +436,18 @@ def main() -> None:
         )
         """,
         voice_rows,
+    )
+
+    cur.execute("DELETE FROM tts_voice_pools")
+    cur.executemany(
+        """
+        INSERT INTO tts_voice_pools (
+            pool_name, voice_id, weight
+        ) VALUES (
+            :pool_name, :voice_id, :weight
+        )
+        """,
+        pool_rows,
     )
 
     cur.execute(
@@ -328,7 +463,7 @@ def main() -> None:
         VALUES ('tts_voice_count', ?)
         ON CONFLICT(key) DO UPDATE SET value = excluded.value
         """,
-        (str(len(voice_rows)),),
+        (str(len(all_voice_rows)),),
     )
     cur.execute(
         """
@@ -338,12 +473,21 @@ def main() -> None:
         """,
         (str(len(voice_rows)),),
     )
+    cur.execute(
+        """
+        INSERT INTO metadata (key, value)
+        VALUES ('tts_pool_count', ?)
+        ON CONFLICT(key) DO UPDATE SET value = excluded.value
+        """,
+        (str(len(VOICE_POOL_BLUEPRINTS)),),
+    )
 
     conn.commit()
     conn.close()
 
-    print(f"Voices synced: {len(voice_rows)}")
+    print(f"Voices synced: {len(all_voice_rows)}")
     print(f"Ped assignments synced: {len(voice_rows)}")
+    print(f"Voice pools synced: {len(VOICE_POOL_BLUEPRINTS)}")
 
 
 if __name__ == "__main__":
