@@ -1738,6 +1738,7 @@ struct Main {
     void ApplyGroupAction(const std::string &groupName, InteractionActionId actionId, const std::string &reactionKey, unsigned int now);
     void ApplyPedReaction(CPed *ped, CPlayerPed *player, const std::string &reactionKey, PedInteractionMemory &memory);
     void TriggerNearbySocialRipple(CPed *sourcePed, CPlayerPed *player, const std::string &groupName, const std::string &reactionKey, unsigned int now);
+    void TriggerCityWitnesses(CPed *sourcePed, CPlayerPed *player, const std::string &groupName, const std::string &reactionKey, unsigned int now);
     int FindBestInteractionTarget(CPlayerPed *player, std::string &outName, std::string &outProfile);
     void ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionActionConfig &action, unsigned int now);
     void ExecuteCustomInteraction(CPlayerPed *player, CPed *ped, const std::string &customText, unsigned int now);
@@ -2005,6 +2006,7 @@ void Main::DrainAiResults(CPlayerPed *player, unsigned int now) {
         ApplyPedReaction(ped, player, result.reactionKey, memory);
         ApplyGroupAction(result.groupName, result.actionId, result.reactionKey, now);
         TriggerNearbySocialRipple(ped, player, result.groupName, result.reactionKey, now);
+        TriggerCityWitnesses(ped, player, result.groupName, result.reactionKey, now);
 
         SetTtsStatus(result.usedBridge ? "AIMOD bridge listo" : "AIMOD fallback listo", 1800);
     }
@@ -2302,6 +2304,74 @@ void Main::TriggerNearbySocialRipple(CPed *sourcePed, CPlayerPed *player, const 
     }
 }
 
+void Main::TriggerCityWitnesses(CPed *sourcePed, CPlayerPed *player, const std::string &groupName, const std::string &reactionKey, unsigned int now) {
+    if (!sourcePed || !player || !CPools::ms_pPedPool) {
+        return;
+    }
+
+    if (reactionKey != "attack" && reactionKey != "warn") {
+        return;
+    }
+
+    const CVector sourcePos = sourcePed->GetPosition();
+    const float maxDistanceSq = 28.0f * 28.0f;
+    int affected = 0;
+
+    for (int i = 0; i < CPools::ms_pPedPool->m_nSize && affected < 4; ++i) {
+        CPed *ped = CPools::ms_pPedPool->GetAt(i);
+        if (!ped || !ped->IsAlive() || !ped->IsPedInControl() || ped == sourcePed || ped == player || ped->m_pVehicle) {
+            continue;
+        }
+
+        if (DistanceSquared(ped->GetPosition(), sourcePos) > maxDistanceSq) {
+            continue;
+        }
+
+        const int pedRef = CPools::GetPedRef(ped);
+        const std::string witnessGroup = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
+        if (witnessGroup == groupName) {
+            continue;
+        }
+
+        std::string witnessReaction;
+        InteractionActionId bubbleAction = InteractionActionId::Threaten;
+
+        if (witnessGroup == "police") {
+            if (groupName == "police") {
+                continue;
+            }
+            witnessReaction = reactionKey == "attack" ? "attack" : "warn";
+            bubbleAction = InteractionActionId::Insult;
+        } else if (witnessGroup == "emergency" || witnessGroup == "gfd") {
+            witnessReaction = "flee";
+            bubbleAction = InteractionActionId::Threaten;
+        } else if (witnessGroup == "ambient" || witnessGroup == "special") {
+            witnessReaction = reactionKey == "attack" ? "flee" : "dismiss";
+            bubbleAction = InteractionActionId::Threaten;
+        } else if ((witnessGroup == "ballas" || witnessGroup == "gang") && groupName == "police") {
+            witnessReaction = "dismiss";
+            bubbleAction = InteractionActionId::Dismiss;
+        } else {
+            continue;
+        }
+
+        PedInteractionMemory &memory = m_pedInteractionMemory[pedRef];
+        DecayInteractionMemory(memory, now);
+        memory.lastInteractionAt = now;
+        if (witnessReaction == "attack" || witnessReaction == "warn") {
+            memory.anger += 1;
+        }
+        if (witnessReaction == "flee") {
+            memory.fear += 2;
+        }
+
+        ApplyPedReaction(ped, player, witnessReaction, memory);
+        const std::string bubbleText = PickInteractionReply(witnessGroup, bubbleAction, witnessReaction, static_cast<unsigned int>(pedRef + now + affected + 50));
+        SetPedBubble(pedRef, bubbleText, static_cast<short>(-980 - affected), now + 2400);
+        ++affected;
+    }
+}
+
 int Main::FindBestInteractionTarget(CPlayerPed *player, std::string &outName, std::string &outProfile) {
     if (!CPools::ms_pPedPool || !player) {
         return -1;
@@ -2396,6 +2466,7 @@ void Main::ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionAc
     ApplyPedReaction(ped, player, reactionKey, memory);
     ApplyGroupAction(groupName, action.id, reactionKey, now);
     TriggerNearbySocialRipple(ped, player, groupName, reactionKey, now);
+    TriggerCityWitnesses(ped, player, groupName, reactionKey, now);
     QueueTtsLine(kPlayerTtsModelId, action.playerText);
     QueueTtsLine(ped->m_nModelIndex, reply);
     AddConversationLine(true, action.playerText);

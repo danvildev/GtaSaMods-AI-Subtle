@@ -277,6 +277,117 @@ REPLY_DATA = {
     ],
 }
 
+EXTRA_KEYWORD_RULES = [
+    ("que onda", "greet", 3), ("orale", "greet", 2), ("simon", "greet", 2), ("carnal", "greet", 1),
+    ("explicame", "ask", 3), ("cuentame", "ask", 2), ("que paso", "ask", 2), ("jefe", "ask", 1),
+    ("sapo", "insult", 3), ("gil", "insult", 3), ("huevon", "insult", 4), ("lacra", "insult", 4),
+    ("balazo", "threaten", 5), ("plomo", "threaten", 4), ("te quiebro", "threaten", 6), ("al suelo", "threaten", 4),
+    ("relaja", "calm", 4), ("serio", "calm", 2), ("todo bien", "calm", 2), ("bajale", "calm", 3),
+    ("hazme la segunda", "recruit", 5), ("jale", "recruit", 4), ("camina conmigo", "recruit", 4), ("tira paro", "recruit", 4),
+    ("abrete", "dismiss", 4), ("cortala", "dismiss", 3), ("safa", "dismiss", 4),
+]
+
+EXTRA_REPLY_DATA = {
+    ("default", "greet", "neutral"): [
+        "A ver, habla claro.",
+        "Te escucho, pero rapido.",
+    ],
+    ("default", "ask", "neutral"): [
+        "Depende de quien pregunta.",
+        "Capaz te respondo, capaz no.",
+    ],
+    ("ambient", "greet", "neutral"): [
+        "Que onda, vecino?",
+        "Habla, pero sin show.",
+        "Si es rapido, mejor.",
+    ],
+    ("ambient", "ask", "neutral"): [
+        "Quiza te pueda orientar.",
+        "Depende si me acuerdo.",
+        "No prometo nada, pero dime.",
+    ],
+    ("ambient", "threaten", "flee"): [
+        "Ya, ya, tranquilo, me voy.",
+        "No quiero bronca, calmate.",
+        "Hecho, desaparezco.",
+    ],
+    ("ambient", "threaten", "warn"): [
+        "No me hables asi, loco.",
+        "Bajale o llamo ayuda.",
+        "Mide el tono, compadre.",
+    ],
+    ("ambient", "dismiss", "dismiss"): [
+        "Bueno, ya me fui.",
+        "Listo, no molesto.",
+        "Sigo mi camino entonces.",
+    ],
+    ("gang", "ask", "neutral"): [
+        "Eso no se regala asi nomas.",
+        "Primero respeto, luego datos.",
+        "Depende si me caes bien.",
+    ],
+    ("gang", "insult", "warn"): [
+        "No te me agrandes.",
+        "Hablas mucho para tan poco.",
+        "Una mas y respondo.",
+    ],
+    ("gang", "dismiss", "dismiss"): [
+        "Ya, pierdete tu tambien.",
+        "Sigue andando, pues.",
+        "Ni queria seguirte viendo.",
+    ],
+    ("ballas", "ask", "neutral"): [
+        "Si traes respeto, hablo.",
+        "Habla bien o no hables.",
+        "Depende de lo que ofrezcas.",
+    ],
+    ("ballas", "calm", "neutral"): [
+        "Camina fino y no pasa nada.",
+        "Una mas y se acaba la calma.",
+        "No me obligues a cambiar de humor.",
+    ],
+    ("ballas", "threaten", "warn"): [
+        "Habla fuerte, pero no te pases.",
+        "Te estas jugando la suerte.",
+        "No me impresiona tu amenaza.",
+    ],
+    ("police", "greet", "warn"): [
+        "Lo estoy observando. Hable.",
+        "Sin juegos. Diga su asunto.",
+        "Mantenga sus manos visibles.",
+    ],
+    ("police", "ask", "warn"): [
+        "Responda puntual y coopere.",
+        "No me haga repetir la orden.",
+        "Vaya al punto, ciudadano.",
+    ],
+    ("police", "calm", "neutral"): [
+        "Controlado. Mantengase sereno.",
+        "Eso, sin escalar la situacion.",
+        "Bien, coopere y seguimos.",
+    ],
+    ("police", "dismiss", "warn"): [
+        "Circule ahora mismo.",
+        "Retirese y no haga perder mi tiempo.",
+        "Muévase antes de que cambie el tono.",
+    ],
+    ("emergency", "ask", "neutral"): [
+        "Si hay un problema real, dilo ahora.",
+        "Habla rapido, estoy trabajando.",
+        "Te escucho, pero preciso.",
+    ],
+    ("emergency", "threaten", "flee"): [
+        "No voy a pelear, me retiro.",
+        "Estoy para ayudar, no para esto.",
+        "Ya, me aparto.",
+    ],
+    ("special", "ask", "neutral"): [
+        "Eso tiene mas fondo del que crees.",
+        "Pocas personas preguntan eso.",
+        "Depende de cuanto quieras saber.",
+    ],
+}
+
 
 def ensure_schema(cur: sqlite3.Cursor) -> None:
     cur.execute(
@@ -323,11 +434,21 @@ def seed_keywords(cur: sqlite3.Cursor) -> None:
         """,
         KEYWORD_RULES,
     )
+    cur.executemany(
+        """
+        INSERT OR IGNORE INTO interaction_keyword_rules(keyword, action_key, weight)
+        VALUES (?, ?, ?)
+        """,
+        EXTRA_KEYWORD_RULES,
+    )
 
 
 def seed_replies(cur: sqlite3.Cursor) -> None:
     rows = []
     for (group_name, action_key, reaction_key), replies in REPLY_DATA.items():
+        for reply in replies:
+            rows.append((group_name, action_key, reaction_key, reply))
+    for (group_name, action_key, reaction_key), replies in EXTRA_REPLY_DATA.items():
         for reply in replies:
             rows.append((group_name, action_key, reaction_key, reply))
 
