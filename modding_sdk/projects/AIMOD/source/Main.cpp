@@ -187,6 +187,11 @@ struct PedDialogueProfile {
     std::string promptHint;
 };
 
+struct TunedInteractionProfile {
+    InteractionProfile profile;
+    int volatility = 0;
+};
+
 struct InteractionKeywordRule {
     std::string keyword;
     InteractionActionId actionId = InteractionActionId::Ask;
@@ -703,6 +708,218 @@ std::string GetPedPersonaTitle(int modelId) {
         return it->second.personaTitle;
     }
     return {};
+}
+
+const PedDialogueProfile *GetPedDialogueProfileData(int modelId) {
+    LoadRuntimeVoiceCatalog();
+    const auto it = g_runtimeCatalog.pedDialogueProfiles.find(modelId);
+    if (it != g_runtimeCatalog.pedDialogueProfiles.end()) {
+        return &it->second;
+    }
+    return nullptr;
+}
+
+std::string ToLowerCopy(std::string value) {
+    std::transform(value.begin(), value.end(), value.begin(), [](unsigned char ch) {
+        return static_cast<char>(std::tolower(ch));
+    });
+    return value;
+}
+
+bool ContainsWord(const std::string &haystack, const char *needle) {
+    return haystack.find(needle) != std::string::npos;
+}
+
+TunedInteractionProfile TuneInteractionProfileForPed(int modelId, const InteractionProfile &baseProfile) {
+    TunedInteractionProfile tuned;
+    tuned.profile = baseProfile;
+
+    const PedDialogueProfile *dialogue = GetPedDialogueProfileData(modelId);
+    if (!dialogue) {
+        return tuned;
+    }
+
+    const std::string temperament = ToLowerCopy(dialogue->temperament);
+    const std::string streetRole = ToLowerCopy(dialogue->streetRole);
+
+    auto clampStat = [](int value) {
+        return std::clamp(value, 0, 7);
+    };
+
+    if (ContainsWord(temperament, "agresivo")) {
+        tuned.profile.aggression += 2;
+        tuned.profile.bravery += 1;
+        tuned.profile.warmth -= 1;
+        tuned.volatility += 1;
+    }
+    if (ContainsWord(temperament, "paranoico")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.bravery -= 1;
+        tuned.profile.sociability -= 1;
+        tuned.profile.warmth -= 1;
+        tuned.volatility += 2;
+    }
+    if (ContainsWord(temperament, "burlon")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.sociability += 1;
+    }
+    if (ContainsWord(temperament, "territorial")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.bravery += 1;
+        tuned.profile.loyalty += 1;
+    }
+    if (ContainsWord(temperament, "autoritario")) {
+        tuned.profile.authority += 2;
+        tuned.profile.bravery += 1;
+        tuned.profile.warmth -= 1;
+    }
+    if (ContainsWord(temperament, "seco")) {
+        tuned.profile.warmth -= 2;
+        tuned.profile.sociability -= 1;
+    }
+    if (ContainsWord(temperament, "impaciente")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.warmth -= 1;
+        tuned.profile.sociability -= 1;
+        tuned.volatility += 2;
+    }
+    if (ContainsWord(temperament, "disciplinado")) {
+        tuned.profile.authority += 1;
+        tuned.profile.bravery += 1;
+        tuned.profile.loyalty += 1;
+        tuned.profile.aggression -= 1;
+    }
+    if (ContainsWord(temperament, "desconfiado")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.bravery -= 1;
+        tuned.profile.sociability -= 2;
+        tuned.profile.warmth -= 1;
+    }
+    if (ContainsWord(temperament, "callejero")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.bravery += 1;
+        tuned.profile.sociability += 1;
+    }
+    if (ContainsWord(temperament, "picado")) {
+        tuned.profile.aggression += 2;
+        tuned.profile.warmth -= 1;
+        tuned.volatility += 1;
+    }
+    if (ContainsWord(temperament, "leal")) {
+        tuned.profile.loyalty += 2;
+        tuned.profile.bravery += 1;
+        tuned.profile.warmth += 1;
+    }
+    if (ContainsWord(temperament, "urgente")) {
+        tuned.profile.authority += 1;
+        tuned.profile.sociability -= 1;
+        tuned.profile.warmth -= 1;
+        tuned.volatility += 1;
+    }
+    if (ContainsWord(temperament, "practico")) {
+        tuned.profile.authority += 1;
+        tuned.profile.warmth -= 1;
+    }
+    if (ContainsWord(temperament, "sereno")) {
+        tuned.profile.aggression -= 1;
+        tuned.profile.warmth += 1;
+    }
+    if (ContainsWord(temperament, "firme")) {
+        tuned.profile.authority += 1;
+        tuned.profile.bravery += 1;
+    }
+    if (ContainsWord(temperament, "enigmatico")) {
+        tuned.profile.sociability -= 1;
+        tuned.profile.warmth -= 1;
+    }
+    if (ContainsWord(temperament, "teatral")) {
+        tuned.profile.sociability += 1;
+        tuned.profile.bravery += 1;
+    }
+    if (ContainsWord(temperament, "intenso")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.bravery += 1;
+        tuned.volatility += 1;
+    }
+    if (ContainsWord(temperament, "raro")) {
+        tuned.profile.sociability -= 1;
+        tuned.profile.warmth -= 1;
+    }
+    if (ContainsWord(temperament, "amigable")) {
+        tuned.profile.warmth += 2;
+        tuned.profile.sociability += 2;
+        tuned.profile.aggression -= 1;
+    }
+    if (ContainsWord(temperament, "cansado")) {
+        tuned.profile.bravery -= 1;
+        tuned.profile.sociability -= 1;
+        tuned.profile.warmth -= 1;
+    }
+    if (ContainsWord(temperament, "curioso")) {
+        tuned.profile.warmth += 1;
+        tuned.profile.sociability += 2;
+    }
+    if (ContainsWord(temperament, "apresurado")) {
+        tuned.profile.warmth -= 1;
+        tuned.profile.sociability -= 1;
+        tuned.volatility += 1;
+    }
+    if (ContainsWord(temperament, "defensivo")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.bravery -= 1;
+        tuned.profile.warmth -= 1;
+        tuned.volatility += 1;
+    }
+    if (ContainsWord(temperament, "resuelto")) {
+        tuned.profile.bravery += 2;
+        tuned.profile.loyalty += 1;
+        tuned.profile.warmth += 1;
+        tuned.profile.authority += 1;
+    }
+
+    if (ContainsWord(streetRole, "protagonista")) {
+        tuned.profile.bravery += 2;
+        tuned.profile.loyalty += 2;
+        tuned.profile.authority += 1;
+    }
+    if (ContainsWord(streetRole, "oficial") || ContainsWord(streetRole, "policia") || ContainsWord(streetRole, "sheriff") || ContainsWord(streetRole, "agente")) {
+        tuned.profile.authority += 1;
+        tuned.profile.bravery += 1;
+    }
+    if (ContainsWord(streetRole, "soldado") || ContainsWord(streetRole, "halcon") || ContainsWord(streetRole, "vago") || ContainsWord(streetRole, "tirador") || ContainsWord(streetRole, "mano derecha")) {
+        tuned.profile.aggression += 1;
+        tuned.profile.loyalty += 1;
+        tuned.profile.bravery += 1;
+    }
+    if (ContainsWord(streetRole, "paramedico") || ContainsWord(streetRole, "bombero") || ContainsWord(streetRole, "rescatista") || ContainsWord(streetRole, "medico")) {
+        tuned.profile.authority += 1;
+        tuned.profile.warmth += 1;
+        tuned.profile.aggression -= 1;
+    }
+    if (ContainsWord(streetRole, "metiche")) {
+        tuned.profile.sociability += 1;
+        tuned.profile.bravery -= 1;
+    }
+    if (ContainsWord(streetRole, "buscavidas")) {
+        tuned.profile.sociability += 1;
+        tuned.profile.loyalty -= 1;
+    }
+    if (ContainsWord(streetRole, "sobreviviente")) {
+        tuned.profile.bravery += 1;
+    }
+    if (ContainsWord(streetRole, "peaton curtido")) {
+        tuned.profile.bravery += 1;
+        tuned.profile.warmth -= 1;
+    }
+
+    tuned.profile.aggression = clampStat(tuned.profile.aggression);
+    tuned.profile.bravery = clampStat(tuned.profile.bravery);
+    tuned.profile.authority = clampStat(tuned.profile.authority);
+    tuned.profile.warmth = clampStat(tuned.profile.warmth);
+    tuned.profile.sociability = clampStat(tuned.profile.sociability);
+    tuned.profile.loyalty = clampStat(tuned.profile.loyalty);
+    tuned.volatility = std::clamp(tuned.volatility, 0, 3);
+    return tuned;
 }
 
 std::string GetCatalogVoiceLabel(CPed *ped) {
@@ -1517,9 +1734,10 @@ struct Main {
     void DecayInteractionMemory(PedInteractionMemory &memory, unsigned int now);
     void DecayGroupInteractionMemory(GroupInteractionMemory &memory, unsigned int now);
     void AddConversationLine(bool fromPlayer, const std::string &text);
-    std::string DetermineReactionKey(const std::string &groupName, const InteractionProfile &profile, PedInteractionMemory &memory, InteractionActionId actionId);
+    std::string DetermineReactionKey(int modelId, const std::string &groupName, const InteractionProfile &profile, PedInteractionMemory &memory, InteractionActionId actionId);
     void ApplyGroupAction(const std::string &groupName, InteractionActionId actionId, const std::string &reactionKey, unsigned int now);
     void ApplyPedReaction(CPed *ped, CPlayerPed *player, const std::string &reactionKey, PedInteractionMemory &memory);
+    void TriggerNearbySocialRipple(CPed *sourcePed, CPlayerPed *player, const std::string &groupName, const std::string &reactionKey, unsigned int now);
     int FindBestInteractionTarget(CPlayerPed *player, std::string &outName, std::string &outProfile);
     void ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionActionConfig &action, unsigned int now);
     void ExecuteCustomInteraction(CPlayerPed *player, CPed *ped, const std::string &customText, unsigned int now);
@@ -1786,6 +2004,7 @@ void Main::DrainAiResults(CPlayerPed *player, unsigned int now) {
         PedInteractionMemory &memory = m_pedInteractionMemory[result.pedRef];
         ApplyPedReaction(ped, player, result.reactionKey, memory);
         ApplyGroupAction(result.groupName, result.actionId, result.reactionKey, now);
+        TriggerNearbySocialRipple(ped, player, result.groupName, result.reactionKey, now);
 
         SetTtsStatus(result.usedBridge ? "AIMOD bridge listo" : "AIMOD fallback listo", 1800);
     }
@@ -1839,33 +2058,35 @@ void Main::AddConversationLine(bool fromPlayer, const std::string &text) {
     }
 }
 
-std::string Main::DetermineReactionKey(const std::string &groupName, const InteractionProfile &profile, PedInteractionMemory &memory, InteractionActionId actionId) {
+std::string Main::DetermineReactionKey(int modelId, const std::string &groupName, const InteractionProfile &baseProfile, PedInteractionMemory &memory, InteractionActionId actionId) {
+    const TunedInteractionProfile tuned = TuneInteractionProfileForPed(modelId, baseProfile);
+    const InteractionProfile &profile = tuned.profile;
     GroupInteractionMemory &groupMemory = m_groupInteractionMemory[groupName];
-    const int sharedPressure = groupMemory.anger + (groupMemory.fear / 2) - (groupMemory.trust / 2) - (groupMemory.respect / 3);
+    const int sharedPressure = groupMemory.anger + (groupMemory.fear / 2) - (groupMemory.trust / 2) - (groupMemory.respect / 3) + tuned.volatility;
 
     switch (actionId) {
     case InteractionActionId::Greet:
-        memory.trust += 1;
+        memory.trust += 1 + (profile.warmth >= 4 ? 1 : 0);
         memory.anger = std::max(0, memory.anger - 1);
         if (groupName == "police") return (memory.anger + sharedPressure) > 2 ? "warn" : "neutral";
         if (groupName == "ballas" || groupName == "gang") return (memory.respect + profile.loyalty - sharedPressure >= 4) ? "neutral" : "dismiss";
         return (profile.warmth + memory.trust >= 4) ? "friendly" : "neutral";
 
     case InteractionActionId::Ask:
-        memory.respect += 1;
+        memory.respect += 1 + (profile.authority >= 4 ? 1 : 0);
         if (groupName == "police") return "warn";
         if (groupName == "ballas" || groupName == "gang") return (memory.trust + memory.respect - sharedPressure >= 4) ? "neutral" : "dismiss";
         return (profile.sociability + memory.trust >= 4) ? "friendly" : "neutral";
 
     case InteractionActionId::Insult:
-        memory.anger += 3;
+        memory.anger += 2 + (profile.aggression >= 4 ? 1 : 0) + tuned.volatility;
         memory.respect -= 1;
         if (groupName == "police") return (profile.authority + memory.anger + sharedPressure >= 6) ? "attack" : "warn";
         if (groupName == "ballas" || groupName == "gang") return (profile.aggression + memory.anger + sharedPressure >= 6) ? "attack" : "warn";
         return memory.anger >= 4 ? "attack" : "dismiss";
 
     case InteractionActionId::Threaten:
-        memory.fear += 2;
+        memory.fear += 1 + (profile.bravery <= 2 ? 1 : 0);
         if (groupName == "police") {
             memory.anger += 2;
             return "attack";
@@ -1879,7 +2100,7 @@ std::string Main::DetermineReactionKey(const std::string &groupName, const Inter
     case InteractionActionId::Calm:
         memory.anger = std::max(0, memory.anger - 2);
         memory.fear = std::max(0, memory.fear - 1);
-        memory.trust += 1;
+        memory.trust += 1 + (profile.warmth >= 4 ? 1 : 0);
         if (groupName == "police") return (memory.anger + sharedPressure) > 2 ? "warn" : "neutral";
         if ((memory.anger + sharedPressure) >= 4 && profile.aggression >= 4) return "warn";
         return (memory.trust + profile.warmth + groupMemory.trust >= 4) ? "friendly" : "neutral";
@@ -1991,6 +2212,96 @@ void Main::ApplyPedReaction(CPed *ped, CPlayerPed *player, const std::string &re
     }
 }
 
+void Main::TriggerNearbySocialRipple(CPed *sourcePed, CPlayerPed *player, const std::string &groupName, const std::string &reactionKey, unsigned int now) {
+    if (!sourcePed || !player || !CPools::ms_pPedPool) {
+        return;
+    }
+
+    if (reactionKey != "attack" && reactionKey != "warn" && reactionKey != "flee") {
+        return;
+    }
+
+    const int sourceRef = CPools::GetPedRef(sourcePed);
+    const CVector sourcePos = sourcePed->GetPosition();
+    const float maxDistance = groupName == "police" ? 22.0f : 18.0f;
+    const float maxDistanceSq = maxDistance * maxDistance;
+    int affected = 0;
+
+    for (int i = 0; i < CPools::ms_pPedPool->m_nSize && affected < 3; ++i) {
+        CPed *ped = CPools::ms_pPedPool->GetAt(i);
+        if (!ped || !ped->IsAlive() || !ped->IsPedInControl() || ped == sourcePed || ped == player) {
+            continue;
+        }
+
+        const int pedRef = CPools::GetPedRef(ped);
+        if (pedRef == sourceRef || ped->m_pVehicle) {
+            continue;
+        }
+
+        if (DistanceSquared(ped->GetPosition(), sourcePos) > maxDistanceSq) {
+            continue;
+        }
+
+        const std::string pedGroup = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
+        if (pedGroup != groupName) {
+            continue;
+        }
+
+        PedInteractionMemory &memory = m_pedInteractionMemory[pedRef];
+        DecayInteractionMemory(memory, now);
+
+        const TunedInteractionProfile tuned = TuneInteractionProfileForPed(ped->m_nModelIndex, GetInteractionProfileForGroup(groupName));
+        std::string rippleReaction;
+        if (reactionKey == "attack") {
+            if (groupName == "police") {
+                rippleReaction = "attack";
+            } else if (groupName == "ballas" || groupName == "gang") {
+                rippleReaction = (tuned.profile.loyalty + tuned.profile.aggression + tuned.profile.bravery >= 9) ? "attack" : "warn";
+            } else {
+                rippleReaction = tuned.profile.bravery <= 2 ? "flee" : "warn";
+            }
+        } else if (reactionKey == "warn") {
+            if (groupName == "police") {
+                rippleReaction = "warn";
+            } else if (groupName == "ballas" || groupName == "gang") {
+                rippleReaction = tuned.profile.loyalty + tuned.profile.aggression >= 7 ? "warn" : "dismiss";
+            } else {
+                rippleReaction = tuned.profile.bravery <= 2 ? "flee" : "dismiss";
+            }
+        } else if (reactionKey == "flee") {
+            if (groupName == "police") {
+                rippleReaction = "attack";
+            } else if (groupName == "ballas" || groupName == "gang") {
+                rippleReaction = "warn";
+            } else {
+                rippleReaction = "flee";
+            }
+        }
+
+        if (rippleReaction.empty()) {
+            continue;
+        }
+
+        memory.lastInteractionAt = now;
+        if (rippleReaction == "attack") {
+            memory.anger += 2;
+        } else if (rippleReaction == "warn") {
+            memory.anger += 1;
+        } else if (rippleReaction == "flee") {
+            memory.fear += 2;
+        } else {
+            memory.followingPlayer = false;
+        }
+
+        ApplyPedReaction(ped, player, rippleReaction, memory);
+
+        const InteractionActionId bubbleAction = rippleReaction == "flee" ? InteractionActionId::Threaten : InteractionActionId::Insult;
+        const std::string bubbleText = PickInteractionReply(groupName, bubbleAction, rippleReaction, static_cast<unsigned int>(pedRef + now + affected));
+        SetPedBubble(pedRef, bubbleText, static_cast<short>(-950 - affected), now + 2600);
+        ++affected;
+    }
+}
+
 int Main::FindBestInteractionTarget(CPlayerPed *player, std::string &outName, std::string &outProfile) {
     if (!CPools::ms_pPedPool || !player) {
         return -1;
@@ -2074,7 +2385,7 @@ void Main::ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionAc
 
     const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
     const InteractionProfile profile = GetInteractionProfileForGroup(groupName);
-    const std::string reactionKey = DetermineReactionKey(groupName, profile, memory, action.id);
+    const std::string reactionKey = DetermineReactionKey(ped->m_nModelIndex, groupName, profile, memory, action.id);
     memory.lastInteractionAt = now;
 
     const std::string reply = PickInteractionReply(groupName, action.id, reactionKey, static_cast<unsigned int>(pedRef + now));
@@ -2084,6 +2395,7 @@ void Main::ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionAc
     m_playerBubble.expiresAt = now + kPlayerBubbleLifetimeMs;
     ApplyPedReaction(ped, player, reactionKey, memory);
     ApplyGroupAction(groupName, action.id, reactionKey, now);
+    TriggerNearbySocialRipple(ped, player, groupName, reactionKey, now);
     QueueTtsLine(kPlayerTtsModelId, action.playerText);
     QueueTtsLine(ped->m_nModelIndex, reply);
     AddConversationLine(true, action.playerText);
@@ -2111,7 +2423,7 @@ void Main::ExecuteCustomInteraction(CPlayerPed *player, CPed *ped, const std::st
     const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
     const InteractionProfile profile = GetInteractionProfileForGroup(groupName);
     const std::string personaTitle = GetPedPersonaTitle(ped->m_nModelIndex);
-    const std::string reactionKey = DetermineReactionKey(groupName, profile, memory, inferredAction);
+    const std::string reactionKey = DetermineReactionKey(ped->m_nModelIndex, groupName, profile, memory, inferredAction);
     memory.lastInteractionAt = now;
 
     SetPedBubble(pedRef, kAiPendingText, static_cast<short>(-350 - static_cast<int>(inferredAction)), now + kInteractionBubbleLifetimeMs);
