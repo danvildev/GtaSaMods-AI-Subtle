@@ -199,6 +199,18 @@ struct TunedInteractionProfile {
     int volatility = 0;
 };
 
+struct PedInstanceIdentity {
+    std::string alias;
+    std::string moodTag;
+    std::string quirkWord;
+    int aggressionBias = 0;
+    int warmthBias = 0;
+    int braveryBias = 0;
+    int suspicionBias = 0;
+    float pitchBias = 0.0f;
+    float speedBias = 0.0f;
+};
+
 struct InteractionKeywordRule {
     std::string keyword;
     InteractionActionId actionId = InteractionActionId::Ask;
@@ -1236,6 +1248,84 @@ float ClampSpeed(float value) {
     return std::max(0.86f, std::min(1.18f, value));
 }
 
+std::string BuildPedStreetAlias(int pedRef, int modelId, const std::string &groupName);
+
+PedInstanceIdentity DescribePedInstance(int pedRef, int modelId, const std::string &groupName) {
+    static const std::array<const char *, 8> kStreetMood = { "encendido", "mosca", "territorial", "afilado", "frio", "retador", "picado", "relajado" };
+    static const std::array<const char *, 6> kPoliceMood = { "frio", "duro", "metodico", "cansado", "serio", "hostil" };
+    static const std::array<const char *, 7> kCivilMood = { "curioso", "apurado", "guardado", "buena_onda", "cansado", "metiche", "tranquilo" };
+    static const std::array<const char *, 6> kSpecialMood = { "raro", "teatral", "mistico", "pesado", "intenso", "callado" };
+    static const std::array<const char *, 8> kStreetQuirk = { "mira", "perro", "carnal", "ya", "eh", "ojo", "dale", "firme" };
+    static const std::array<const char *, 6> kPoliceQuirk = { "atento", "proceda", "muevase", "claro", "entendido", "ahora" };
+    static const std::array<const char *, 7> kCivilQuirk = { "oye", "pues", "eh", "mira", "compa", "ya", "a ver" };
+    static const std::array<const char *, 6> kSpecialQuirk = { "hmm", "escucha", "mira", "ojo", "curioso", "shh" };
+
+    const unsigned int baseSeed = static_cast<unsigned int>(std::abs((modelId * 97) + ((pedRef == -1 ? modelId : pedRef) * 131)));
+    const bool female = IsLikelyFemaleModel(modelId);
+    const auto pickMood = [&](const auto &items) {
+        return std::string(items[baseSeed % items.size()]);
+    };
+    const auto pickQuirk = [&](const auto &items) {
+        return std::string(items[(baseSeed / 3u) % items.size()]);
+    };
+
+    PedInstanceIdentity identity;
+    if (modelId == kPlayerTtsModelId || groupName == "player") {
+        identity.alias = "CJ";
+        identity.moodTag = "resuelto";
+        identity.quirkWord = "homie";
+        identity.aggressionBias = 1;
+        identity.warmthBias = 1;
+        identity.braveryBias = 2;
+        identity.suspicionBias = 0;
+        identity.pitchBias = -0.02f;
+        identity.speedBias = -0.01f;
+        return identity;
+    }
+
+    identity.alias = BuildPedStreetAlias(pedRef, modelId, groupName);
+
+    if (groupName == "police" || groupName == "emergency" || groupName == "gfd") {
+        identity.moodTag = pickMood(kPoliceMood);
+        identity.quirkWord = pickQuirk(kPoliceQuirk);
+        identity.aggressionBias = static_cast<int>(baseSeed % 3u) - 1;
+        identity.warmthBias = -1 - static_cast<int>(baseSeed % 2u);
+        identity.braveryBias = static_cast<int>((baseSeed / 5u) % 3u);
+        identity.suspicionBias = 1 + static_cast<int>((baseSeed / 7u) % 2u);
+        identity.pitchBias = female ? 0.02f : -0.015f;
+        identity.speedBias = -0.02f + static_cast<float>((baseSeed % 5u)) * 0.008f;
+    } else if (groupName == "ballas" || groupName == "gang") {
+        identity.moodTag = pickMood(kStreetMood);
+        identity.quirkWord = pickQuirk(kStreetQuirk);
+        identity.aggressionBias = static_cast<int>(baseSeed % 5u) - 1;
+        identity.warmthBias = -1;
+        identity.braveryBias = static_cast<int>((baseSeed / 11u) % 5u) - 1;
+        identity.suspicionBias = static_cast<int>((baseSeed / 13u) % 3u);
+        identity.pitchBias = female ? 0.03f : (-0.03f + static_cast<float>(baseSeed % 4u) * 0.01f);
+        identity.speedBias = 0.01f + static_cast<float>((baseSeed / 17u) % 4u) * 0.01f;
+    } else if (groupName == "special") {
+        identity.moodTag = pickMood(kSpecialMood);
+        identity.quirkWord = pickQuirk(kSpecialQuirk);
+        identity.aggressionBias = static_cast<int>((baseSeed / 19u) % 5u) - 2;
+        identity.warmthBias = static_cast<int>((baseSeed / 23u) % 5u) - 2;
+        identity.braveryBias = static_cast<int>((baseSeed / 29u) % 5u) - 2;
+        identity.suspicionBias = static_cast<int>((baseSeed / 31u) % 3u);
+        identity.pitchBias = -0.02f + static_cast<float>((baseSeed % 6u)) * 0.01f;
+        identity.speedBias = -0.03f + static_cast<float>((baseSeed / 5u) % 7u) * 0.01f;
+    } else {
+        identity.moodTag = pickMood(kCivilMood);
+        identity.quirkWord = pickQuirk(kCivilQuirk);
+        identity.aggressionBias = -1 + static_cast<int>(baseSeed % 3u);
+        identity.warmthBias = static_cast<int>((baseSeed / 7u) % 5u) - 1;
+        identity.braveryBias = static_cast<int>((baseSeed / 9u) % 5u) - 2;
+        identity.suspicionBias = static_cast<int>((baseSeed / 15u) % 3u);
+        identity.pitchBias = female ? (0.01f + static_cast<float>(baseSeed % 4u) * 0.01f) : (-0.02f + static_cast<float>(baseSeed % 4u) * 0.01f);
+        identity.speedBias = -0.01f + static_cast<float>((baseSeed / 21u) % 5u) * 0.008f;
+    }
+
+    return identity;
+}
+
 std::string BuildPedStreetAlias(int pedRef, int modelId, const std::string &groupName) {
     static const std::array<const char *, 10> kStreetMale = { "Sombra", "Navaja", "Roco", "Tigre", "Chino", "Fierro", "Rata", "Flaco", "Ghost", "Trueno" };
     static const std::array<const char *, 8> kStreetFemale = { "Loba", "Nena", "Roxy", "Siren", "China", "Mamba", "Mika", "Brava" };
@@ -1258,12 +1348,13 @@ std::string BuildPedStreetAlias(int pedRef, int modelId, const std::string &grou
     return kCivil[seed % kCivil.size()];
 }
 
-std::string ApplyMemoryInflection(int modelId, const std::string &baseText, const PedInteractionMemory &memory, const std::string &reactionKey) {
+std::string ApplyMemoryInflection(int pedRef, int modelId, const std::string &groupName, const std::string &baseText, const PedInteractionMemory &memory, const std::string &reactionKey) {
     std::string text = SanitizeBubbleText(baseText);
     if (text.empty()) {
         return text;
     }
 
+    const PedInstanceIdentity identity = DescribePedInstance(pedRef, modelId, groupName);
     const int memorySeed = std::abs((modelId * 13) + (memory.encounters * 7) + (memory.rapport * 11) + (memory.suspicion * 17));
     if (memory.encounters >= 3 && memory.rapport >= 3 && (reactionKey == "friendly" || reactionKey == "neutral")) {
         if (memorySeed % 2 == 0) {
@@ -1283,15 +1374,63 @@ std::string ApplyMemoryInflection(int modelId, const std::string &baseText, cons
         text = EnsureSentencePunctuation(text, '!') + " Se acabo.";
     }
 
+    if (!identity.quirkWord.empty() && text.find(identity.quirkWord) == std::string::npos && reactionKey != "attack" && reactionKey != "flee") {
+        if (memorySeed % 5 == 0) {
+            text = identity.quirkWord + ", " + text;
+        } else if (memorySeed % 5 == 1) {
+            text = EnsureSentencePunctuation(text, '.') + " " + identity.quirkWord + ".";
+        }
+    }
+
+    if (identity.moodTag == "guardado" && (reactionKey == "warn" || reactionKey == "dismiss") && text.find("con calma") == std::string::npos) {
+        text = "Con calma, " + text;
+    } else if (identity.moodTag == "encendido" && reactionKey == "attack") {
+        text = EnsureSentencePunctuation(text, '!') + " Ya estuvo.";
+    } else if (identity.moodTag == "curioso" && reactionKey == "neutral" && memorySeed % 3 == 0) {
+        text = "A ver, " + text;
+    } else if (identity.moodTag == "metodico" && reactionKey == "warn" && text.find("paso a paso") == std::string::npos) {
+        text = EnsureSentencePunctuation(text, '.') + " Paso a paso.";
+    }
+
     return SanitizeBubbleText(text);
 }
 
 std::string ComposePedReplyText(int pedRef, int modelId, const std::string &groupName, InteractionActionId actionId, const std::string &reactionKey, unsigned int seed, const PedInteractionMemory *memory) {
     std::string reply = StylizeReplyForPed(modelId, PickInteractionReply(groupName, actionId, reactionKey, seed), actionId, reactionKey);
     if (memory) {
-        reply = ApplyMemoryInflection(modelId, reply, *memory, reactionKey);
+        reply = ApplyMemoryInflection(pedRef, modelId, groupName, reply, *memory, reactionKey);
+    } else {
+        const PedInstanceIdentity identity = DescribePedInstance(pedRef, modelId, groupName);
+        if (!identity.quirkWord.empty() && reply.find(identity.quirkWord) == std::string::npos && (seed % 4u) == 0u) {
+            reply = identity.quirkWord + ", " + reply;
+        }
     }
     return reply.empty() ? kDbMissingReplyText : reply;
+}
+
+std::string SummarizePedAttitude(const PedInteractionMemory &memory) {
+    if (memory.anger >= 5) {
+        return "a punto de explotar";
+    }
+    if (memory.suspicion >= 4) {
+        return "te tiene en la mira";
+    }
+    if (memory.fear >= 4) {
+        return "te teme";
+    }
+    if (memory.followingPlayer) {
+        return "te sigue";
+    }
+    if (memory.rapport >= 4 && memory.trust >= 3) {
+        return "ya te ubica";
+    }
+    if (memory.respect >= 4) {
+        return "te respeta";
+    }
+    if (memory.encounters >= 2) {
+        return "te esta midiendo";
+    }
+    return "sin lectura clara";
 }
 
 std::string GetResolvedGroupName(int modelId, short voiceType) {
@@ -2086,7 +2225,7 @@ struct Main {
     void DecayInteractionMemory(PedInteractionMemory &memory, unsigned int now);
     void DecayGroupInteractionMemory(GroupInteractionMemory &memory, unsigned int now);
     void AddConversationLine(bool fromPlayer, const std::string &text);
-    std::string DetermineReactionKey(int modelId, const std::string &groupName, const InteractionProfile &profile, PedInteractionMemory &memory, InteractionActionId actionId);
+    std::string DetermineReactionKey(int pedRef, int modelId, const std::string &groupName, const InteractionProfile &profile, PedInteractionMemory &memory, InteractionActionId actionId);
     void ApplyGroupAction(const std::string &groupName, InteractionActionId actionId, const std::string &reactionKey, unsigned int now);
     void ApplyPedReaction(CPed *ped, CPlayerPed *player, const std::string &reactionKey, PedInteractionMemory &memory);
     void TriggerNearbySocialRipple(CPed *sourcePed, CPlayerPed *player, const std::string &groupName, const std::string &reactionKey, unsigned int now);
@@ -2196,12 +2335,13 @@ void Main::QueueTtsLine(int modelId, const std::string &text, int pedRef) {
         job.pedRef = pedRef;
         job.text = safeText;
         job.voiceId = PickVoiceIdForInstance(modelId, pedRef, *assignment);
+        const PedInstanceIdentity identity = DescribePedInstance(pedRef, modelId, assignment->groupName);
 
         const int jitterSeed = std::abs((modelId * 19) + ((pedRef == -1 ? modelId : pedRef) * 23));
         const float pitchJitter = ((jitterSeed % 9) - 4) * 0.012f;
         const float speedJitter = ((jitterSeed % 7) - 3) * 0.014f;
-        job.pitch = ClampPitch(assignment->pitch + pitchJitter);
-        job.speed = ClampSpeed(assignment->speed + speedJitter);
+        job.pitch = ClampPitch(assignment->pitch + pitchJitter + identity.pitchBias);
+        job.speed = ClampSpeed(assignment->speed + speedJitter + identity.speedBias);
 
         m_ttsQueue.push_back(job);
     }
@@ -2446,12 +2586,16 @@ void Main::AddConversationLine(bool fromPlayer, const std::string &text) {
     }
 }
 
-std::string Main::DetermineReactionKey(int modelId, const std::string &groupName, const InteractionProfile &baseProfile, PedInteractionMemory &memory, InteractionActionId actionId) {
+std::string Main::DetermineReactionKey(int pedRef, int modelId, const std::string &groupName, const InteractionProfile &baseProfile, PedInteractionMemory &memory, InteractionActionId actionId) {
     const TunedInteractionProfile tuned = TuneInteractionProfileForPed(modelId, baseProfile);
-    const InteractionProfile &profile = tuned.profile;
+    InteractionProfile profile = tuned.profile;
+    const PedInstanceIdentity identity = DescribePedInstance(pedRef, modelId, groupName);
+    profile.aggression = std::clamp(profile.aggression + identity.aggressionBias, 0, 7);
+    profile.warmth = std::clamp(profile.warmth + identity.warmthBias, 0, 7);
+    profile.bravery = std::clamp(profile.bravery + identity.braveryBias, 0, 7);
     GroupInteractionMemory &groupMemory = m_groupInteractionMemory[groupName];
     const int sharedPressure = groupMemory.anger + (groupMemory.fear / 2) - (groupMemory.trust / 2) - (groupMemory.respect / 3) + tuned.volatility;
-    const int personalPressure = memory.anger + memory.suspicion + (memory.fear / 2) - memory.rapport - (memory.respect / 2);
+    const int personalPressure = memory.anger + memory.suspicion + identity.suspicionBias + (memory.fear / 2) - memory.rapport - (memory.respect / 2);
     memory.encounters += 1;
 
     switch (actionId) {
@@ -2847,12 +2991,14 @@ int Main::FindBestInteractionTarget(CPlayerPed *player, std::string &outName, st
             bestScore = score;
             bestRef = CPools::GetPedRef(ped);
             const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
-            const std::string alias = BuildPedStreetAlias(bestRef, ped->m_nModelIndex, groupName);
+            const PedInstanceIdentity identity = DescribePedInstance(bestRef, ped->m_nModelIndex, groupName);
+            const std::string alias = identity.alias;
             outName = GetCatalogModelName(ped->m_nModelIndex) + " \"" + alias + "\"";
             const std::string personaTitle = GetPedPersonaTitle(ped->m_nModelIndex);
-            outProfile = !personaTitle.empty()
+            const std::string baseProfile = !personaTitle.empty()
                 ? personaTitle
                 : GetInteractionProfileForGroup(groupName).profileName;
+            outProfile = identity.moodTag.empty() ? baseProfile : (baseProfile + " / " + identity.moodTag);
         }
     }
 
@@ -2870,7 +3016,7 @@ void Main::ExecuteInteraction(CPlayerPed *player, CPed *ped, const InteractionAc
 
     const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
     const InteractionProfile profile = GetInteractionProfileForGroup(groupName);
-    const std::string reactionKey = DetermineReactionKey(ped->m_nModelIndex, groupName, profile, memory, action.id);
+    const std::string reactionKey = DetermineReactionKey(pedRef, ped->m_nModelIndex, groupName, profile, memory, action.id);
     memory.lastInteractionAt = now;
 
     const std::string reply = ComposePedReplyText(
@@ -2917,7 +3063,8 @@ void Main::ExecuteCustomInteraction(CPlayerPed *player, CPed *ped, const std::st
     const std::string groupName = GetResolvedGroupName(ped->m_nModelIndex, ped->m_pedSpeech.m_nVoiceType);
     const InteractionProfile profile = GetInteractionProfileForGroup(groupName);
     const std::string personaTitle = GetPedPersonaTitle(ped->m_nModelIndex);
-    const std::string reactionKey = DetermineReactionKey(ped->m_nModelIndex, groupName, profile, memory, inferredAction);
+    const PedInstanceIdentity identity = DescribePedInstance(pedRef, ped->m_nModelIndex, groupName);
+    const std::string reactionKey = DetermineReactionKey(pedRef, ped->m_nModelIndex, groupName, profile, memory, inferredAction);
     memory.lastInteractionAt = now;
 
     SetPedBubble(pedRef, kAiPendingText, static_cast<short>(-350 - static_cast<int>(inferredAction)), now + kInteractionBubbleLifetimeMs);
@@ -2932,7 +3079,9 @@ void Main::ExecuteCustomInteraction(CPlayerPed *player, CPed *ped, const std::st
         ped->m_nModelIndex,
         GetCatalogModelName(ped->m_nModelIndex),
         groupName,
-        !personaTitle.empty() ? personaTitle : profile.profileName,
+        identity.moodTag.empty()
+            ? (!personaTitle.empty() ? personaTitle : profile.profileName)
+            : ((!personaTitle.empty() ? personaTitle : profile.profileName) + " / " + identity.moodTag),
         safeText,
         inferredAction,
         reactionKey,
@@ -3253,13 +3402,24 @@ void Main::DrawInteractionUi() {
 
     if (m_currentTargetPedRef != -1 && !m_interactionSession.open) {
         const float width = ScaleX(258.0f);
-        const float height = ScaleY(30.0f);
+        const float height = ScaleY(42.0f);
         CSprite2d::DrawRect(CRect(left, top, left + width, top + height), CRGBA(0, 0, 0, 110));
         SetupUiFont(0.28f, 0.72f);
         CFont::SetColor(CRGBA(255, 255, 255, 255));
         std::ostringstream prompt;
         prompt << "AIMOD [E] " << m_currentTargetName << " / " << m_currentTargetProfile << " / TAB chat / F5 DB / F7 IA";
         CFont::PrintString(left + ScaleX(6.0f), top + ScaleY(6.0f), prompt.str().c_str());
+
+        const auto memoryIt = m_pedInteractionMemory.find(m_currentTargetPedRef);
+        const PedInteractionMemory memory = memoryIt != m_pedInteractionMemory.end() ? memoryIt->second : PedInteractionMemory {};
+        SetupUiFont(0.24f, 0.62f);
+        CFont::SetColor(CRGBA(170, 230, 255, 255));
+        std::ostringstream relation;
+        relation << "Actitud: " << SummarizePedAttitude(memory)
+                 << " / rap " << memory.rapport
+                 << " / enojo " << memory.anger
+                 << " / sospecha " << memory.suspicion;
+        CFont::PrintString(left + ScaleX(6.0f), top + ScaleY(18.0f), relation.str().c_str());
     }
 
     if (m_interactionSession.open) {
@@ -3268,7 +3428,7 @@ void Main::DrawInteractionUi() {
         const int historyCount = std::min<int>(static_cast<int>(m_interactionSession.history.size()), kMaxConversationHistoryLines);
         const float width = ScaleX(258.0f);
         const float historyHeight = historyCount > 0 ? ScaleY(10.5f * (historyCount + 1)) : 0.0f;
-        const float height = ScaleY(44.0f + 12.0f * (lineCount + 3)) + historyHeight;
+        const float height = ScaleY(56.0f + 12.0f * (lineCount + 3)) + historyHeight;
         const float boxTop = top + ScaleY(36.0f);
         CSprite2d::DrawRect(CRect(left, boxTop, left + width, boxTop + height), CRGBA(0, 0, 0, 150));
 
@@ -3277,9 +3437,20 @@ void Main::DrawInteractionUi() {
         std::string header = "AIMOD // " + m_interactionSession.targetName + " // " + m_interactionSession.targetProfile;
         CFont::PrintString(left + ScaleX(6.0f), boxTop + ScaleY(6.0f), header.c_str());
 
+        const auto memoryIt = m_pedInteractionMemory.find(m_interactionSession.targetPedRef);
+        const PedInteractionMemory memory = memoryIt != m_pedInteractionMemory.end() ? memoryIt->second : PedInteractionMemory {};
+        SetupUiFont(0.24f, 0.60f);
+        CFont::SetColor(CRGBA(150, 220, 255, 255));
+        std::ostringstream memoryLine;
+        memoryLine << "Actitud: " << SummarizePedAttitude(memory)
+                   << " / encuentros " << memory.encounters
+                   << " / respeto " << memory.respect
+                   << " / confianza " << memory.trust;
+        CFont::PrintString(left + ScaleX(8.0f), boxTop + ScaleY(15.0f), memoryLine.str().c_str());
+
         SetupUiFont(0.26f, 0.66f);
         CFont::SetColor(CRGBA(255, 255, 255, 255));
-        float cursorY = boxTop + ScaleY(17.0f);
+        float cursorY = boxTop + ScaleY(25.0f);
         for (int i = 0; i < lineCount; ++i) {
             cursorY += ScaleY(10.5f);
             CFont::PrintString(left + ScaleX(8.0f), cursorY, actions[i].menuLabel.c_str());
