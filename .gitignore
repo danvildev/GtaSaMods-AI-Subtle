@@ -25,6 +25,8 @@
 /modding_sdk/plugin-sdk/output/
 /modding_sdk/projects/FenixImpossibleMod/bin/
 /modding_sdk/projects/FenixImpossibleMod/obj/
+/modding_sdk/projects/AIMOD/bin/
+/modding_sdk/projects/AIMOD/obj/
 /scripts/
 
 # Local editor / DB temp files
@@ -41,6 +43,17 @@
 # Python cache
 __pycache__/
 *.pyc
+/modding_sdk/projects/AIMOD/tts/.venv/
+/modding_sdk/projects/AIMOD/tts/cache/
+/modding_sdk/projects/AIMOD/tts/voices/
+/modding_sdk/projects/AIMOD/tools/build/
+/modding_sdk/projects/AIMOD/tools/models/
+/modding_sdk/projects/AIMOD/tools/vendor/
+/modding_sdk/projects/AIMOD/data/logs/
+/modding_sdk/projects/AIMOD/data/observed/
+/modding_sdk/projects/AIMOD/data/catalog.db
+/modding_sdk/projects/AIMOD/data/catalog.db-shm
+/modding_sdk/projects/AIMOD/data/catalog.db-wal
 
 # Voice workspace transient outputs
 /voice_workspace/logs/archive/

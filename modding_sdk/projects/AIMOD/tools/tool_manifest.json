@@ -1,0 +1,34 @@
+{
+  "project": "AIMOD",
+  "vendor_root": "modding_sdk/projects/AIMOD/tools/vendor",
+  "tools": [
+    {
+      "name": "llama.cpp",
+      "role": "local_llm_inference_and_server",
+      "repo": "https://github.com/ggml-org/llama.cpp",
+      "commit": "c44a932cf495dc1cf73020f62acce6233a0a95f3",
+      "status": "cloned"
+    },
+    {
+      "name": "whisper.cpp",
+      "role": "offline_stt_and_transcription",
+      "repo": "https://github.com/ggml-org/whisper.cpp",
+      "commit": "76684141a5d059be71cbe23dc2f0ed552213ba2d",
+      "status": "cloned"
+    },
+    {
+      "name": "piper1-gpl",
+      "role": "local_tts_reference_runtime_source",
+      "repo": "https://github.com/OHF-Voice/piper1-gpl",
+      "commit": "077c783a28a8eb31c269bf2fc79e1f834d265809",
+      "status": "cloned"
+    },
+    {
+      "name": "fish-speech",
+      "role": "experimental_voice_cloning_and_expressive_tts",
+      "repo": "https://github.com/fishaudio/fish-speech",
+      "commit": "0def6f38e375dad95a49a8dc8e31674ccb230239",
+      "status": "cloned"
+    }
+  ]
+}
